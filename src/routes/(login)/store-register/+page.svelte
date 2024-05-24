@@ -20,6 +20,10 @@
                 <input type="email" id="name" name="name" placeholder="ชื่อ -  นามสกุล" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
                 </div>
                 <div>
+                    <h6 style="font-size:16px;">ชื่อร้านค้า :</h6>
+                    <input type="email" id="store-name" name="store-name" placeholder="ชื่อร้านค้า" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
+                    </div>
+                <div>
                 <h6 style="font-size:16px;">ที่อยู่ :</h6>
                 <input  type="password" id="address" name="address" placeholder="address"  style="border-radius:8px;width:100%;height:120px;padding-left: 10px;">
                 </div>
@@ -37,7 +41,7 @@
                 </div>
                 <div>
                     <h6 style="font-size:16px;">ยืนยันรหัสผ่าน :</h6>
-                    <input type="email" id="password" name="confirm-password" placeholder="password" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
+                    <input type="email" id="confirm-password" name="confirm-password" placeholder="password" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
                 </div>
                
                 <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue">สมัครสมาชิก</button>
