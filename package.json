@@ -29,6 +29,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@iconify/svelte": "^4.0.2",
 		"sweetalert2": "^11.11.0"
 	}
 }
