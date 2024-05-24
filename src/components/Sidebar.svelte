@@ -24,29 +24,74 @@
 	$: currentPath = $page.url.pathname;
 </script>
 
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
-	<a
-		href="/"
-		class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
-	>
-		<svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-		<span class="fs-4">Sidebar</span>
-	</a>
-	<hr />
-	<ul class="nav nav-pills flex-column mb-auto">
-		<li class="nav-item">
-			{#each routes as r}
-				<a
-					href={r.hrefTarget}
-					class:active={shouldBeActive(r, currentPath)}
-					class={'nav-link active'}
-					aria-current="page"
-				>
-					<svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-					{r.routeName}
-				</a>
-			{/each}
-		</li>
-	</ul>
-	<hr />
-</div>
+<nav id="sidebarMenu" class="collapse d-lg-block sidebar sidebar-sticky collapse bg-white">
+	<div class="position-sticky">
+		<div class="list-group list-group-flush mx-3 mt-4">
+			<ul class="nav nav-pills flex-column mb-auto">
+				<li class="nav-item menu-text">
+					<span class="fs-5"> {currentPath.startsWith('/admin') ? 'Admin' : 'Store'} </span>
+					{#each routes as r}
+						<a
+							href={r.hrefTarget}
+							class:active={shouldBeActive(r, currentPath)}
+							class={'nav-link  '}
+							aria-current="page"
+						>
+							{r.routeName}
+						</a>
+						<hr />
+					{/each}
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<style>
+	.menu-text:hover {
+		background-color: var(primary);
+		transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow,
+			transform;
+		transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+		transition-duration: 300ms;
+	}
+
+	.nav-item > * {
+		margin-bottom: 0.25rem;
+		margin-top: 0.3rem;
+	}
+
+	.sidebar {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		padding: 58px 0 0; /* Height of navbar */
+		box-shadow:
+			0 2px 5px 0 rgb(0 0 0 / 5%),
+			0 2px 10px 0 rgb(0 0 0 / 5%);
+		width: 240px;
+		z-index: 600;
+	}
+
+	@media (max-width: 991.98px) {
+		.sidebar {
+			width: 100%;
+		}
+	}
+	.sidebar .active {
+		border-radius: 5px;
+		box-shadow:
+			0 2px 5px 0 rgb(0 0 0 / 16%),
+			0 2px 10px 0 rgb(0 0 0 / 12%);
+	}
+
+	.sidebar-sticky {
+		position: relative;
+		top: 0;
+		height: calc(100vh - 48px);
+		padding-top: 0.5rem;
+		overflow-x: hidden;
+		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+	}
+</style>
