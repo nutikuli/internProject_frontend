@@ -34,8 +34,8 @@
 
 {#if currentPath.split('/').length > 2}
 	<div
-		style="background-color: #f8f9fa !important;"
-		class="h ibm-plex-sans-thai-regular text-foreground"
+		style="background-color: #F8F9FA !important;"
+		class="h ibm-plex-sans-thai-light text-foreground"
 	>
 		<slot name="navbar">
 			<Navbar />
@@ -49,7 +49,7 @@
 				</slot>
 			{/if}
 
-			<div class="col-9">
+			<div class="col-xl-10">
 				<div class="container pt-4 bg-background">
 					<slot></slot>
 				</div>
@@ -59,8 +59,8 @@
 	</div>
 {:else}
 	<div
-		style="background-color: #f8f9fa !important;"
-		class="h ibm-plex-sans-thai-regular text-foreground"
+		style="background-color: #F8F9FA !important;"
+		class="h ibm-plex-sans-thai-light text-foreground"
 	>
 		{#if currentPath === '/'}
 			<slot name="navbar">
