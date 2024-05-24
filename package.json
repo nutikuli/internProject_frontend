@@ -30,6 +30,7 @@
 	"type": "module",
 	"dependencies": {
 		"@iconify/svelte": "^4.0.2",
+		"svelte-routing": "^2.13.0",
 		"sweetalert2": "^11.11.0"
 	}
 }
