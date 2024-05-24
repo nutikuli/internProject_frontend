@@ -25,13 +25,13 @@ import logo from "/src/lib/image/cyberpunk.jpg"
             </div>
             <div style="margin-top:10px" class="d-flex w-100">
                 <input type="checkbox"><h6 style="font-size:12px;margin-top:6px">จดจำฉันไว้ในระบบ</h6>
-                <a style="font-size:12px;margin-left:45%" class="mt-1" >ลืมรหัสผ่าน ?</a>
+                <a style="font-size:12px;margin-left:45%" class="mt-1" href="/account-validation">ลืมรหัสผ่าน ?</a>
                 
             </div>
            
             <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue">เข้าสู่ระบบ</button>
             <div class="d-flex justify-content-center">
-            <h6 style="font-size:13px;margin-top:35px">ยังไม่มีบัญชีใช่หรือไม่ ?<a style="margin-left:10px" >สมัครบัญชี</a></h6>
+            <h6 style="font-size:13px;margin-top:35px">ยังไม่มีบัญชีใช่หรือไม่ ?<a style="margin-left:10px" href="/register">สมัครบัญชี</a></h6>
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <div  class="border border-3 boxlogin"><svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 256 262" {...$$props}>

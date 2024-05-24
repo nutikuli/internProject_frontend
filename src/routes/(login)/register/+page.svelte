@@ -37,12 +37,12 @@
                 </div>
                 <div>
                     <h6 style="font-size:16px;">ยืนยันรหัสผ่าน :</h6>
-                    <input type="email" id="password" name="confirm-password" placeholder="password" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
+                    <input type="email" id="confirm-password" name="confirm-password" placeholder="password" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
                 </div>
                
                 <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue">สมัครสมาชิก</button>
                 <div class="d-flex justify-content-center">
-                    <h6 style="font-size:13px;margin-top:35px">มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" >เข้าสู่ระบบ</a></h6>
+                    <h6 style="font-size:13px;margin-top:35px">มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" href="/login">เข้าสู่ระบบ</a></h6>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <div  class="border border-3 boxlogin"><svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 256 262" {...$$props}>
