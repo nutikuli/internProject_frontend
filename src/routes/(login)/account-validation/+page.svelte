@@ -27,7 +27,7 @@
                
                 <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue" on:click={() => toggleForm('OTP')}>ยืนยัน</button>
                 <div class="d-flex justify-content-center">
-                    <h6 style="font-size:13px;margin-top:35px">มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" >เข้าสู่ระบบ</a></h6>
+                    <h6 style="font-size:13px;margin-top:35px">มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" href="/login">เข้าสู่ระบบ</a></h6>
                 </div>
                 <div class="d-flex justify-content-center mt-3">
                     <div  class="border border-3 boxlogin"><svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 256 262" {...$$props}>
