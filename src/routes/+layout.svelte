@@ -2,6 +2,7 @@
 	import './../app.css';
 	import Sidebar from './../components/Sidebar.svelte';
 	import Navbar from './../components/Navbar.svelte';
+	import { page } from '$app/stores';
 
 	let storeId = 0;
 	let adminId = 0;
@@ -27,21 +28,37 @@
 		{ hrefTarget: `/store/${storeId}product-category-management`, routeName: 'หมวดหมู่' },
 		{ hrefTarget: `/store/${storeId}/order-management`, routeName: 'รายการธุรกรรม' }
 	];
+
+	$: currentPath = $page.url.pathname;
 </script>
 
-<div
-	style="background-color: #f8f9fa !important;"
-	class=" ibm-plex-sans-thai-regular text-foreground"
->
-	<slot name="navbar">
-		<Navbar />
-	</slot>
-	<slot name="sidebar">
-		<Sidebar routes={sidebarRoutes} />
-	</slot>
+{#if currentPath.split('/').length > 2}
+	<div
+		style="background-color: #f8f9fa !important;"
+		class=" ibm-plex-sans-thai-regular text-foreground"
+	>
+		<slot name="navbar">
+			<Navbar />
+		</slot>
+		{#if !currentPath.startsWith('/customer')}
+			<slot name="sidebar">
+				<Sidebar routes={sidebarRoutes} />
+			</slot>
+		{/if}
 
-	<div class="container bg-background">
-		<slot></slot>
+		<div class="container bg-background">
+			<slot></slot>
+		</div>
+		<slot name="footer"></slot>
 	</div>
-	<slot name="footer"></slot>
-</div>
+{:else}
+	<div
+		style="background-color: #f8f9fa !important;"
+		class=" ibm-plex-sans-thai-regular text-foreground"
+	>
+		<div class=" bg-background">
+			<slot></slot>
+		</div>
+		<slot name="footer"></slot>
+	</div>
+{/if}
