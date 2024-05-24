@@ -24,7 +24,7 @@
 	$: currentPath = $page.url.pathname;
 </script>
 
-<nav id="sidebarMenu" class="collapse d-lg-block sidebar sidebar-sticky collapse bg-white">
+<nav id="sidebarMenu" class=" d-xl-block sidebar sidebar-sticky collapse bg-white">
 	<div class="position-sticky">
 		<div class="list-group list-group-flush mx-3 mt-4">
 			<ul class="nav nav-pills flex-column mb-auto">
@@ -73,7 +73,7 @@
 		z-index: 600;
 	}
 
-	@media (min-width: 1024px) {
+	@media (max-width: 1140px) {
 		.sidebar {
 			width: 100%;
 		}
