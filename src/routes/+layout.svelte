@@ -1,4 +1,5 @@
 <script>
+	import './../app.css';
 	import Sidebar from './../components/Sidebar.svelte';
 	import Navbar from './../components/Navbar.svelte';
 
@@ -28,15 +29,18 @@
 	];
 </script>
 
-<div class="container-fluid bg-background text-foreground">
+<div
+	style="background-color: #f8f9fa !important;"
+	class=" ibm-plex-sans-thai-regular text-foreground"
+>
 	<slot name="navbar">
 		<Navbar />
 	</slot>
 	<slot name="sidebar">
-		<Sidebar />
+		<Sidebar routes={sidebarRoutes} />
 	</slot>
 
-	<div class="container vh-100">
+	<div class="container bg-background">
 		<slot></slot>
 	</div>
 	<slot name="footer"></slot>
