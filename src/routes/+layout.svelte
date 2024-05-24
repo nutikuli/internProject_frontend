@@ -56,6 +56,11 @@
 		style="background-color: #f8f9fa !important;"
 		class=" ibm-plex-sans-thai-regular text-foreground"
 	>
+		{#if currentPath === '/'}
+			<slot name="navbar">
+				<Navbar />
+			</slot>
+		{/if}
 		<div class=" bg-background">
 			<slot></slot>
 		</div>
