@@ -70,11 +70,10 @@
 		box-shadow:
 			0 2px 5px 0 rgb(0 0 0 / 5%),
 			0 2px 10px 0 rgb(0 0 0 / 5%);
-		width: 240px;
 		z-index: 600;
 	}
 
-	@media (max-width: 991.98px) {
+	@media (min-width: 1024px) {
 		.sidebar {
 			width: 100%;
 		}

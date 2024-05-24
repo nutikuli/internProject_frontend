@@ -5,7 +5,7 @@
 	};
 </script>
 
-<nav class="navbar bg-body">
+<nav class="shadow navbar bg-body">
 	<div class="container-fluid">
 		<a href="#" class="navbar-brand bg-body fs-3 fw-bold font-bold">{props.title}</a>
 		<form class="d-flex align-items-center gap-2" role="search">
@@ -45,7 +45,6 @@
 </nav>
 
 <style>
-
 	.container-fluid > :last-child {
 		margin-right: 1rem;
 	}

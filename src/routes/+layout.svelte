@@ -35,35 +35,53 @@
 {#if currentPath.split('/').length > 2}
 	<div
 		style="background-color: #f8f9fa !important;"
-		class=" ibm-plex-sans-thai-regular text-foreground"
+		class="h ibm-plex-sans-thai-regular text-foreground"
 	>
 		<slot name="navbar">
 			<Navbar />
 		</slot>
-		{#if !currentPath.startsWith('/customer')}
-			<slot name="sidebar">
-				<Sidebar routes={sidebarRoutes} />
-			</slot>
-		{/if}
+		<div class="row">
+			{#if !currentPath.startsWith('/customer')}
+				<slot name="sidebar">
+					<div class="col">
+						<Sidebar routes={sidebarRoutes} />
+					</div>
+				</slot>
+			{/if}
 
-		<div class="container bg-background">
-			<slot></slot>
+			<div class="col-9">
+				<div class="container pt-4 bg-background">
+					<slot></slot>
+				</div>
+			</div>
 		</div>
 		<slot name="footer"></slot>
 	</div>
 {:else}
 	<div
 		style="background-color: #f8f9fa !important;"
-		class=" ibm-plex-sans-thai-regular text-foreground"
+		class="h ibm-plex-sans-thai-regular text-foreground"
 	>
 		{#if currentPath === '/'}
 			<slot name="navbar">
 				<Navbar />
 			</slot>
 		{/if}
-		<div class=" bg-background">
+		<div class=" pt-4 bg-background">
 			<slot></slot>
 		</div>
 		<slot name="footer"></slot>
 	</div>
 {/if}
+
+<style>
+	.h {
+		min-height: 100vh;
+	}
+
+	@media (min-width: 1024px) {
+		.h {
+			height: 100%;
+		}
+	}
+</style>
