@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <script>
 import logo from "/src/lib/image/cyberpunk.jpg"
 </script>
@@ -49,3 +50,6 @@ import logo from "/src/lib/image/cyberpunk.jpg"
 
  
 </stype>
+=======
+<h1>hello</h1>
+>>>>>>> 0ea4c8828ba3288111526702e634b5f2e67b729a
