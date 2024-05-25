@@ -13,13 +13,13 @@
 		<div style="display: flex; padding-bottom: 20px">
 			<span style="margin-right: 10px; margin-top: 10px;">จัดเรียงตาม</span>
 
-            <select class="form-select" id="input" style="width: 200px;">
-                <option selected>--select--</option>
-                <option value="1">ราคา มากไปน้อย</option>
-                <option value="2">ราคา น้อยไปมาก</option>
-                <option value="3">สินค้าล่าสุด</option>
-                <option value="4">สินค้าเก่าสุด</option>
-              </select>
+			<select class="form-select" id="input" style="width: 200px;">
+				<option selected>--select--</option>
+				<option value="1">ราคา มากไปน้อย</option>
+				<option value="2">ราคา น้อยไปมาก</option>
+				<option value="3">สินค้าล่าสุด</option>
+				<option value="4">สินค้าเก่าสุด</option>
+			</select>
 		</div>
 
 		<!-- sort -->
