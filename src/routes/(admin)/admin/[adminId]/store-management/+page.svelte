@@ -6,7 +6,7 @@
       <div class="d-flex">
       <div class="w-100 bg-white ">
           <div class="w-100 bg-white shadow d-flex justify-content-between align-items-center px-3 py-2">
-              <span style="font-size: 30px;">Log</span>
+              <span style="font-size: 30px;">ร้านค้า</span>
               <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       เพิ่มสิทธิ์ผู้ใช้งาน

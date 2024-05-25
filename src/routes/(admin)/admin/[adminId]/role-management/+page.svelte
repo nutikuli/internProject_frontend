@@ -6,7 +6,7 @@
       <div class="d-flex">
       <div class="w-100 bg-white ">
           <div class="w-100 bg-white shadow d-flex justify-content-between align-items-center px-3 py-2">
-              <span style="font-size: 30px;">ผู้ดูแลระบบ</span>
+              <span style="font-size: 30px;">สิทธิ์ผู้ใช้งาน</span>
               <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       เพิ่มสิทธิ์ผู้ใช้งาน
@@ -134,6 +134,30 @@
         </form>
       </div>
       <Table/> 
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="display: flex; justify-content:flex-end">
+        <div class="btn-group me-2" role="group" aria-label="First group" >
+          <button type="button" class="btn btn-outline-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...$$props}>
+              <path fill="#0d6efd" d="M12.727 3.687a1 1 0 1 0-1.454-1.374l-8.5 9a1 1 0 0 0 0 1.374l8.5 9.001a1 1 0 1 0 1.454-1.373L4.875 12z" />
+            </svg>
+          </button>
+          <button type="button" class="btn btn-outline-primary">1</button>
+          <button type="button" class="btn btn-outline-primary">2</button>
+          <button type="button" class="btn btn-outline-primary">3</button>
+          <button type="button" class="btn btn-outline-primary">4</button>
+          <button type="button" class="btn btn-outline-primary">5</button>
+          <button type="button" class="btn btn-outline-primary">6</button>
+          <button type="button" class="btn btn-outline-primary">7</button>
+          <button type="button" class="btn btn-outline-primary">8</button>
+          <button type="button" class="btn btn-outline-primary">9</button>
+          <button type="button" class="btn btn-outline-primary">10</button>
+          <button type="button" class="btn btn-outline-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...$$props}>
+              <path fill="#0d6efd" d="m19.704 12l-8.491-8.727a.75.75 0 1 1 1.075-1.046l9 9.25a.75.75 0 0 1 0 1.046l-9 9.25a.75.75 0 1 1-1.075-1.046z" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
     
       <div>
