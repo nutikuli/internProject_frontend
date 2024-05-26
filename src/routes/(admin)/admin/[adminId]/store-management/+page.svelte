@@ -9,7 +9,7 @@
               <span style="font-size: 30px;">ร้านค้า</span>
               <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      เพิ่มสิทธิ์ผู้ใช้งาน
+      เพิ่มผู้ขาย
     </button>
     
     <!-- Modal -->
@@ -17,99 +17,78 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">สิทธิ์ผู้ใช้งาน</h5>
+            <h5 class="modal-title" id="exampleModalLabel">ร้านค้า</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-              <div class="mb-3 row">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">ชื่อสิทธิ์ : </label>
-                  <div class="col-sm-10">
-                    <input type="text" placeholder="placeholder" class="form-control" id="inputPassword">
-                  </div>
+            <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label" >ชื่อ: </label>
+                <div class="col-sm-10">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
                 </div>
-                <table class="table">
-                  <thead>
-                    <tr class="table-primary">
-                      <th scope="col">รายการ</th>
-                      <th scope="col"></th>
-                      <th scope="col"></th>
-                      <th scope="col">เข้าถึงเมนู</th>
-                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>หน้าแรก</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                          <div class="form-check  d-flex" style="margin-left: 20px;" >
-                          <input class="form-check-input" type="checkbox" value="" id="firstpagecheckbox">
-                        </div>
-                      </td>
-                    </tr>
-                    
-                    <tr>
-                      <td>สิทธิ์ผู้ใช้งาน</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                          <div class="form-check  d-flex" style="margin-left: 20px;" >
-                          <input class="form-check-input" type="checkbox" value="" id="authencheckbox">
-                        </div>
-                      </td>
-                  
-                    </tr>
-                    <tr>
-                      <td>ผู้ดูแลระบบ</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                          <div class="form-check  d-flex" style="margin-left: 20px;" >
-                          <input class="form-check-input" type="checkbox" value="" id="managementcheckbox">
-                        </div>
-                      </td>
-                  
-                    </tr>
-                    <tr>
-                      <td>ร้านค้า</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                          <div class="form-check  d-flex" style="margin-left: 20px;" >
-                          <input class="form-check-input" type="checkbox" value="" id="stroecheckbox">
-                        </div>
-                      </td>
-                  
-                    </tr>
-                    <tr>
-                      <td>ลูกค้า</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                          <div class="form-check  d-flex" style="margin-left: 20px;" >
-                          <input class="form-check-input" type="checkbox" value="" id="customercheck">
-                        </div>
-                      </td>
-                  
-                    </tr>
-                    <tr>
-                      <td>log</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                          <div class="form-check  d-flex" style="margin-left: 20px;" >
-                          <input class="form-check-input" type="checkbox" value="" id="logcheckbox">
-                        </div>
-                      </td>
-                  
-                    </tr>
-                  </tbody>
-                </table>
-  
-  
-  
-          </div>
+                
+              </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">นามสกุล : </label>
+                <div class="col-sm-10">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                </div>
+                
+                
+              </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">ชื่อร้านค้า: </label>
+                <div class="col-sm-10">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                </div>
+              </div>
+              
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">ที่อยู่ : </label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="inputaddress" rows="3"></textarea>
+                </div>
+                
+              </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">เบอร์โทรศัพท์: </label>
+                <div class="col-sm-10">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputPassword">
+                </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล : </label>
+                <div class="col-sm-10">
+                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword">
+                </div>
+              </div>
+
+              
+              </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน : </label>
+                <div class="col-sm-10">
+                  <input type="password"  class="form-control" id="inputPassword">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">ยืนยันรหัสผ่าน : </label>
+                <div class="col-sm-10">
+                  <input type="password"  class="form-control" id="inputPassword">
+                </div>
+              </div>
+              <div class="mb-3 row">
+                <label for="inputPassword" class="col-sm-2 col-form-label">ใช้งาน : </label>
+                <div class="col-sm-10">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input"  type="checkbox" id="flexSwitchCheckChecked" checked>
+                  </div>            
+                  </div>
+              </div>
+             
+
+
+
+        </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary">บันทึก</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

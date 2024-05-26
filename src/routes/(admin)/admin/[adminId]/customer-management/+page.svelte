@@ -44,32 +44,34 @@
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">ที่อยู่ : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputaddress" style="height: 50px;">
+                  <textarea class="form-control" id="inputaddress" rows="3"></textarea>
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputPassword">
+                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword">
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">รหัสผ่าน : </label>
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputPassword">
+                  <input type="password"  class="form-control" id="inputPassword">
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">ยืนยันรหัสผ่าน : </label>
+                <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">ยืนยันรหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputPassword">
+                  <input type="password"  class="form-control" id="inputPassword">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">ใช้งาน : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputPassword">
-                </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input"  type="checkbox" id="flexSwitchCheckChecked" checked>
+                  </div>            
+                  </div>
               </div>
              
 
