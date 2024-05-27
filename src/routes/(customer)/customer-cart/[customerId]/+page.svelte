@@ -1,11 +1,14 @@
 <script>
-	let name = 'ตัวอย่าง ชื่อนามสกุล';
+	import Icon from '@iconify/svelte';
+	import Model from '../../../../components/Model.svelte';
+
+	let name = '';
 	let phonenumber = '099-99999999';
 	let address =
 		'อัลตราภควัทคีตาเคลมซูโม่ ป๋อหลอเจ๊ปอดแหก แหม็บชีสฮันนีมูนซ้อ แล็บโต๊ะจีนเพรสแรลลีเบอร์เกอร์ ไฮบริดสตรอเบอรี ';
-	let productPrice = 387;
-	let shippingCost = 37;
-	let totalPrice = productPrice + shippingCost;
+	let productPrice = '387';
+	let shippingCost = '37';
+	let totalPrice = '414';
 
 	let bankname = 'ธนาคารกรุงเทพ';
 	let accountName = 'ชื่อบัญชี นายทดสอบ นามสกุลสมมติ';
@@ -28,7 +31,35 @@
 		formRef.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
 	}
 
-	let showImage = "Image"
+	let showImage = 'Image';
+
+	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
+	/** @type {string[]} */
+	export let colLabels = [
+		'#',
+		'รูปภาพ',
+		'รหัสสินค้า',
+		'ชื่อสินค้า',
+		'หมวดหมู่',
+		'ราคาต่อหน่วย',
+		'จำนวน',
+		'ราคารวม'
+	];
+
+	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
+	/** @type {string[][]} */
+	export let rowRecords = [
+		['Image', 'BILL0001', 'ที่นอนยางพาราแท้100%', 'ที่นอน', '100.00', '1', '100.00'],
+		['Image', 'BILL0002', 'Hollyland LARK M2 ไมโครโฟนไร้สาย', 'มือถือและอุปกรณ์เสริม', '150.00', '1', '150.00'],
+		['Image', 'BILL0003', 'Home Best ชุดผ้าปูที่นอน ครบชุด ผ้าปู', 'ที่นอน', '1000.00', '1', '1000.00'],
+		['Image', 'BILL0004', 'ลำโพงบลูทูธ TG-532', 'มือถือและอุปกรณ์เสริม', '200.00', '1', '200.00'],
+		['Image', 'BILL0005', '[ยกลัง 30 ชิ้น] ทิชชู่แบบเหนียวนุ่ม', 'จิปาถะ', '29,000.00', '1', '29,000.00'],
+		['Image', 'BILL0006', 'Luckyfriend เก้าอี้ปิคนิคพับได้', 'อุปกรณ์สำนักงาน', '400.00', '1', '400.00'],
+		['Image', 'BILL0007', 'Gerry Gang รองเท้า รองเท้านักเรียนผู้หญิง', 'เสื้อผ้าแฟชั่น', '899.00', '1', '899.00'],
+		['Image', 'BILL0008', 'ชั้นวางรองเท้า XM1 ชั้นวางรองเท้าอเนกประสงค์', 'อุปกรณ์สำนักงาน', '550.00', '1', '550.00'],
+		['Image', 'BILL0009', 'แฟลชไดรฟ์ 2TB', 'คอมพิวเตอร์และแล็ปท็อป', '50.00', '1', '50.00'],
+		['Image', 'BILL0010', '[ลูกค้าใหม่ 1 บาท] หูฟังบลูทูธ หูฟังสเตอริโอ', 'มือถือและอุปกรณ์เสริม', '10.00', '1', '10.00']
+	];
 </script>
 
 <div class="w-100 overflow-scroll">
@@ -36,32 +67,52 @@
 		<div class="row w-100">
 			<div class="col-10 col-md-10 col-lg-10 col-xl-10 col-xxl-12 mx-auto">
 				<h1>ตะกร้าสินค้า</h1>
-				<table class="font-size">
-					<thead>
+				<table class="table text-center table-striped">
+					<thead class="table-c-primary">
 						<tr>
-							<th>#</th>
-							<th>รูปภาพ</th>
-							<th>รหัสสินค้า</th>
-							<th>ชื่อสินค้า</th>
-							<th>หมวดหมู่</th>
-							<th>ราคาต่อหน่วย</th>
-							<th>จำนวน</th>
-							<th>ราคารวม</th>
+							{#each colLabels as c, i}
+								{#if i === 0}
+									<th class="text-light px-4 bg-primary text-center" scope="col">{c}</th>
+								{:else if i === 1}
+									<th class="text-light px-4 bg-primary text-center" scope="col">{c}</th>
+								{:else if i === 2}
+									<th class="text-light px-4 bg-primary text-left" scope="col">{c}</th>
+								{:else if i === 3}
+									<th class="text-light px-4 bg-primary text-left" scope="col">{c}</th>
+								{:else if i === 4}
+									<th class="text-light px-4 bg-primary text-left" scope="col">{c}</th>
+								{:else}
+									<th class="text-light px-4 bg-primary text-right" scope="col">{c}</th>
+								{/if}
+							{/each}
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1111111111111111111</td>
-							<td>1111111111111111111</td>
-							<td>1111111111111111111</td>
-							<td>1111111111111111111</td>
-							<td>1111111111111111111</td>
-							<td>1111111111111111111</td>
-							<td>1111111111111111111</td>
-							<td>1111111111111111111</td>
-						</tr>
+						{#each rowRecords as record, index}
+							<tr>
+								<td>{index}</td>
+								{#each record as cell, cellIndex}
+									{#if cellIndex === 0}
+										<td class="text-center">{cell}</td>
+									{:else if cellIndex === 1}
+										<td class="text-left">{cell}</td>
+									{:else if cellIndex === 2}
+										<td class="text-left">{cell}</td>
+									{:else if cellIndex === 3}
+										<td class="text-left">{cell}</td>
+									{:else if cellIndex === 4}
+										<td class="text-right">{cell}</td>
+									{:else if cellIndex === 5}
+										<td class="text-right">{cell}</td>
+									{:else if cellIndex === 6}
+										<td class="text-right">{cell}</td>
+									{/if}
+								{/each}
+							</tr>
+						{/each}
 					</tbody>
 				</table>
+
 				<div style="padding-top: 20px; padding-bottom: 30px; border-bottom: 1px solid #D9D9D9;">
 					<div class="d-flex">
 						<!-- left -->
@@ -82,13 +133,13 @@
 						</div>
 						<!-- right -->
 						<div class="font-weigh font-size col-6" style="padding-left: 30px;">
-							<div class="d-flex">
-								<div style="margin-right: 480px;">
+							<div class="d-flex justify-content-between">
+								<div>
 									<div>ค่าสินค้า :</div>
 									<div>ค่าจัดส่ง :</div>
 									<div>ยอดรวม :</div>
 								</div>
-								<div style="text-align: right;">
+								<div class="text-right">
 									<div>
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +158,7 @@
 										</svg>
 										{productPrice}
 									</div>
-									<div>
+									<div class="text-right">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="15"
@@ -125,8 +176,8 @@
 										</svg>
 										{shippingCost}
 									</div>
-									<div>
-										<div class="right" style="font-size: large; margin-left: auto;">
+									<div class="text-right">
+										<div style="font-size: large;">
 											{totalPrice}
 										</div>
 									</div>
@@ -166,20 +217,32 @@
 					<div class="col-6" style="padding-left: 30px;">
 						<h4>หลักฐานการชำระเงิน</h4>
 						<form bind:this={formRef} on:submit={handleSubmit}>
-							<div >
+							<div>
 								<div class="d-flex">
 									<div style="margin-right: 20px; ">ภาพหลักฐาน</div>
-									<input id="image" type="image" bind:value={image}/><div class="slip-img">upload</div>
+									<input id="image" type="image" bind:value={image} />
+									<div class="slip-img">upload</div>
 									<div class="slip-img">{showImage}</div>
 								</div>
 								<div class="d-flex">
 									<div style="margin-right: 35px;">จำนวนเงิน</div>
-									<input id="amount" type="text" bind:value={amount} placeholder="number" style="margin-bottom: 10px; width:300px; border: 1px solid #D9D9D9;"/>
-									
+									<input
+										id="amount"
+										type="text"
+										bind:value={amount}
+										placeholder="number"
+										style="margin-bottom: 10px; width:300px; border: 1px solid #D9D9D9;"
+									/>
 								</div>
 								<div class="d-flex">
 									<div style="margin-right: 20px;">วันเวลาที่โอน</div>
-									<input id="date" type="date" class="form-control" bind:value={date} style="margin-bottom: 10px; width:300px"/>
+									<input
+										id="date"
+										type="date"
+										class="form-control"
+										bind:value={date}
+										style="margin-bottom: 10px; width:300px"
+									/>
 								</div>
 							</div>
 						</form>
@@ -194,10 +257,21 @@
 </div>
 
 <style>
+	.text-left {
+		text-align: left;
+	}
+
+	.text-right {
+		text-align: right;
+	}
+
+	.text-center {
+		text-align: center;
+	}
 	.slip-img {
 		width: 200px;
 		height: 200px;
-		border: 1px solid #D9D9D9;
+		border: 1px solid #d9d9d9;
 		text-align: center;
 		align-content: center;
 		margin-bottom: 10px;
