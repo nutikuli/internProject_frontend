@@ -53,17 +53,17 @@
 		<slot name="navbar">
 			<Navbar />
 		</slot>
-		<div class="row">
+		<div class="row gap-0 m-0">
 			{#if !routePrevents(currentPath)}
 				<slot name="sidebar">
-					<div class="col">
+					<div class="col p-0">
 						<Sidebar routes={sidebarRoutes} />
 					</div>
 				</slot>
 			{/if}
 
 			<div class:col={routePrevents(currentPath)} class:col-xl-10={!routePrevents(currentPath)}>
-				<div class="container pt-4 bg-background">
+				<div class=" pt-4 bg-background">
 					<slot></slot>
 				</div>
 			</div>
