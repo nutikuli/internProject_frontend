@@ -5,8 +5,8 @@ import logo from "/src/lib/image/cyberpunk.jpg"
 
 
 
-<div class="content-center" style="display:flex;justify-content:start; background-image:url('/src/lib/image/cyberpunk.jpg');height:100vh;">
-    <div style="background-color:#fff;width:30%;" >
+<div class="content-center">
+    <div class="form-container" >
         <div class="d-flex justify-content-center" style="margin-top:20%">
             <img src="{logo}" style="width:140px;height:140px;border-radius:75%">
         </div>
@@ -56,16 +56,36 @@ import logo from "/src/lib/image/cyberpunk.jpg"
 
 
 
-<style scoped>
-.boxlogin{
-    border-radius:50px;
-    width:40px;
-    height:40px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-left:15px;
-}
- 
-</style>
+<style>
+    .content-center {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        min-height: 98vh;
+        background-image: url('/src/lib/image/cyberpunk.jpg');
+        background-size: cover;
+        background-position: center;
+    }
 
+    .form-container {
+        background-color: #fff;
+        width: 90%;
+        max-width: 500px;
+        min-height: 800px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height:100%;
+    }
+    .boxlogin {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 3px solid #ccc;
+        margin: 0 10px;
+        cursor: pointer;
+    }
+</style>

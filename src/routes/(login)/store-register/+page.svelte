@@ -3,10 +3,8 @@
     import logo from "/src/lib/image/cyberpunk.jpg"
     </script>
     
-    
-    
-    <div class="content-center" style="display:flex;justify-content:start; background-image:url('/src/lib/image/cyberpunk.jpg');height:100vh;">
-        <div style="background-color:#fff;width:30%;" >
+    <div class="content-center">
+        <div class="form-container" >
             <div class="d-flex justify-content-center" style="margin-top:5%">
                 <img src="{logo}" style="width:140px;height:140px;border-radius:75%">
             </div>
@@ -46,7 +44,7 @@
                
                 <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue">สมัครสมาชิก</button>
                 <div class="d-flex justify-content-center">
-                    <h6 style="font-size:13px;margin-top:35px">มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" >เข้าสู่ระบบ</a></h6>
+                    <h6 style="font-size:13px;margin-top:35px">มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" href="/login">เข้าสู่ระบบ</a></h6>
                     </div>
                     <div class="d-flex justify-content-center mt-3">
                         <div  class="border border-3 boxlogin"><svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 256 262" {...$$props}>
@@ -73,6 +71,26 @@
     
     
     <style scoped>
+    .content-center {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        min-height: 98vh;
+        background-image: url('/src/lib/image/cyberpunk.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .form-container {
+        background-color: #fff;
+        width: 90%;
+        max-width: 400px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height:100%;
+    }
+    
     .boxlogin{
     border-radius:50px;
     width:40px;
