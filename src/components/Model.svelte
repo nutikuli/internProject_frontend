@@ -26,9 +26,13 @@
 				<div class="modal-body">
 					<p>Modal body text goes here.</p>
 				</div>
+			</slot>
+			<slot name="action">
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary">บันทึก</button>
-					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">ยกเลิก</button>
+					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+						>ยกเลิก</button
+					>
 				</div>
 			</slot>
 		</div>
