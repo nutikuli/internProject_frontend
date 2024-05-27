@@ -5,7 +5,7 @@
     
     
     
-    <div class="content-center" style="display:flex;justify-content:start; background-image:url('/src/lib/image/cyberpunk.jpg');height:100vh;">
+    <div class="content-center" style="display:flex;justify-content:start; background-image:url('/src/lib/image/cyberpunk.jpg');height:140vh;">
         <div style="background-color:#fff;width:30%;" >
             <div class="d-flex justify-content-center" style="margin-top:5%">
                 <img src="{logo}" style="width:140px;height:140px;border-radius:75%">

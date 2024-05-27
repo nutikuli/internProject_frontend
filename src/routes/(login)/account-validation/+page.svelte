@@ -90,7 +90,7 @@
                 </div>
                 
                 <div>
-                    <h6 style="font-size:16px;">ยืนยันรหัสผ่าน :</h6>
+                    <h6 style="font-size:16px;" class="mt-2">ยืนยันรหัสผ่าน :</h6>
                     <input  type="password" id="confirm-password" name="confirm-password" placeholder="password"  style="border-radius:8px;width:100%;height:40px;padding-left: 10px;">
                     </div>
                
