@@ -29,6 +29,19 @@
 		{ hrefTarget: `/store/${storeId}/order-management`, routeName: 'รายการธุรกรรม' }
 	];
 
+	/** @returns {boolean}    */
+	/** @param {string} route   */
+	const routePrevents = (route) => {
+		const preventRoutes = ['/customer-cart', '/customer-order', '/product'];
+
+		for (let i = 0; i < preventRoutes.length; i++) {
+			if (route.startsWith(preventRoutes[i])) {
+				return true;
+			}
+		}
+		return false;
+	};
+
 	$: currentPath = $page.url.pathname;
 </script>
 
@@ -41,15 +54,15 @@
 			<Navbar />
 		</slot>
 		<div class="row">
-			{#if !currentPath.startsWith('/customer')}
-				<slot name="sidebar">
+			<slot name="sidebar">
+				{#if !routePrevents(currentPath)}
 					<div class="col">
 						<Sidebar routes={sidebarRoutes} />
 					</div>
-				</slot>
-			{/if}
+				{/if}
+			</slot>
 
-			<div class="col-xl-10">
+			<div class:col={!routePrevents(currentPath)} class:col-xl-10={!routePrevents(currentPath)}>
 				<div class="container pt-4 bg-background">
 					<slot></slot>
 				</div>
@@ -62,7 +75,7 @@
 		style="background-color: #F8F9FA !important;"
 		class="h ibm-plex-sans-thai-light text-foreground"
 	>
-		{#if currentPath === '/'}
+		{#if currentPath === '/' || routePrevents}
 			<slot name="navbar">
 				<Navbar />
 			</slot>
