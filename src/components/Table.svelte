@@ -35,48 +35,50 @@
 	}
 </script>
 
-<table class="table text-center table-striped">
-	<thead class="table-c-primary">
-		<tr>
-			{#each colLabels as c}
-				<th class="text-light px-4 bg-primary" scope="col">{c}</th>
-			{/each}
-		</tr>
-	</thead>
-	<tbody>
-		{#each rowRecords as record, index}
+<div class="table-responsive">
+	<table class="table on-xl-overflow-x-hidden text-center table-striped">
+		<thead class="table-c-primary">
 			<tr>
-				<td>{index}</td>
-				{#each record.slice(0, -1) as cell}
-					<td>{cell}</td>
+				{#each colLabels as c}
+					<th style="font-size: 0.90rem;" class="text-light px-4 bg-primary" scope="col">{c}</th>
 				{/each}
-				<!--- สำหรับใช้กับ "สถานะ" ไม่ส่วนนี้ลบทึ้ง -->
-				<td>
-					<span class={badgeStatus(record.slice(-1))}>{record.slice(-1)}</span>
-				</td>
-				<td class="table-actions">
-					<button
-						data-bs-toggle="modal"
-						data-bs-target={`#modal-editor-${index}`}
-						class="btn btn-outline-warning btn-sm"
-						><Icon width="16" icon="material-symbols:edit-square-outline" /></button
-					>
-					<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'} />
-
-					<button
-						data-bs-toggle="modal"
-						data-bs-target={`#modal-delete-${index}`}
-						class="btn btn-outline-danger btn-sm"
-					>
-						<Icon width="16" icon="material-symbols:delete" />
-					</button>
-
-					<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'} />
-				</td>
 			</tr>
-		{/each}
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			{#each rowRecords as record, index}
+				<tr>
+					<td>{index}</td>
+					{#each record.slice(0, -1) as cell}
+						<td style="font-size: 0.90rem;">{cell}</td>
+					{/each}
+					<!--- สำหรับใช้กับ "สถานะ" ไม่ส่วนนี้ลบทึ้ง -->
+					<td>
+						<span class={badgeStatus(record.slice(-1))}>{record.slice(-1)}</span>
+					</td>
+					<td class="table-actions">
+						<button
+							data-bs-toggle="modal"
+							data-bs-target={`#modal-editor-${index}`}
+							class="btn btn-outline-warning btn-sm"
+							><Icon width="16" icon="material-symbols:edit-square-outline" /></button
+						>
+						<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'} />
+
+						<button
+							data-bs-toggle="modal"
+							data-bs-target={`#modal-delete-${index}`}
+							class="btn btn-outline-danger btn-sm"
+						>
+							<Icon width="16" icon="material-symbols:delete" />
+						</button>
+
+						<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'} />
+					</td>
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+</div>
 
 <style>
 	.table-c-primary {
@@ -86,5 +88,11 @@
 	.table-striped > tbody > tr:nth-child(2n + 1) > td,
 	.table-striped > tbody > tr:nth-child(2n + 1) > th {
 		background-color: rgba(#f8f9fa, 0.5);
+	}
+
+	@media (max-width: 1024px) {
+		.on-xl-overflow-x-hidden {
+			overflow-x: scroll;
+		}
 	}
 </style>
