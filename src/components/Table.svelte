@@ -119,6 +119,8 @@
 			const inputElement = dtSearchDiv.querySelector('.dt-input');
 			if (inputElement) {
 				inputElement.classList.add('form-control');
+				// @ts-ignore
+				inputElement.style.width = 'auto';
 				inputElement.setAttribute('placeholder', 'search');
 			}
 			const labelElement = document.querySelector('label[for="dt-search-0"]');
