@@ -1,11 +1,43 @@
 <script>
-    import Table from "../../../../../components/Table.svelte";
+ import Icon from '@iconify/svelte';
+// @ts-ignore
+import Model from '/src/components/Model.svelte';
+	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
+	/** @type {string[]} */
+	export let colLabels = ['#', 'รหัสผู้ใช้', 'ชื่อผู้ใช้','วันเวลา', 'เมนู', 'action', '','Title'];
+
+	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
+	/** @type {string[][]} */
+	export let rowRecords = [
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+		['AD001','ตัวอย่าง ชื่อนามสกุล', '27/02/2567-18:46','บัญชีธนาคาร', 'เพิ่มข้อมูล', ''],
+	];
+
+	const editRow = (index) => {
+		alert(`Edit row ${index + 1}`);
+	};
+
+	const deleteRow = (index) => {
+		alert(`Delete row ${index + 1}`);
+	};
+
+	function badgeStatus(status) {
+		return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
+  } 
   </script>
   
-  <div class="w-100  min-vh-100 bg-secondary-subtle ">
+  <div class="w-100  min-vh-100 bg-white-subtle ">
       <div class="d-flex">
       <div class="w-100 bg-white ">
-          <div class="w-100 bg-white shadow d-flex justify-content-between align-items-center px-3 py-2">
+          <div class="w-100 bg-white  d-flex justify-content-between align-items-center px-3 py-2">
               <span style="font-size: 30px;">Log</span>
               <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -71,7 +103,7 @@
       </div>
     </div>
           </div>
-      <div class="w-100 bg-white shadow d-flex justify-content-between align-items-center px-3 py-2">
+      <div class="w-100 bg-white  d-flex justify-content-between align-items-center px-3 py-2">
         <form class="row g-3">
           <div class="col-auto">
             <input type="text" class="form-control" id="inputSearch" placeholder="Search">
@@ -84,7 +116,95 @@
           </div>
         </form>
       </div>
-      <Table/> 
+      <!--table-->
+      <table class="table text-center table-striped">
+        <thead class="table-c-primary">
+          <tr>
+            {#each colLabels as c}
+              <th class="text-light px-4 bg-primary" scope="col">{c}</th>
+            {/each}
+          </tr>
+        </thead>
+        <tbody>
+          {#each rowRecords as record, index}
+            <tr>
+              <td>{index}</td>
+              {#each record.slice(0, -1) as cell}
+                <td>{cell}</td>
+              {/each}
+              <!--- สำหรับใช้กับ "สถานะ" ไม่ส่วนนี้ลบทึ้ง -->
+              <td>
+                <span class={record.slice(-1)}>{record.slice(-1)}</span>
+              </td>
+              <td class="table-actions">
+               
+               
+      
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target={`#modal-show-${index}`}
+                  class="btn btn-outline-primary btn-sm"
+                >
+                  <Icon width="16" icon="material-symbols:visibility" />
+                  
+                </button>
+      
+                <Model modalTargetId={`modal-show-${index}`} modalTitle={'ลบข้อมูล'} >
+                  <div class="modal-body">
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผู้ใช้ : </label>
+                      <div class="col-sm-10">
+                        <label  class="form-control-plaintext">xxxxxx</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label" >ชื่อ : </label>
+                      <div class="col-sm-10">
+                        <label  class="form-control-plaintext">ตัวอย่างชื่อนามสกุล</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 14px;">วันเวลา : </label>
+                      <div class="col-sm-10">
+                        <label  class="form-control-plaintext">27/02/2567 - 18:46</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label" >เมนู : </label>
+                      <div class="col-sm-10">
+                        <label  class="form-control-plaintext">บัญชีธนาคาร</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 14px;">Action : </label>
+                      <div class="col-sm-10">
+                        <label  class="form-control-plaintext">เพิ่มข้อมูล</label>
+                      </div>
+                    </div>
+                    <div class="mb-3 row">
+                      <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 13px;">รายละเอียด : </label>
+                      <div class="col-sm-10">
+                        <label  class="form-control-plaintext">xxxxxxxxx</label>
+                      </div>
+                    </div>
+                        
+          
+          
+          
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
+                    
+                  </div>
+                </Model>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+
+
+
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="display: flex; justify-content:flex-end">
         <div class="btn-group me-2" role="group" aria-label="First group" >
           <button type="button" class="btn btn-outline-primary">
@@ -120,4 +240,16 @@
   
       </div>
   </div>
+
+
+  <style>
+    .table-c-primary {
+      background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+    }
+  
+    .table-striped > tbody > tr:nth-child(2n + 1) > td,
+    .table-striped > tbody > tr:nth-child(2n + 1) > th {
+      background-color: rgba(#f8f9fa, 0.5);
+    }
+  </style>
   
