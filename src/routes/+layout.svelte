@@ -26,7 +26,8 @@
 		// store routes
 		{ hrefTarget: `/store/${storeId}/product-management`, routeName: 'สินค้า' },
 		{ hrefTarget: `/store/${storeId}/product-category-management`, routeName: 'หมวดหมู่' },
-		{ hrefTarget: `/store/${storeId}/order-management`, routeName: 'รายการธุรกรรม' }
+		{ hrefTarget: `/store/${storeId}/order-management`, routeName: 'รายการธุรกรรม' },
+		{ hrefTarget: `/store/${storeId}/bank-management`, routeName: 'บัญชีธนาคาร' }
 	];
 
 	/** @returns {boolean}    */
