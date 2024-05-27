@@ -24,8 +24,8 @@
 		{ hrefTarget: `/admin/${adminId}log-management`, routeName: 'Log' },
 
 		// store routes
-		{ hrefTarget: `/store/${storeId}product-management`, routeName: 'สินค้า' },
-		{ hrefTarget: `/store/${storeId}product-category-management`, routeName: 'หมวดหมู่' },
+		{ hrefTarget: `/store/${storeId}/product-management`, routeName: 'สินค้า' },
+		{ hrefTarget: `/store/${storeId}/product-category-management`, routeName: 'หมวดหมู่' },
 		{ hrefTarget: `/store/${storeId}/order-management`, routeName: 'รายการธุรกรรม' }
 	];
 
@@ -54,15 +54,15 @@
 			<Navbar />
 		</slot>
 		<div class="row">
-			<slot name="sidebar">
-				{#if !routePrevents(currentPath)}
+			{#if !routePrevents(currentPath)}
+				<slot name="sidebar">
 					<div class="col">
 						<Sidebar routes={sidebarRoutes} />
 					</div>
-				{/if}
-			</slot>
+				</slot>
+			{/if}
 
-			<div class:col={!routePrevents(currentPath)} class:col-xl-10={!routePrevents(currentPath)}>
+			<div class:col={routePrevents(currentPath)} class:col-xl-10={!routePrevents(currentPath)}>
 				<div class="container pt-4 bg-background">
 					<slot></slot>
 				</div>

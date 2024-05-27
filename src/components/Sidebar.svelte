@@ -18,7 +18,7 @@
 	 * @returns {boolean} - 'active' if the route should be active, otherwise an empty string.
 	 */
 	export function shouldBeActive(injection, currentPath) {
-		return injection.hrefTarget === currentPath;
+		return injection.hrefTarget.split('/').slice(-1)[0] === currentPath.split('/').slice(-1)[0];
 	}
 
 	$: currentPath = $page.url.pathname;
