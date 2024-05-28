@@ -2,7 +2,7 @@
 	import Icon from '@iconify/svelte';
 	import Model from '../../../../components/Model.svelte';
 
-	let name = '';
+	let name = 'ตัวอย่าง ชื่อนามสกุล';
 	let phonenumber = '099-99999999';
 	let address =
 		'อัลตราภควัทคีตาเคลมซูโม่ ป๋อหลอเจ๊ปอดแหก แหม็บชีสฮันนีมูนซ้อ แล็บโต๊ะจีนเพรสแรลลีเบอร์เกอร์ ไฮบริดสตรอเบอรี ';
