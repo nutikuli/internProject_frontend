@@ -24,13 +24,13 @@
 	];
 </script>
 
-<div id="product-managment-container" class="container-fluid">
+<div id="product-managment-container" class="container-fluid mb-4">
 	<div class="d-flex justify-content-between align-items-center">
 		<span class="fs-2 fw-bold">สินค้า</span>
 
 		<button
 			type="button"
-			class="btn btn-primary px-3 py-2"
+			class="btn btn-primary btn-sm px-3 py-2"
 			data-bs-toggle="modal"
 			data-bs-target="#modal-product-target"
 		>
