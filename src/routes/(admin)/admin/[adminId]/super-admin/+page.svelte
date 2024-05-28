@@ -1,6 +1,7 @@
 <script>
 import Icon from '@iconify/svelte';
 import Table from '../../../../../components/Table.svelte'
+import FileDropzone from '../../../../../components/FileDropzone.svelte';
 import Model from '../../../../../components/Model.svelte'
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
@@ -54,10 +55,19 @@ import Model from '../../../../../components/Model.svelte'
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div class="mb-3 row">
-              <label for="inputPassword" class="col-sm-2 col-form-label" >รูปภาพ: </label>
-              <div class="col-sm-10">
-                <input class="form-control" type="file" id="imageUpload" accept="image/*">
+            <div class="mb-3 ">
+              <label for="AdminImage" class="form-label col-2">รูปภาพ </label>
+              <div class="col">
+                <div class="d-flex gap-4 align-items-center">
+                  <img
+                    sizes="32"
+                    src="https://via.placeholder.com/100"
+                    class="img-thumbnail"
+                    alt="Product Image"
+                    id="productImagePreview"
+                  />
+                  <FileDropzone />
+                </div>
               </div>
             </div>
             <div class="mb-3 row">
@@ -140,10 +150,19 @@ import Model from '../../../../../components/Model.svelte'
           <div slot="editor-action">
             <form action="">
               <div class="modal-body">
-                <div class="mb-3 row">
-                  <label for="inputPassword" class="col-sm-2 col-form-label" >รูปภาพ:</label>
-                  <div class="col-sm-10">
-                    <input class="form-control" type="file" id="imageUpload" accept="image/*">
+                <div class="mb-3 ">
+                  <label for="AdminImage" class="col-sm-2 col-form-label" style="justify-content:first baseline; display:flex">รูปภาพ</label>
+                  <div class="col">
+                    <div class="d-flex gap-4 align-items-center">
+                      <img
+                        sizes="32"
+                        src="https://via.placeholder.com/100"
+                        class="img-thumbnail"
+                        alt="Product Image"
+                        id="productImagePreview"
+                      />
+                      <FileDropzone />
+                    </div>
                   </div>
                 </div>
                 <div class="mb-3 row">
@@ -177,7 +196,7 @@ import Model from '../../../../../components/Model.svelte'
                       </select>
                     </div>
                   </div>
-              
+                 
     
                   <div class="mb-3 row">
                     <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล:</label>
@@ -205,6 +224,10 @@ import Model from '../../../../../components/Model.svelte'
                       </div>            
                       </div>
                   </div>
+                 
+    
+    
+    
             </div>
               <div class="modal-footer">
                 <!-- ปุ่ม actions -->
