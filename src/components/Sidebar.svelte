@@ -66,7 +66,8 @@
 		top: 0;
 		bottom: 0;
 		left: 0;
-		padding: 58px 0 0; /* Height of navbar */
+		height: 100%;
+		padding: 1rem 0 0; /* Height of navbar */
 		box-shadow:
 			0 2px 5px 0 rgb(0 0 0 / 5%),
 			0 2px 10px 0 rgb(0 0 0 / 5%);
@@ -87,10 +88,5 @@
 
 	.sidebar-sticky {
 		position: relative;
-		top: 0;
-		height: calc(100vh - 48px);
-		padding-top: 0.5rem;
-		overflow-x: hidden;
-		overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 	}
 </style>
