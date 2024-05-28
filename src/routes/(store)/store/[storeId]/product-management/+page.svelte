@@ -99,7 +99,29 @@
 	</div>
 	<!-- TODO: ตัวอย่างการนำไปใช้  -->
 	<Table {rowRecords} {colLabels}>
-		<div slot="editor-action"></div>
-		<div slot="delete-action"></div>
+		<div slot="editor-action">
+			<form action="">
+				<!-- form elements goes hese -->
+				<div class="modal-footer">
+					<!-- ปุ่ม actions -->
+					<button type="button" class="btn btn-primary">บันทึก</button>
+					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+						>ยกเลิก</button
+					>
+				</div>
+			</form>
+		</div>
+		<div slot="delete-action">
+			<form action="">
+				<!-- form elements goes hese -->
+				<div class="modal-footer">
+					<!-- ปุ่ม actions -->
+					<button type="button" class="btn btn-primary">บันทึก</button>
+					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+						>ยกเลิก</button
+					>
+				</div>
+			</form>
+		</div>
 	</Table>
 </div>
