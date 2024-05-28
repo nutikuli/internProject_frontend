@@ -99,24 +99,7 @@
 	</div>
 	<!-- TODO: ตัวอย่างการนำไปใช้  -->
 	<Table {rowRecords} {colLabels}>
-		<div slot="actions">
-			<button
-				data-bs-toggle="modal"
-				data-bs-target={`#modal-editor-${Math.random() * 10}`}
-				class="btn btn-outline-warning btn-sm"
-				><Icon width="16" icon="material-symbols:edit-square-outline" /></button
-			>
-			<Model modalTargetId={`modal-editor-${Math.random() * 10}`} modalTitle={'แก้ไขข้อมูล'} />
-
-			<button
-				data-bs-toggle="modal"
-				data-bs-target={`#modal-delete-${Math.random() * 10}`}
-				class="btn btn-outline-danger btn-sm"
-			>
-				<Icon width="16" icon="material-symbols:delete" />
-			</button>
-
-			<Model modalTargetId={`modal-delete-${Math.random() * 10}`} modalTitle={'ลบข้อมูล'} />
-		</div>
+		<div slot="editor-action"></div>
+		<div slot="delete-action"></div>
 	</Table>
 </div>

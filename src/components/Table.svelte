@@ -171,25 +171,30 @@
 						<span class={badgeStatus(record.slice(-1))}>{record.slice(-1)}</span>
 					</td>
 					<td class="table-actions">
-						<slot name="actions">
-							<button
-								data-bs-toggle="modal"
-								data-bs-target={`#modal-editor-${index}`}
-								class="btn btn-outline-warning btn-sm"
-								><Icon width="16" icon="material-symbols:edit-square-outline" /></button
-							>
-							<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'} />
+						<button
+							data-bs-toggle="modal"
+							data-bs-target={`#modal-editor-${index}`}
+							class="btn btn-outline-warning btn-sm"
+							><Icon width="16" icon="material-symbols:edit-square-outline" /></button
+						>
+						<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'}>
+							<slot name="editor-action">
+								<span>Place your form-elements here</span>
+							</slot>
+						</Model>
 
-							<button
-								data-bs-toggle="modal"
-								data-bs-target={`#modal-delete-${index}`}
-								class="btn btn-outline-danger btn-sm"
-							>
-								<Icon width="16" icon="material-symbols:delete" />
-							</button>
-
-							<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'} />
-						</slot>
+						<button
+							data-bs-toggle="modal"
+							data-bs-target={`#modal-delete-${index}`}
+							class="btn btn-outline-danger btn-sm"
+						>
+							<Icon width="16" icon="material-symbols:delete" />
+						</button>
+						<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'}>
+							<slot name="delete-action">
+								<span>Place your form-elements here</span>
+							</slot>
+						</Model>
 					</td>
 				</tr>
 			{/each}
