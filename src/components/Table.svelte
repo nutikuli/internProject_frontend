@@ -130,12 +130,12 @@
 
 			const searchButton = document.createElement('button');
 			searchButton.textContent = 'ค้นหา';
-			searchButton.className = 'btn btn-primary px-4 py-2';
+			searchButton.className = 'btn btn-primary btn-sm px-4 py-2';
 			dtSearchDiv.appendChild(searchButton);
 
 			const clearButton = document.createElement('button');
 			clearButton.textContent = 'ล้างการค้นหา';
-			clearButton.className = 'btn px-4 py-2 btn-outline-primary';
+			clearButton.className = 'btn px-4 py-2 btn-sm btn-outline-primary';
 			clearButton.addEventListener('click', clear);
 			dtSearchDiv.appendChild(clearButton);
 		}
