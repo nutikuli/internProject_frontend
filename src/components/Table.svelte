@@ -179,8 +179,8 @@
 								<button
 									data-bs-toggle="modal"
 									data-bs-target={`#modal-editor-${index}`}
-									class="btn btn-outline-warning btn-sm"
-									><Icon width="16" icon="material-symbols:edit-square-outline" /></button
+									class="btn editBtn btn-sm"
+									><Icon width="16" icon="material-symbols:edit-square-outline" color="#FD7E14"/></button
 								>
 								<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'}>
 									<slot name="editor-action">
@@ -192,9 +192,9 @@
 								<button
 									data-bs-toggle="modal"
 									data-bs-target={`#modal-delete-${index}`}
-									class="btn btn-outline-danger btn-sm"
+									class="btn deleteBtn btn-sm"
 								>
-									<Icon width="16" icon="material-symbols:delete" />
+									<Icon width="16" icon="material-symbols:delete" color="#DC3545"/>
 								</button>
 								<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'}>
 									<slot name="delete-action">
@@ -206,9 +206,9 @@
 								<button
 									data-bs-toggle="modal"
 									data-bs-target={`#modal-view-${index}`}
-									class="btn btn-outline-info  btn-sm"
+									class="btn viewBtn  btn-sm"
 								>
-									<Icon width="16" icon="fa6-solid:eye" />
+									<Icon width="16" icon="fa6-solid:eye" color="#0D6EFD"/>
 								</button>
 								<Model modalTargetId={`modal-view-${index}`} modalTitle={'ดูข้อมูล'}>
 									<slot name="view-action">
@@ -245,5 +245,15 @@
 		.on-xl-overflow-x-hidden {
 			overflow-x: scroll;
 		}
+	}
+
+	.viewBtn {
+		background-color: #9ec5fe;
+	}
+	.editBtn {
+		background-color: #FFE69C;
+	}
+	.deleteBtn {
+		background-color: #F1AEB5;
 	}
 </style>
