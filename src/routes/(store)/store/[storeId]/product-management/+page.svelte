@@ -2,6 +2,26 @@
 	import FileDropzone from './../../../../../components/FileDropzone.svelte';
 	import Model from '../../../../../components/Model.svelte';
 	import Table from '../../../../../components/Table.svelte';
+	import Icon from '@iconify/svelte';
+
+	let colLabels = ['#', 'ลำดับงาน', 'เมนูที่เข้าถึงได้', 'หมวดหมู่', 'สถานะ', 'Actions'];
+
+	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
+	/** @type {string[][]} */
+	export let rowRecords = [
+		['ผู้บังคับบัญชา', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+		['เจ้าหน้าที่', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+		['พนักงานบัญชี', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+		['คนขับ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดการใช้งาน'],
+		['ผู้อำนวยการ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+		['พัฒนาบุคคลากร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+		['โปรแกรมเมอร์', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+		['ผู้บริหาร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+		['พนักงานทั่วไป', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+		['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+		['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+		['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน']
+	];
 </script>
 
 <div id="product-managment-container" class="container-fluid">
@@ -46,9 +66,12 @@
 				</div>
 				<div class=" row me-2 align-items-center gap-2">
 					<label for="productDetails" class="col-2 form-label">รายละเอียด</label>
-					<textarea class="form-control col"
-					rows="6"
-					id="productDetails" cols="30" placeholder="placeholder"
+					<textarea
+						class="form-control col"
+						rows="6"
+						id="productDetails"
+						cols="30"
+						placeholder="placeholder"
 					></textarea>
 				</div>
 				<div class=" row me-2 align-items-center gap-2">
@@ -67,12 +90,33 @@
 				<div class="row me-2 align-items-center">
 					<label class="col-2 form-check-label" for="productActive">ใช้งาน</label>
 
-					<div  class="col fs-3  form-check  form-switch">
+					<div class="col fs-3 form-check form-switch">
 						<input class=" form-check-input" type="checkbox" id="productActive" />
 					</div>
 				</div>
 			</form>
 		</Model>
 	</div>
-	<Table></Table>
+	<!-- TODO: ตัวอย่างการนำไปใช้  -->
+	<Table {rowRecords} {colLabels}>
+		<div slot="actions">
+			<button
+				data-bs-toggle="modal"
+				data-bs-target={`#modal-editor-${Math.random() * 10}`}
+				class="btn btn-outline-warning btn-sm"
+				><Icon width="16" icon="material-symbols:edit-square-outline" /></button
+			>
+			<Model modalTargetId={`modal-editor-${Math.random() * 10}`} modalTitle={'แก้ไขข้อมูล'} />
+
+			<button
+				data-bs-toggle="modal"
+				data-bs-target={`#modal-delete-${Math.random() * 10}`}
+				class="btn btn-outline-danger btn-sm"
+			>
+				<Icon width="16" icon="material-symbols:delete" />
+			</button>
+
+			<Model modalTargetId={`modal-delete-${Math.random() * 10}`} modalTitle={'ลบข้อมูล'} />
+		</div>
+	</Table>
 </div>
