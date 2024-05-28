@@ -27,6 +27,9 @@
 		['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน']
 	];
 
+	/** @type {("EDIT" | "DELETE" | "VIEW")[]} */
+	export let actionSelects = ['DELETE', 'EDIT'];
+
 	export let tableTarget = 'table-data';
 
 	const editRow = (index) => {
@@ -170,32 +173,51 @@
 					<td>
 						<span class={badgeStatus(record.slice(-1))}>{record.slice(-1)}</span>
 					</td>
-					<td class="table-actions">
-						<button
-							data-bs-toggle="modal"
-							data-bs-target={`#modal-editor-${index}`}
-							class="btn btn-outline-warning btn-sm"
-							><Icon width="16" icon="material-symbols:edit-square-outline" /></button
-						>
-						<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'}>
-							<slot name="editor-action">
-								<span>Place your form-elements here</span>
-							</slot>
-						</Model>
-
-						<button
-							data-bs-toggle="modal"
-							data-bs-target={`#modal-delete-${index}`}
-							class="btn btn-outline-danger btn-sm"
-						>
-							<Icon width="16" icon="material-symbols:delete" />
-						</button>
-						<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'}>
-							<slot name="delete-action">
-								<span>Place your form-elements here</span>
-							</slot>
-						</Model>
-					</td>
+					{#if actionSelects.length > 0}
+						<td class="table-actions">
+							{#if actionSelects.includes('EDIT')}
+								<button
+									data-bs-toggle="modal"
+									data-bs-target={`#modal-editor-${index}`}
+									class="btn btn-outline-warning btn-sm"
+									><Icon width="16" icon="material-symbols:edit-square-outline" /></button
+								>
+								<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'}>
+									<slot name="editor-action">
+										<span>Place your form-elements here</span>
+									</slot>
+								</Model>
+							{/if}
+							{#if actionSelects.includes('DELETE')}
+								<button
+									data-bs-toggle="modal"
+									data-bs-target={`#modal-delete-${index}`}
+									class="btn btn-outline-danger btn-sm"
+								>
+									<Icon width="16" icon="material-symbols:delete" />
+								</button>
+								<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'}>
+									<slot name="delete-action">
+										<span>Place your form-elements here</span>
+									</slot>
+								</Model>
+							{/if}
+							{#if actionSelects.includes('VIEW')}
+								<button
+									data-bs-toggle="modal"
+									data-bs-target={`#modal-view-${index}`}
+									class="btn btn-outline-info  btn-sm"
+								>
+									<Icon width="16" icon="fa6-solid:eye" />
+								</button>
+								<Model modalTargetId={`modal-view-${index}`} modalTitle={'ดูข้อมูล'}>
+									<slot name="view-action">
+										<span>Place your form-elements here</span>
+									</slot>
+								</Model>
+							{/if}
+						</td>
+					{/if}
 				</tr>
 			{/each}
 		</tbody>

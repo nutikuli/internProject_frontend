@@ -98,7 +98,7 @@
 		</Model>
 	</div>
 	<!-- TODO: ตัวอย่างการนำไปใช้  -->
-	<Table {rowRecords} {colLabels}>
+	<Table {rowRecords} actionSelects={["EDIT", "VIEW", "DELETE"]} {colLabels}>
 		<div slot="editor-action">
 			<form action="">
 				<!-- form elements goes hese -->
@@ -112,6 +112,18 @@
 			</form>
 		</div>
 		<div slot="delete-action">
+			<form action="">
+				<!-- form elements goes hese -->
+				<div class="modal-footer">
+					<!-- ปุ่ม actions -->
+					<button type="button" class="btn btn-primary">บันทึก</button>
+					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
+						>ยกเลิก</button
+					>
+				</div>
+			</form>
+		</div>
+		<div slot="view-action">
 			<form action="">
 				<!-- form elements goes hese -->
 				<div class="modal-footer">
