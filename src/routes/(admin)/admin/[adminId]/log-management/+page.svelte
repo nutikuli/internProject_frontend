@@ -42,69 +42,11 @@ import Model from '/src/components/Model.svelte';
           <div class="w-100 bg-white  d-flex justify-content-between align-items-center px-3 py-2">
               <span style="font-size: 30px;">Log</span>
               <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" class="btn btn-primary" >
       ส่งออก Excel
     </button>
     
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">รายละเอียด Log</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="mb-3 row">
-              <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผู้ใช้ : </label>
-              <div class="col-sm-10">
-                <label  class="form-control-plaintext">xxxxxx</label>
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="staticEmail" class="col-sm-2 col-form-label" >ชื่อ : </label>
-              <div class="col-sm-10">
-                <label  class="form-control-plaintext">ตัวอย่างชื่อนามสกุล</label>
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 14px;">วันเวลา : </label>
-              <div class="col-sm-10">
-                <label  class="form-control-plaintext">27/02/2567 - 18:46</label>
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="staticEmail" class="col-sm-2 col-form-label" >เมนู : </label>
-              <div class="col-sm-10">
-                <label  class="form-control-plaintext">บัญชีธนาคาร</label>
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 14px;">Action : </label>
-              <div class="col-sm-10">
-                <label  class="form-control-plaintext">เพิ่มข้อมูล</label>
-              </div>
-            </div>
-            <div class="mb-3 row">
-              <label for="staticEmail" class="col-sm-2 col-form-label" style="font-size: 13px;">รายละเอียด : </label>
-              <div class="col-sm-10">
-                <label  class="form-control-plaintext">xxxxxxxxx</label>
-              </div>
-            </div>
-                
-  
-  
-  
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">ปิดหน้าต่าง</button>
-            
-          </div>
-          
-        </div>
-      </div>
-    </div>
-          </div>
+  </div>
       <div class="w-100 bg-white ">
         <Table {rowRecords} actionSelects={[ "VIEW"]} {colLabels}>
         
