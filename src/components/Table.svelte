@@ -41,8 +41,21 @@
 	};
 
 	function badgeStatus(status) {
-		return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
+		if (status[0] === 'รับออร์เดอร์แล้ว') {
+			return 'badge bg-warning';
+		} else if (status[0] === 'เตรียมสินค้า') {
+			return 'badge bg-info';
+		} else if (status[0] === 'อยู่ระหว่างส่งสินค้า') {
+			return 'badge bg-primary';
+		} else if (status[0] === 'รับสินค้าแล้ว' || status[0] === 'ใช้งาน') {
+			return 'badge bg-success';
+		} else {
+			return 'badge bg-danger';
+		}
 	}
+	// function badgeStatus(status) {
+	// 	return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
+	// }
 
 	function clear() {
 		const inputElement = document.querySelector('.dt-input');
