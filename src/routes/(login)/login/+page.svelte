@@ -2,7 +2,7 @@
 <script>
 import logo from "/src/lib/image/cyberpunk.jpg";
 // @ts-ignore
-import { auth, provider, signInWithPopup, signOut ,,providerface} from "/src/lib/firebase.client.js";
+import { auth, provider, signInWithPopup, signOut } from "/src/lib/firebase.client.js";
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
 
@@ -30,13 +30,13 @@ import { auth, provider, signInWithPopup, signOut ,,providerface} from "/src/lib
       console.error("Error signing out: ", error);
     }
 
-    const login = async () => {
-    try {
-      await signInWithPopup(auth, providerface);
-    } catch (error) {
-      console.error("Error logging in with Facebook: ", error);
-    }
-  };
+//     const login = async () => {
+//     try {
+//       await signInWithPopup(auth, providerface);
+//     } catch (error) {
+//       console.error("Error logging in with Facebook: ", error);
+//     }
+//   };
   };
 </script>
 
