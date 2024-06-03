@@ -209,6 +209,13 @@
 
 
 <style>
+	.sort-container{
+		width: 300px;
+	}
+
+	.showProduct{
+		margin: 20px;
+	}
 	.product-container {
 		display: grid;
 		grid-template-columns: repeat(5, 1fr);
