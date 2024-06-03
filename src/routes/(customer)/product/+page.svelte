@@ -4,6 +4,27 @@
 	function gotoDetail() {
 		window.location.href = '/product/id';
 	}
+
+	import { loadAll } from './+page.server.js';
+	import { onMount } from 'svelte';
+
+  let products = [];
+  let error = null;
+
+  // Define a method to load all products
+  async function loadProducts() {
+    const { products: loadedProducts, error: loadingError } = await loadAll();
+    if (loadingError) {
+      // Handle error if there's any
+      error = loadingError;
+    } else {
+      // Set the products if loaded successfully
+      products = loadedProducts;
+    }
+  }
+
+  // Call the loadProducts method when the component is mounted
+  onMount(loadProducts);
 </script>
 
 <div>
@@ -24,14 +45,12 @@
 
 		<!-- sort -->
 		<!-- productList -->
+		{#each products as product}
 		<div class="card" style="width: 18rem;" on:click={gotoDetail}>
 			<img src="/src/lib/image/cyberpunk.jpg" class="card-img-top" alt="..." />
 			<div class="card-body">
-				<h5 class="card-title">Product Name</h5>
-				<p class="card-text">
-					Some quick example text to build on the card title and make up the bulk of the card's
-					content.
-				</p>
+				<h5 class="card-title">{product.name}</h5>
+				<p class="card-text">{product.detail}</p>
 				<div class="row justify-content-between">
 					<div class="col-auto d-flex align-items-center">
 						<svg
@@ -50,7 +69,7 @@
 								d="M8 6h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 12H8m0 0h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 18H8M8 6v12m3-14v2m0 12v2"
 							/>
 						</svg>
-						<h2 style="font-weight: 700;">551</h2>
+						<h2 style="font-weight: 700;">{product.price}</h2>
 					</div>
 					<div class="col-auto">
 						<a href="#" class="btn btn-primary">ซื้อเลย</a>
@@ -58,6 +77,7 @@
 				</div>
 			</div>
 		</div>
+		{/each}
 		<!-- productList -->
 	</div>
 </div>

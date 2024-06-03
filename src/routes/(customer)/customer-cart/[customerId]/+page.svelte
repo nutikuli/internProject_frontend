@@ -119,7 +119,7 @@
 						<div class="col-6" style="padding-right: 30px; border-right: 1px solid #D9D9D9;">
 							<h4 class="font-weigh">ผู้ซื้อ</h4>
 							<div class="d-flex">
-								<div class="font-size" style="width: 120px;">
+								<div class="font-size" style="width: 180px;">
 									<div class="font-weigh">ชื่อ - นามสกุล :</div>
 									<div class="font-weigh">เบอร์โทร :</div>
 									<div class="font-weigh">ที่อยู่ในการจัดส่ง :</div>

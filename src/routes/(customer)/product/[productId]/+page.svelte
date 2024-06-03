@@ -1,9 +1,39 @@
 <script>
 	import NavbarCustomer from '../../../../components/navbarCustomer.svelte';
+	// Import the load function from product.js
+	import { load } from './+page.server.js';
+
+	// Define a reactive variable to hold the fetched data or error
+	let dataOrError = null;
+
+	// Function to call load function with productId
+	async function fetchData(productId) {
+		// Call the load function and await its result
+		const result = await load(productId);
+
+		// Update the reactive variable with the result
+		dataOrError = result;
+	}
+
+	// Call fetchData function with your desired productId
+	// For example:
+	fetchData(123);
 </script>
 
 <div>
 	<NavbarCustomer />
+	{#if dataOrError}
+		{#if dataOrError.error}
+			<p>Error: {dataOrError.error}</p>
+		{:else}
+			<div>
+				<p>Name: {dataOrError.name}</p>
+				<p>Price: {dataOrError.price}</p>
+				<p>Stock: {dataOrError.stock}</p>
+				<!-- Display other properties as needed -->
+			</div>
+		{/if}
+	{/if}
 	<div style="padding-left: 60px; padding-right: 60px; padding-top: 30px;">
 		<div class="card">
 			<div class="row">
@@ -26,16 +56,16 @@
 				</div>
 
 				<div class="col-md-8">
-					<h3 class="text-left mb-3">Product Nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</h3>
+					<h3 class="text-left mb-3">{dataOrError.name}</h3>
 					<div class="d-flex align-items-center justify-content-between">
 						<div>
 							<div class="d-flex">
 								<h5 style="margin-right: 34px;">หมวดหมู่</h5>
-								<div>smd,sd</div>
+								<div>{dataOrError.categoryId}</div>
 							</div>
 							<div class="d-flex">
 								<h5 style="margin-right: 50px;">ร้านค้า</h5>
-								<div>smd,sd</div>
+								<div>{dataOrError.storeId}</div>
 							</div>
 							<div class="d-flex">
 								<div style="margin-right: 60px; margin-top: 10px;">จำนวน</div>
@@ -55,7 +85,7 @@
 										d="M8 6h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 12H8m0 0h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 18H8M8 6v12m3-14v2m0 12v2"
 									/>
 								</svg>
-								<h2 style="font-weight: 700;">551</h2>
+								<h2 style="font-weight: 700;">{dataOrError.price}</h2>
 							</div>
 
 							<div class="col-auto">
@@ -63,8 +93,8 @@
 							</div>
 						</div>
 					</div>
-                    <br>
-                    <div>Detail</div>
+					<br />
+					<div>{dataOrError.detail}</div>
 				</div>
 			</div>
 		</div>
