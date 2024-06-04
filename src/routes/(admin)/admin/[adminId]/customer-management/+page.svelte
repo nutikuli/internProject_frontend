@@ -34,7 +34,12 @@ import Model from '/src/components/Model.svelte';
 
 	function badgeStatus(status) {
 		return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
-  }
+  } 
+  
+
+
+
+
 </script>
 
 <div class="w-100  min-vh-100 bg-white ">
@@ -51,47 +56,49 @@ import Model from '/src/components/Model.svelte';
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
+        <form action="?/registercustomer" method="post">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">ลูกค้า</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+          
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" >ชื่อ: </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                  <input type="text" placeholder="placeholder" class="form-control" id="name" name="name" >
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">นามสกุล : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="surname">
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">เบอร์โทรศัพท์ : </label>
                 <div class="col-sm-10">
-                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel">
+                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel" name="phone">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">ที่อยู่ : </label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" id="inputaddress" rows="3"></textarea>
+                  <textarea class="form-control" id="inputaddress" rows="3" name="location"></textarea>
                 </div>
               </div>
               <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล : </label>
+                <label for="inputPassword" class="col-sm-2 col-form-label" >อีเมล : </label>
                 <div class="col-sm-10">
-                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword">
+                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword" name="email">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" id="inputPassword">
+                  <input type="password"  class="form-control" id="inputPassword" name="password">
                 </div>
               </div>
               <div class="mb-3 row">
@@ -108,15 +115,16 @@ import Model from '/src/components/Model.svelte';
                   </div>            
                   </div>
               </div>
+           
              
               
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">บันทึก</button>
+          <button type="submit" class="btn btn-primary">บันทึก</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           
         </div>
-        
+      </form>
       </div>
     </div>
   </div>
