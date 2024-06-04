@@ -48,7 +48,8 @@ import Model from '/src/components/Model.svelte';
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content"> 
+          <form action="?/registerstore" method="post">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">ร้านค้า</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -57,14 +58,14 @@ import Model from '/src/components/Model.svelte';
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" >ชื่อ: </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="name">
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">นามสกุล : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="surname">
                 </div>
                 
                 
@@ -72,26 +73,26 @@ import Model from '/src/components/Model.svelte';
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">ชื่อร้านค้า: </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                  <input type="text" placeholder="placeholder" class="form-control"  name="storename">
                 </div>
               </div>
               
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">ที่อยู่ : </label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" id="inputaddress" rows="3"></textarea>
+                  <textarea class="form-control" id="inputaddress" rows="3" name="storelocation"></textarea>
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">เบอร์โทรศัพท์: </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputPassword">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputPassword" name="phone">
                 </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล : </label>
                 <div class="col-sm-10">
-                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword">
+                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword" name="email">
                 </div>
               </div>
 
@@ -100,7 +101,7 @@ import Model from '/src/components/Model.svelte';
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" id="inputPassword">
+                  <input type="password"  class="form-control" id="inputPassword" name="password">
                 </div>
               </div>
               <div class="mb-3 row">
@@ -123,11 +124,11 @@ import Model from '/src/components/Model.svelte';
 
         </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">บันทึก</button>
+            <button type="submit" class="btn btn-primary">บันทึก</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             
           </div>
-          
+        </form>
         </div>
       </div>
     </div>
