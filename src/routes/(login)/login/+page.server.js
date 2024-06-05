@@ -3,7 +3,7 @@
 
 export const actions = {
 	signIn: async ({ request,cookies }) => {
-		console.log('createUser');
+		console.log('SignIn');
 		const { email, password } = Object.fromEntries(await request.formData());
 
 		const formData = new FormData();
@@ -44,12 +44,13 @@ export const actions = {
         }
         return {
             data,
-            
+            success:true
         }
         
 	},
 
 	signInWithGoogle: async ({ request }) => {
+
 		const { email,name} = Object.fromEntries(await request.formData());
 
 		const formData = new FormData();
@@ -57,9 +58,11 @@ export const actions = {
 		// Append key-value pairs to the FormData object
         formData.append('acc_name', name);
         formData.append('acc_password', "");
+		formData.append('password', "");
 		formData.append('acc_phone', "");
 		formData.append('acc_location', "");
         formData.append('acc_email', email);
+		formData.append('email', email);
         formData.append('acc_role', "CUSTOMER");
         formData.append('acc_status', "true");
         console.log(formData)
@@ -71,14 +74,30 @@ export const actions = {
 			},
 			body: formData
 		};
+		var result = await fetch(`http://localhost:8080/api/v1/account/login`, config);
+		const datalogin = await result.json();
+		console.log(datalogin)
 
-		var result = await fetch(`http://localhost:8080/api/v1/account/register`, config);
-		const data = await result.json();
-        console.log(data)
-        return {
-            data,
-			success: true,
-        }
+		if (datalogin.message=="EmailNotFound") {
+            var resultregister = await fetch(`http://localhost:8080/api/v1/account/register`, config);
+			const dataregister = await resultregister.json();
+			console.log(dataregister)
+			console.log("1")
+			return {
+				dataregister,
+				success: false,
+			}
+        }else{
+			console.log("2")
+			return {
+				datalogin,
+				success:false
+			}
+		}
+
+		
+        
+       
 	},
 
 
