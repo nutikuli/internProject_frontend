@@ -3,42 +3,63 @@
 import Icon from '@iconify/svelte';
 import Table from '../../../../../components/Table.svelte'
 
+
+
+
+
 // @ts-ignore
-import Model from '/src/components/Model.svelte';
+import Model from '/src/components/Model.svelte'; 
+
+
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
-	export let colLabels = ['#', 'รหัสสมาชิก', 'ชื่อ-นามสกุล ','อีเมล', 'เบอร์โทรศัพท์', 'สถานะ', 'Title'];
+	export let colLabels = ['#', 'รหัสสมาชิก', 'ชื่อ-นามสกุล ','อีเมล', 'เบอร์โทรศัพท์', 'สถานะ', 'Title']; 
 
-	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-	/** @type {string[][]} */
-	export let rowRecords = [
-		['CUS001', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['CUS002', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['CUS003', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['CUS004', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
-		['CUS005', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['CUS006', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['CUS007', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['CUS008', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['CUS009', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
-		['CUS010', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	];
+  export let data;
+  console.log(data.result)
 
-	const editRow = (index) => {
-		alert(`Edit row ${index + 1}`);
-	};
+  let rowRecordMapper = data.result.map((item) => {
+		if (item.customer_data) {
+			const cus = item.customer_data;
+			return [ 
+				cus.id,
+        cus.email,
+        cus.phone
+        
+			];
+		}
+	});
 
-	const deleteRow = (index) => {
-		alert(`Delete row ${index + 1}`);
-	};
 
-	function badgeStatus(status) {
-		return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
-  } 
+
+
+	// // สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
+	// /** @type {string[][]} */
+	// export let rowRecords = [
+	// 	['CUS001', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// 	['CUS002', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// 	['CUS003', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// 	['CUS004', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
+	// 	['CUS005', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// 	['CUS006', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// 	['CUS007', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// 	['CUS008', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// 	['CUS009', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
+	// 	['CUS010', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
+	// ];
+
+	// const editRow = (index) => {
+	// 	alert(`Edit row ${index + 1}`);
+	// };
+
+	// const deleteRow = (index) => {
+	// 	alert(`Delete row ${index + 1}`);
+	// };
+
+	// function badgeStatus(status) {
+	// 	return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
+  // } 
   
-
-
-
 
 </script>
 
@@ -130,7 +151,7 @@ import Model from '/src/components/Model.svelte';
   </div>
         </div>
     <div class="w-100 bg-white ">
-      <Table {rowRecords} actionSelects={["EDIT", "DELETE"]} {colLabels}>
+      <Table rowRecords =  {rowRecordMapper} actionSelects={["EDIT", "DELETE"]} {colLabels}>
         <div slot="editor-action">
           <form action="">
             <div class="modal-body">
@@ -214,11 +235,8 @@ import Model from '/src/components/Model.svelte';
         </div>
       </Table>
     </div>
-    <!-- table  -->
 
   
-
-
   </div>
   
     <div>
