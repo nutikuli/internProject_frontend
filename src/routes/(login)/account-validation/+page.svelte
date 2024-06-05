@@ -154,7 +154,7 @@
         background-color: #fff;
         width: 90%;
         max-width: 600px;
-        min-height: 1000px;
+        min-height: 800px;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
