@@ -85,9 +85,14 @@ export const cookiesConfig = {
 };
 
 /**
- * @param {Object} cookies
- * @param {Array.<keyof TypeMap>} cKeys
- * @returns {Object.<string, keyof TypeMap>}
+ * @typedef {import('@sveltejs/kit').Cookies} Cookies
+ */
+
+/**
+ * @template {keyof TypeMap} K
+ * @param {Cookies} cookies
+ * @param {...K} cKeys
+ * @returns {{ [J in K]: TypeMap[J] }}
  * @throws {Error}
  */
 export function CookiesJsonParser(cookies, ...cKeys) {
@@ -95,8 +100,8 @@ export function CookiesJsonParser(cookies, ...cKeys) {
 		throw new Error('No cookies or json provided');
 	}
 
-	/** @type {Object.<string, keyof TypeMap>} */
-	let dict = {};
+	/** @type {Partial<Record<K, TypeMap[K]>>} */
+	const dict = {};
 	for (const j of cKeys) {
 		const res = cookies.get(j);
 		if (!res) {
@@ -105,5 +110,5 @@ export function CookiesJsonParser(cookies, ...cKeys) {
 		dict[j] = JSON.parse(res);
 	}
 
-	return dict;
+	return /** @type {{ [J in K]: TypeMap[J] }} */ (dict);
 }
