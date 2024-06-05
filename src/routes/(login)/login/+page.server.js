@@ -27,7 +27,7 @@ import { fail } from '@sveltejs/kit';
 /** @type {import('./$types').Actions} */
 export const actions = {
 	signIn: async ({ request, cookies }) => {
-		console.log('createUser');
+		console.log('signIn method');
 		const { email, password } = Object.fromEntries(await request.formData());
 
 		const formData = new FormData();
@@ -60,13 +60,13 @@ export const actions = {
 
 		switch (data.result.token.role) {
 			case 'CUSTOMER':
-				cookies.set('customer_account', JSON.stringify(data.result.token), cookiesConfig);
+				cookies.set('customer_account', JSON.stringify(data.result.account_data), cookiesConfig);
 				break;
 			case 'STORE':
-				cookies.set('store_account', JSON.stringify(data.result.token), cookiesConfig);
+				cookies.set('store_account', JSON.stringify(data.result.account_data), cookiesConfig);
 				break;
 			case 'ADMIN':
-				cookies.set('admin_account', JSON.stringify(data.result.token), cookiesConfig);
+				cookies.set('admin_account', JSON.stringify(data.result.account_data), cookiesConfig);
 				break;
 			default:
 				throw fail(400, {
