@@ -1,27 +1,58 @@
 <script>
 	import FileDropzone from './../../../../../components/FileDropzone.svelte';
 	import Model from '../../../../../components/Model.svelte';
-	import Table from '../../../../../components/Table.svelte';
 	import Icon from '@iconify/svelte';
+	import TableWithAvatar from '../../../../../components/TableWithAvatar.svelte';
 
-	let colLabels = ['#', 'ลำดับงาน', 'เมนูที่เข้าถึงได้', 'หมวดหมู่', 'สถานะ', 'Actions'];
-
-	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-	/** @type {string[][]} */
-	export let rowRecords = [
-		['ผู้บังคับบัญชา', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-		['เจ้าหน้าที่', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-		['พนักงานบัญชี', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-		['คนขับ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดการใช้งาน'],
-		['ผู้อำนวยการ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-		['พัฒนาบุคคลากร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-		['โปรแกรมเมอร์', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-		['ผู้บริหาร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-		['พนักงานทั่วไป', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-		['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-		['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-		['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน']
+	let colLabels = [
+		'#',
+		'รูปภาพ',
+		'รหัสสินค้า',
+		'ชื่อสินค้า',
+		'หมวดหมู่',
+		'ราคา',
+		'จำนวนในสต๊อก',
+		'สถานะ',
+		'Title'
 	];
+
+	/** @type {import('./$types').PageData} */
+	export let data;
+	console.log(data.result);
+
+	let rowRecordMapper = data.result.map((item) => {
+		if (item.product_data) {
+			const d = item.product_data;
+			return [
+				item.files_data.length > 0
+					? `http://${item.files_data[0].file_data}`
+					: 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
+				`PROD000${d.id}`,
+				d.name,
+				item.product_category_data.name,
+				item.product_data.price,
+				item.product_data.stock,
+				item.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
+			];
+		}
+	});
+
+	// // สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
+	// /** @type {string[][]} */
+	// let rowRecordss = [
+	// 	['ผู้บังคับบัญชา', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+	// 	['เจ้าหน้าที่', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+	// 	['พนักงานบัญชี', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+	// 	['คนขับ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดการใช้งาน'],
+	// 	['ผู้อำนวยการ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+	// 	['พัฒนาบุคคลากร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+	// 	['โปรแกรมเมอร์', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
+	// 	['ผู้บริหาร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+	// 	['พนักงานทั่วไป', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+	// 	['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+	// 	['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
+	// 	['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน']
+	// ];
 </script>
 
 <div id="product-managment-container" class="container-fluid mb-4">
@@ -98,7 +129,7 @@
 		</Model>
 	</div>
 	<!-- TODO: ตัวอย่างการนำไปใช้  -->
-	<Table {rowRecords} actionSelects={["EDIT", "VIEW", "DELETE"]} {colLabels}>
+	<TableWithAvatar rowRecords={rowRecordMapper} actionSelects={['EDIT', 'DELETE']} {colLabels}>
 		<div slot="editor-action">
 			<form action="">
 				<!-- form elements goes hese -->
@@ -135,5 +166,5 @@
 				</div>
 			</form>
 		</div>
-	</Table>
+	</TableWithAvatar>
 </div>
