@@ -1,17 +1,19 @@
 export const actions = {
-	signUp: async ({ request }) => {
+	signUpStore: async ({ request }) => {
 		console.log('createUser');
-		const { email, password,name, address,tel} = Object.fromEntries(await request.formData());
+		const { email,storename ,password,name, address,tel} = Object.fromEntries(await request.formData());
 
 		const formData = new FormData();
         console.log('checking register');
 		// Append key-value pairs to the FormData object
+        formData.append('store_name', storename);
+        formData.append('store_location', address);
         formData.append('acc_name', name);
         formData.append('acc_password', password);
 		formData.append('acc_phone', tel);
 		formData.append('acc_location', address);
         formData.append('acc_email', email);
-        formData.append('acc_role', "CUSTOMER");
+        formData.append('acc_role', "STORE");
         formData.append('acc_status', "true");
         console.log(formData)
 		
@@ -23,7 +25,7 @@ export const actions = {
 			body: formData
 		};
 
-		var result = await fetch(`http://localhost:8080/api/v1/account/register`, config);
+		var result = await fetch(`http://localhost:8080/api/v1/store/account-register`, config);
 		const data = await result.json();
         console.log(data)
         return {
@@ -31,9 +33,9 @@ export const actions = {
 			success: true,
         }
         
+
 	},
-	
-	signInWithGoogle: async ({ request }) => {
+    signInWithGoogle: async ({ request }) => {
 		const { email,name} = Object.fromEntries(await request.formData());
 
 		const formData = new FormData();

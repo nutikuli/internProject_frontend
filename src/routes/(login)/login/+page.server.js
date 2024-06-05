@@ -1,12 +1,8 @@
-// import { onSignIn, getUserData } from './NewAuthUsecase'; // นำเข้าฟังก์ชัน onSignIn และ getUserData จากไฟล์ NewAuthUsecase.ts
-
-
-
 
 
 
 export const actions = {
-	signIn: async ({ request }) => {
+	signIn: async ({ request,cookies }) => {
 		console.log('createUser');
 		const { email, password } = Object.fromEntries(await request.formData());
 
@@ -18,6 +14,7 @@ export const actions = {
 
 		console.log('checking login');
 		console.log('email,pass:', email, '   ', password);
+
 		
 		let config = {
 			method: 'POST', //การทำงาน get post update delete
@@ -29,7 +26,15 @@ export const actions = {
 		var result = await fetch(`http://localhost:8080/api/v1/account/login`, config);
 		const data = await result.json();
         console.log(data)
-		setCookie('email', email, { expires: 365 });
+		const cookiesConfig = {
+			path: '/',
+			httpOnly: true,
+			sameSite: 'strict',
+			secure: process.env.NODE_ENV === 'production',
+			maxAge: 60 * 60 * 24 * 7 // 1 week
+		};
+		cookies.set('token', JSON.stringify(data.result.user_token), cookiesConfig);
+		cookies.set('user', JSON.stringify(data.result.account_data), cookiesConfig);
         // @ts-ignore
 		if (data.message=="EmailNotFound") {
             return {
@@ -39,7 +44,7 @@ export const actions = {
         }
         return {
             data,
-            success: true,
+            
         }
         
 	},
@@ -80,7 +85,5 @@ export const actions = {
 };
 
 
-function setCookie(arg0, email, arg2) {
-	throw new Error("Function not implemented.");
-}
+
 
