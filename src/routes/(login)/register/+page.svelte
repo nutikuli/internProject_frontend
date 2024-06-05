@@ -29,12 +29,17 @@
       showAlert = false; // ถ้ารหัสผ่านมีความยาวมากกว่าหรือเท่ากับ 6 ตัวอักษร ก็ปิดการแสดงข้อความเตือน
     }
   }
+
+  export let form;
+    console.log(form)
+  
 </script>
 
 
 
 <div class="content-center">
     <div class="form-container">
+        <form method="post" action="?/signUp">
         <div style="text-align: center; margin-top: 5%;">
             <img src={logo} alt="Logo">
         </div>
@@ -70,6 +75,7 @@
             <input type="password" id="confirm-password" name="confirm-password" placeholder="ยืนยันรหัสผ่าน">
         </div>
         <button class="bg-primary" on:click={validatePasswords}>สมัครสมาชิก</button>
+    </form>
         <div class="login-link">
             <h6>มีบัญชีแล้วใช่หรือไม่? <a href="/login">เข้าสู่ระบบ</a></h6>
         </div>

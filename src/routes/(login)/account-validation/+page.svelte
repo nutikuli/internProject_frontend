@@ -1,7 +1,7 @@
 
 <script>
     import logo from "/src/lib/image/cyberpunk.jpg"
-
+    // @ts-ignore
     let activeForm = 'SendEmail';
 
     function toggleForm(formName) {
@@ -9,7 +9,32 @@
     }
     let email = "";
     let password = "";
-
+    let otp ="";
+    let emailvalue="";
+    export let form;
+    console.log("otp dat : ",form)
+    if(form!=null){
+        otp = form.data.result.otp
+        emailvalue= form.data.result.email
+        toggleForm('OTP')
+    }
+    console.log("otp : ",otp)
+    console.log("email : ",emailvalue)
+    
+    function checkOTP(){
+        var otpInput = document.getElementById("OTP") ;
+        // @ts-ignore
+        var otpValue = otpInput.value;
+        console.log(otpValue)
+        console.log(otp)
+        if(otp==otpValue){
+            toggleForm('Resetpassword')
+            otp=""
+        }
+    }
+    
+    
+    
     </script>
     
     {#if activeForm === 'SendEmail'}
@@ -22,16 +47,17 @@
             <h5 class="fw-bold">เข้าสู่ระบบ</h5>
             <h6 style="font-size:10px;margin-top:12px" class="text-black-50">ยินดีต้อนรับเข้าสู่ เว็บไซต์ Payso Shop</h6>
             </div>
+            <form method="POST" action="?/OTP">
             <div style="margin:20px 70px 20px 70px" >
                 <h6 style="font-size:16px;">อีเมล :</h6>
                 <div>
                 <input type="email" id="email" name="email" placeholder="example@email.com" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
                 </div>
                
-                <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue" on:click={() => toggleForm('OTP')}>ยืนยัน</button>
+                <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue" >ยืนยัน</button>
                 <div class="d-flex justify-content-center">
                     <h6 style="font-size:13px;margin-top:35px">มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" href="/login">เข้าสู่ระบบ</a></h6>
-                </div>
+                </div></form>
                 <div class="d-flex justify-content-center mt-3">
                     <div  class="border border-3 boxlogin"><svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" viewBox="0 0 256 262" {...$$props}>
                         <path fill="#4285f4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622l38.755 30.023l2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" />
@@ -47,7 +73,7 @@
                 </div>
             </div>
         </div>
-    </div>
+   
 
     
      {/if}
@@ -64,10 +90,10 @@
             <div style="margin:20px 70px 20px 70px" >
                 <h6 style="font-size:16px;">OTP :</h6>
                 <div>
-                <input type="email" id="OTP" name="OTP" placeholder="OTP" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
+                <input type="text" id="OTP" name="OTP" placeholder="OTP" style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;" >
                 </div>
                
-                <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue" on:click={() => toggleForm('Resetpassword')}>ยืนยัน</button>
+                <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue" on:click={() => checkOTP()}>ยืนยัน</button>
         
             </div>
         </div>
@@ -84,7 +110,8 @@
             <h6 style="font-size:10px;margin-top:12px" class="text-black-50">ยินดีต้อนรับเข้าสู่ เว็บไซต์ Payso Shop</h6>
             </div>
             <div style="margin:20px 70px 20px 70px" >
-                
+                <form method="post" action="?/ResetPassword">
+                    <input type="text" hidden name="email" value="{emailvalue}">
                 <div>
                 <h6 style="font-size:16px;">รหัสผ่านใหม่ :</h6>
                 <input  type="password" id="password" name="password" placeholder="password"  style="border-radius:8px;width:100%;height:40px;padding-left: 10px;">
@@ -95,8 +122,8 @@
                     <input  type="password" id="confirm-password" name="confirm-password" placeholder="password"  style="border-radius:8px;width:100%;height:40px;padding-left: 10px;">
                     </div>
                
-                <button class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue"><a href="/login" style="color: aliceblue;">ยืนยัน</a></button>
-               
+                <button type="submit" class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue"><a style="color: aliceblue;">ยืนยัน</a></button>
+            </form>
             </div>
         </div>
     </div>
