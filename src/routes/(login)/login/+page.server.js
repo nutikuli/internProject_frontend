@@ -122,13 +122,13 @@ export const actions = {
 			console.log("1")
 			return {
 				dataregister,
-				success: false,
+				success: true,
 			}
         }else{
 			console.log("2")
 			return {
 				datalogin,
-				success:false
+				success:true
 			}
 		}
 

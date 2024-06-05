@@ -52,18 +52,14 @@ export const actions = {
 		};
 	},
 
-	signInWithGoogle: async ({ request }) => {
-<<<<<<< HEAD
+	signInWithGoogle: async ({ request,cookies }) => {
 
-		const { email,name} = Object.fromEntries(await request.formData());
-=======
 		const { email, name } = Object.fromEntries(await request.formData());
->>>>>>> daf184c19507e15942180b243feb3aa964102863
+
 
 		const formData = new FormData();
 		console.log('checking register');
 		// Append key-value pairs to the FormData object
-<<<<<<< HEAD
         formData.append('acc_name', name);
         formData.append('acc_password', "");
 		formData.append('password', "");
@@ -75,17 +71,6 @@ export const actions = {
         formData.append('acc_status', "true");
         console.log(formData)
 		
-=======
-		formData.append('acc_name', name);
-		formData.append('acc_password', '');
-		formData.append('acc_phone', '');
-		formData.append('acc_location', '');
-		formData.append('acc_email', email);
-		formData.append('acc_role', 'CUSTOMER');
-		formData.append('acc_status', 'true');
-		console.log(formData);
-
->>>>>>> daf184c19507e15942180b243feb3aa964102863
 		console.log('email,pass:', email);
 		let config = {
 			method: 'POST', //การทำงาน get post update delete
@@ -96,7 +81,7 @@ export const actions = {
 		const datalogin = await result.json();
 		console.log(datalogin)
 
-<<<<<<< HEAD
+
 		if (datalogin.message=="EmailNotFound") {
             var resultregister = await fetch(`http://localhost:8080/api/v1/account/register`, config);
 			const dataregister = await resultregister.json();
@@ -104,13 +89,29 @@ export const actions = {
 			console.log("1")
 			return {
 				dataregister,
-				success: false,
+				success: true,
 			}
         }else{
 			console.log("2")
+			console.log(datalogin.result.account_data.customer_data.role)
+			switch (datalogin.result.account_data.customer_data.role) {
+				case 'CUSTOMER':
+					cookies.set('customer_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					break;
+				case 'STORE':
+					cookies.set('store_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					break;
+				case 'ADMIN':
+					cookies.set('admin_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					break;
+				default:
+					throw fail(400, {
+						message: "role doesn't match any known roles, the set cookie is prevent"
+					});
+			}
 			return {
 				datalogin,
-				success:false
+				success:true
 			}
 		}
 
@@ -120,14 +121,4 @@ export const actions = {
 
 	
 };
-=======
-		var result = await fetch(`http://localhost:8080/api/v1/account/register`, config);
-		const data = await result.json();
-		console.log(data);
-		return {
-			data,
-			success: true
-		};
-	}
-};
->>>>>>> daf184c19507e15942180b243feb3aa964102863
+
