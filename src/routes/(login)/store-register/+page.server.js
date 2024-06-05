@@ -1,71 +1,67 @@
 export const actions = {
 	signUpStore: async ({ request }) => {
 		console.log('createUser');
-		const { email,storename ,password,name, address,tel} = Object.fromEntries(await request.formData());
+		const { email, storename, password, name, address, tel } = Object.fromEntries(
+			await request.formData()
+		);
 
 		const formData = new FormData();
-        console.log('checking register');
+		console.log('checking register');
 		// Append key-value pairs to the FormData object
-        formData.append('store_name', storename);
-        formData.append('store_location', address);
-        formData.append('acc_name', name);
-        formData.append('acc_password', password);
+		formData.append('store_name', storename);
+		formData.append('store_location', address);
+		formData.append('acc_name', name);
+		formData.append('acc_password', password);
 		formData.append('acc_phone', tel);
 		formData.append('acc_location', address);
-        formData.append('acc_email', email);
-        formData.append('acc_role', "STORE");
-        formData.append('acc_status', "true");
-        console.log(formData)
-		
+		formData.append('acc_email', email);
+		formData.append('acc_role', 'STORE');
+		formData.append('acc_status', 'true');
+		console.log(formData);
+
 		console.log('email,pass:', email, '   ', password);
 		let config = {
 			method: 'POST', //การทำงาน get post update delete
-			headers: {
-			},
+			headers: {},
 			body: formData
 		};
 
 		var result = await fetch(`http://localhost:8080/api/v1/store/account-register`, config);
 		const data = await result.json();
-        console.log(data)
-        return {
-            data,
-			success: true,
-        }
-        
-
+		console.log(data);
+		return {
+			data,
+			success: true
+		};
 	},
-    signInWithGoogle: async ({ request }) => {
-		const { email,name} = Object.fromEntries(await request.formData());
+	signInWithGoogle: async ({ request }) => {
+		const { email, name } = Object.fromEntries(await request.formData());
 
 		const formData = new FormData();
-        console.log('checking register');
+		console.log('checking register');
 		// Append key-value pairs to the FormData object
-        formData.append('acc_name', name);
-        formData.append('acc_password', "");
-		formData.append('acc_phone', "");
-		formData.append('acc_location', "");
-        formData.append('acc_email', email);
-        formData.append('acc_role', "CUSTOMER");
-        formData.append('acc_status', "true");
-        console.log(formData)
-		
+		formData.append('acc_name', name);
+		formData.append('acc_password', '');
+		formData.append('acc_phone', '');
+		formData.append('acc_location', '');
+		formData.append('acc_email', email);
+		formData.append('acc_role', 'CUSTOMER');
+		formData.append('acc_status', 'true');
+		console.log(formData);
+
 		console.log('email,pass:', email);
 		let config = {
 			method: 'POST', //การทำงาน get post update delete
-			headers: {
-			},
+			headers: {},
 			body: formData
 		};
 
 		var result = await fetch(`http://localhost:8080/api/v1/account/register`, config);
 		const data = await result.json();
-        console.log(data)
-        return {
-            data,
-			success: true,
-        }
-	},
-
-	
+		console.log(data);
+		return {
+			data,
+			success: true
+		};
+	}
 };
