@@ -13,7 +13,7 @@
 	const productStock = data.product.result.product_data.stock;
 	const productCategoryId = data.product.result.product_data.categoryId;
 	const productStoreId = data.product.result.product_data.storeId;
-	let imageData = [{productProductImage}]
+	let imageData = [{ productProductImage }];
 </script>
 
 <div>
@@ -22,12 +22,9 @@
 		<div style="padding-left: 60px; padding-right: 60px; padding-top: 30px;">
 			<div class="card">
 				<div class="row">
-					<div>
-						<div class="main-img">
-							<img src={productProductAvatar} alt={productName}>
-						</div>
+					<div class="main-img">
+						<img src={productProductAvatar} alt={productName} />
 					</div>
-
 					<div class="col-md-8">
 						<h3 class="text-left mb-3">{productName}</h3>
 						<div class="d-flex align-items-center justify-content-between">
@@ -48,21 +45,7 @@
 							</div>
 							<div>
 								<div class="d-flex">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="25"
-										height="25"
-										viewBox="0 0 24 24"
-									>
-										<path
-											fill="none"
-											stroke="currentColor"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="3"
-											d="M8 6h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 12H8m0 0h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 18H8M8 6v12m3-14v2m0 12v2"
-										/>
-									</svg>
+									<Icon icon="tabler:currency-bath" width="35" height="35" />
 									<h2 style="font-weight: 700;">{productPrice}</h2>
 								</div>
 
@@ -81,18 +64,11 @@
 </div>
 
 <style>
-	.main-img{
-		width: 20px;
+	.main-img {
+		width: min-content;
 	}
-	.side-img{
-		width: 50;
-	}
-	.product-detail {
-		padding: 20px;
-	}
-
-	.product-detail img {
-		max-width: 100%;
+	img {
+		width: 350px;
 		height: auto;
 	}
 

@@ -34,7 +34,7 @@
 
 	console.log(products);
 	function gotoDetail(id) {
-        goto(`/product/${id}`);
+        goto(`/customer/product/${id}`);
     }
 </script>
 
@@ -62,7 +62,7 @@
 		{:else}
 			<div class="product-container">
 				{#each products as product}
-					<div class="product-list">
+					<div class="product-list card">
 						<button
 							type="button"
 							class="product-image"
