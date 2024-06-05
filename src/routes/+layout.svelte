@@ -55,7 +55,7 @@
 			<Navbar />
 		</slot>
 		<div class="row gap-0 m-0">
-			{#if !routePrevents(currentPath)}
+			{#if !currentPath.startsWith('/customer')}
 				<slot name="sidebar">
 					<div class="col p-0">
 						<Sidebar routes={sidebarRoutes} />
@@ -76,11 +76,6 @@
 		style="background-color: #F8F9FA !important;"
 		class="h ibm-plex-sans-thai-light text-foreground"
 	>
-		{#if currentPath === '/' || routePrevents}
-			<slot name="navbar">
-				<Navbar />
-			</slot>
-		{/if}
 		<div class=" pt-4 bg-background">
 			<slot></slot>
 		</div>
