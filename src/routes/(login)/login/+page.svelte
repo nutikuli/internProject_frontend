@@ -1,7 +1,16 @@
 <script>
 	import logo from '/src/lib/image/cyberpunk.jpg';
 	// @ts-ignore
-	import { auth, provider, signInWithPopup, signOut ,providerface} from "/src/lib/firebase.client.js";
+	import {
+		auth,
+		provider,
+		signInWithPopup,
+		// @ts-ignore
+		signOut,
+		providerface
+		// @ts-ignore
+	} from '/src/lib/firebase.client.js';
+	// @ts-ignore
 	import { redirect } from '@sveltejs/kit';
 	import { onMount } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -9,26 +18,22 @@
 	let emailgoogle = [];
 	let password = '';
 	let username = [];
-	
 
+	// @ts-ignore
 	const user = writable(null);
 
-	
+	// @ts-ignore
 	export let form;
-    console.log(form)
-	if(form){
+	console.log(form);
+	if (form) {
 		onMount(() => {
-        if (form.success==true) {
-            // รีไดเรกไปยังหน้าอื่นเมื่อฟอร์มส่งสำเร็จ
-            window.location.href = '/';
-        }
-    });
-
+			if (form.success == true) {
+				// รีไดเรกไปยังหน้าอื่นเมื่อฟอร์มส่งสำเร็จ
+				window.location.href = '/';
+			}
+		});
 	}
-        
-	
-	
-   
+
 	// onMount(() => {
 	//   auth.onAuthStateChanged((u) => {
 	//     user.set(u);
@@ -36,30 +41,28 @@
 	// });
 
 	const loginGoogle = async () => {
-	  try {
-	   var result= await signInWithPopup(auth, provider);
-	    console.log(result)
-		emailgoogle.push(result.user.email)
-		username.push(result.user.displayName) 
-		console.log(emailgoogle)
-		console.log(username)
-		// @ts-ignore
-		document.getElementById("emailInput").value = emailgoogle[0];
-		// @ts-ignore
-		document.getElementById("nameInput").value = username[0];
-		if(emailgoogle!=null && username!=null){
-			document.getElementById('myForm').submit();
-
+		try {
+			var result = await signInWithPopup(auth, provider);
+			console.log(result);
+			emailgoogle.push(result.user.email);
+			username.push(result.user.displayName);
+			console.log(emailgoogle);
+			console.log(username);
+			// @ts-ignore
+			document.getElementById('emailInput').value = emailgoogle[0];
+			// @ts-ignore
+			document.getElementById('nameInput').value = username[0];
+			if (emailgoogle != null && username != null) {
+				// @ts-ignore
+				document.getElementById('myForm').submit();
+			}
+		} catch (error) {
+			console.error('Error logging in with Google: ', error);
+			return (status = 'false');
 		}
-		
-
-	  } catch (error) {
-	    console.error("Error logging in with Google: ", error);
-		return status ="false"
-	  }
 	};
-	
-	console.log(emailgoogle," ", username)
+
+	console.log(emailgoogle, ' ', username);
 
 	// const logout = async () => {
 	//   try {
@@ -69,33 +72,30 @@
 	//   }
 
 	// };
-	
+
 	const facebook = async () => {
-	  let displayname=""
-	  try {
-	   var result= await signInWithPopup(auth, providerface);
-
-	   console.log(result)
-		emailgoogle.push(result.user.email)
-		username.push(result.user.displayName) 
-		console.log(emailgoogle)
-		console.log(username)
 		// @ts-ignore
-		document.getElementById("emailInputfacebook").value = emailgoogle[0];
-		// @ts-ignore
-		document.getElementById("nameInputfacebook").value = username[0];
-		if(emailgoogle!=null && username!=null){
-			document.getElementById('myfacebookForm').submit();
+		let displayname = '';
+		try {
+			var result = await signInWithPopup(auth, providerface);
 
+			console.log(result);
+			emailgoogle.push(result.user.email);
+			username.push(result.user.displayName);
+			console.log(emailgoogle);
+			console.log(username);
+			// @ts-ignore
+			document.getElementById('emailInputfacebook').value = emailgoogle[0];
+			// @ts-ignore
+			document.getElementById('nameInputfacebook').value = username[0];
+			if (emailgoogle != null && username != null) {
+				// @ts-ignore
+				document.getElementById('myfacebookForm').submit();
+			}
+		} catch (error) {
+			console.error('Error logging in with Facebook: ', error);
 		}
-
-	  } catch (error) {
-	    console.error("Error logging in with Facebook: ", error);
-	  }
 	};
-
-
-	
 </script>
 
 <div class="content-center">
@@ -153,7 +153,6 @@
 			</h6>
 		</div>
 		<div class="d-flex justify-content-center mt-3">
-           
 			<button class="border border-3 boxlogin" on:click={loginGoogle}
 				><svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -181,10 +180,11 @@
 				</svg></button
 			>
 			<form id="myForm" method="post" action="?/signInWithGoogle">
-				<input type="text" hidden name="email" id="emailInput">
-				<input type="text" hidden name="name" id="nameInput">
+				<input type="text" hidden name="email" id="emailInput" />
+				<input type="text" hidden name="name" id="nameInput" />
 			</form>
-			<button class="border border-3 boxlogin" on:click={facebook} ><svg
+			<button class="border border-3 boxlogin" on:click={facebook}
+				><svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="2em"
 					height="2em"
@@ -202,8 +202,8 @@
 				</svg></button
 			>
 			<form id="myfacebookForm" method="post" action="?/signInWithGoogle">
-				<input type="text" hidden name="email" id="emailInputfacebook">
-				<input type="text" hidden name="name" id="nameInputfacebook">
+				<input type="text" hidden name="email" id="emailInputfacebook" />
+				<input type="text" hidden name="name" id="nameInputfacebook" />
 			</form>
 		</div>
 	</div>
