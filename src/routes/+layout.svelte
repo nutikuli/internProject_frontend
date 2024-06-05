@@ -63,7 +63,7 @@
 				</slot>
 			{/if}
 
-			<div class:col={routePrevents(currentPath)} class:col-xl-10={!routePrevents(currentPath)}>
+			<div class:col-xl-10={!currentPath.startsWith('/customer')}>
 				<div class=" pt-4 bg-background">
 					<slot></slot>
 				</div>
