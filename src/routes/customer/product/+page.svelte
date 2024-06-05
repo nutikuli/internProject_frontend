@@ -2,9 +2,10 @@
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
 	import NavbarCustomer from '../../../components/navbarCustomer.svelte';
-    import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	let products = [];
+	let files = [];
 	let loading = true;
 	let error = null;
 
@@ -34,8 +35,23 @@
 
 	console.log(products);
 	function gotoDetail(id) {
-        goto(`/customer/product/${id}`);
-    }
+		goto(`/customer/product/${id}`);
+	}
+
+	let selectedValue = null; // Initialize selectedValue
+
+	// Function to sort products based on selected value
+	function sortProducts() {
+		if (selectedValue === '1') {
+			products = products.slice().sort((a, b) => b.price - a.price);
+		} else if (selectedValue === '2') {
+			products = products.slice().sort((a, b) => a.price - b.price);
+		} else if (selectedValue === '3') {
+			products = products.slice().sort((a, b) => a.id - b.id);
+		} else if (selectedValue === '4') {
+			products = products.slice().sort((a, b) => b.id - a.id);
+		}
+	}
 </script>
 
 {#if loading}
@@ -47,8 +63,7 @@
 	<div class="showProduct">
 		<div class="sort-container">
 			<span class="sort-label">จัดเรียงตาม</span>
-			<select class="form-select" id="input">
-				<option selected>--select--</option>
+			<select class="form-select" bind:value={selectedValue} on:change={sortProducts}>
 				<option value="1">ราคา มากไปน้อย</option>
 				<option value="2">ราคา น้อยไปมาก</option>
 				<option value="3">สินค้าล่าสุด</option>
@@ -60,9 +75,9 @@
 		{:else if products.length === 0}
 			<p>No products available.</p>
 		{:else}
-			<div class="product-container">
+			<div class="row">
 				{#each products as product}
-					<div class="product-list card">
+					<div class="product-list card col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
 						<button
 							type="button"
 							class="product-image"
@@ -98,12 +113,7 @@
 
 	.showProduct {
 		margin: 20px;
-	}
-
-	.product-container {
-		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 10px;
+		margin-left: 70px;
 	}
 
 	.product-list {
@@ -111,7 +121,6 @@
 		flex-direction: column;
 		margin: 10px;
 		height: 100%;
-        
 	}
 
 	.product-image {

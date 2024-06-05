@@ -1,7 +1,7 @@
 <script>
     import Icon from '@iconify/svelte';
 	function gotoCart() {
-		window.location.href = '/customer-cart/id';
+		window.location.href = '/customer/customer-cart/id';
 	}
 </script>
 
