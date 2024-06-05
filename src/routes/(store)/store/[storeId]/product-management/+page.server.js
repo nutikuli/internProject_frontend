@@ -55,16 +55,17 @@
  * @property {Result[]} result
  */
 
+import { CookiesJsonParser } from '$lib/pkg/utils/cookies';
 import { fail } from '@sveltejs/kit';
 
 /**
  * @type {import('@sveltejs/kit').Load}
  */
 
-/** @type {import('./$types').PageLoad} */
-export async function load({ params }) {
+/** @type {import('./$types').PageServerLoad} */
+export const load = async (event) => {
 	try {
-		const storeId = params.storeId;
+		const storeId = event.params.storeId;
 		if (!storeId)
 			throw fail(400, {
 				message: 'Failed to fetch store products'
@@ -77,8 +78,10 @@ export async function load({ params }) {
 		/** @type {DtoResponse} */
 		const storeProducts = await response.json();
 
-		// Return the data to be used in the component
+		const { store_account } = CookiesJsonParser(event.cookies, 'store_account');
+
 		return {
+			store_account,
 			...storeProducts
 		};
 	} catch (error) {
@@ -86,4 +89,4 @@ export async function load({ params }) {
 			message: error.message || 'Failed to fetch store products'
 		});
 	}
-}
+};
