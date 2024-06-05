@@ -10,11 +10,11 @@ export const actions = {
         formData.append('store_location',storelocation)
 		formData.append('acc_email', email);
 		formData.append('acc_password', password);
-		formData.append('acc_role', "STORE")
+		formData.append('acc_role', "ADMIN")
 		formData.append('acc_status', "true")
         formData.append('store_name' , storename)
 
-		console.log('checking login');
+		console.log('checking store register');
 		console.log('email,pass:', email, '  ', password);
         console.log('name=====>',name)
         console.log('phone=====>',phone)

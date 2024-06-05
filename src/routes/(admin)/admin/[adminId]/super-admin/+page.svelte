@@ -34,6 +34,9 @@ import Model from '../../../../../components/Model.svelte'
 	function badgeStatus(status) {
 		return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
   }
+
+
+  
  </script>
   
   <div class="w-100  min-vh-100 bg-white ">
@@ -50,6 +53,7 @@ import Model from '../../../../../components/Model.svelte'
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
+          <form method="post" action="?/registeradmin">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">ผู้ดูแลระบบ</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -73,7 +77,7 @@ import Model from '../../../../../components/Model.svelte'
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" >ชื่อ: </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="name">
                 </div>
                 
               </div>
@@ -87,14 +91,14 @@ import Model from '../../../../../components/Model.svelte'
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">เบอร์โทรศัพท์ : </label>
                 <div class="col-sm-10">
-                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel">
+                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel" name="phone">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">สิทธิผู้ใช้งาน : </label>
                 <div class="col-sm-10">
                   <select class="form-select" aria-label="Default select example">
-                    <option selected>--select</option>
+                    <option selected>--select--</option>
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -106,13 +110,13 @@ import Model from '../../../../../components/Model.svelte'
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล : </label>
                 <div class="col-sm-10">
-                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword">
+                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword" name="email">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" id="inputPassword">
+                  <input type="password"  class="form-control" id="inputPassword" name="password">
                 </div>
               </div>
               <div class="mb-3 row">
@@ -135,11 +139,11 @@ import Model from '../../../../../components/Model.svelte'
 
         </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">บันทึก</button>
+            <button type="submit" class="btn btn-primary">บันทึก</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             
           </div>
-          
+        </form>
         </div>
       </div>
     </div>
