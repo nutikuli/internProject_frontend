@@ -1,6 +1,7 @@
 <script>
 	import Icon from '@iconify/svelte';
 	import NavbarCustomer from '../../../../components/navbarCustomer.svelte';
+	import { onMount } from 'svelte';
 	export let data; // Ensure product is defined as a prop
 
 	console.log(data.product); // Check if product is defined and contains data
@@ -10,8 +11,8 @@
 	const productPrice = data.product.result.product_data.price;
 	const productAvatar = data.product.result.product_data.product_avatar;
 	const productStock = data.product.result.product_data.stock;
-	const productCategoryId = data.product.result.product_data.categoryId;
-	const productStoreId = data.product.result.product_data.storeId;
+	const productCategoryId = data.product.result.product_data.category_id;
+	const productStoreId = data.product.result.product_data.store_id;
 	const filesData = data.product.result.files_data;
 	console.log(filesData);
 
@@ -20,6 +21,54 @@
 	function showThumbnail(index) {
 		activeIndex = index;
 	}
+
+	
+	// let productCategory = null;
+	// async function getProductCategory() {
+	// 	try {
+	// 		const response = await fetch(
+	// 			`http://127.0.0.1:8080/api/v1/product-category/get-product-category-id/${productCategoryId}`
+	// 		);
+	// 		const responseData = await response.json();
+	// 		console.log(responseData); 
+	// 		if (responseData.status === 'OK') {
+	// 			productCategory = responseData.result;
+	// 		} else {
+	// 			console.error('Error fetching product category:', responseData.message);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Error fetching product category:', error);
+	// 	}
+	// }
+	// onMount(async () => {
+	// 	await getProductCategory();
+	// });
+
+
+	// let storeData = null;
+
+
+	// async function getStoreData() {
+	// 	try {
+	// 		const response = await fetch(`http://127.0.0.1:8080/api/v1/store/get-store-by-id/${productStoreId}`);
+	// 		const responseData = await response.json();
+	// 		console.log(responseData); 
+	// 		if (responseData.status === 200) {
+	// 			storeData = responseData.result.store_data; 
+	// 		} else {
+	// 			console.error('Error fetching store data:', responseData.message);
+	// 		}
+	// 	} catch (error) {
+	// 		console.error('Error fetching store data:', error);
+	// 	}
+	// }
+
+
+	// onMount(async () => {
+	// 	await getStoreData();
+	// });
+
+	// console.log(storeData);
 </script>
 
 <div>
@@ -34,7 +83,7 @@
 							{#each filesData as file, index}
 								<div class="carousel-item {index === activeIndex ? 'active' : ''}">
 									<img
-									style="margin: 10px;"
+										style="margin: 10px;"
 										src={file.file_data ||
 											'https://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
 										alt={file.file_name}
@@ -69,11 +118,15 @@
 							<div>
 								<div class="d-flex">
 									<h5 style="margin-right: 34px;">หมวดหมู่</h5>
-									<div>{productCategoryId}</div>
+									<div>
+										<div>{productCategoryId}</div>
+									</div>
 								</div>
 								<div class="d-flex">
 									<h5 style="margin-right: 50px;">ร้านค้า</h5>
-									<div>{productStoreId}</div>
+									<div>
+										<div>{productStoreId}</div>
+									</div>
 								</div>
 								<div class="d-flex">
 									<div style="margin-right: 60px; margin-top: 10px;">จำนวน</div>
