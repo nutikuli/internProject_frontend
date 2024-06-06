@@ -6,35 +6,28 @@ import Model from '../../../../../components/Model.svelte'
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
-	let colLabels = ['#', 'รหัสผู้ดูแลระบบ', 'ชื่อ-นามสกุล ','อีเมล', 'เบอร์โทรศัพท์', 'สิทธิผู้ใช้งาน','สถานะ', 'Title'];
+	let colLabels = ['#', 'รหัสผู้ดูแลระบบ', 'ชื่อ-นามสกุล ','อีเมล', 'เบอร์โทรศัพท์', 'สิทธิผู้ใช้งาน','สถานะ', 'Title']; 
 
-	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-	/** @type {string[][]} */
-	 let rowRecords = [
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'ผู้ดูแลระบบ', 'ปิดใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'ผู้ดูแลระบบ', 'ใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'ผู้ดูแลระบบ', 'ใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'พนักงานบัญชี', 'ใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'พนักงานบัญชี', 'ใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'พนักงานบัญชี', 'ใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'ผู้จัดการ', 'ปิดใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'ผู้จัดการ', 'ปิดใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'ผู้ดูแลระบบ', 'ใช้งาน'],
-		['AD001','Garrick Moss', 'Garrick@gmail.com','098-5419653', 'ผู้ดูแลระบบ', 'ใช้งาน'],
-	];
+  export let data;
+  console.log(data.result)
 
-	const editRow = (index) => {
-		alert(`Edit row ${index + 1}`);
-	};
-
-	const deleteRow = (index) => {
-		alert(`Delete row ${index + 1}`);
-	};
-
-	function badgeStatus(status) {
-		return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
+  
+  let rowRecordMapper = data.result.map((item) => {
+  if (item.admin_data) {
+    const ad = item.admin_data;
+    return [
+      "AD00"+ad.id,
+      ad.name,
+      ad.email,
+      ad.phone,
+      ad.permissionId,
+      ad.status ? 'ใช้งาน' : 'ปิดการใช้งาน' 
+    ];
   }
+})
+console.log(rowRecordMapper) 
 
+	
 
   
  </script>
@@ -150,7 +143,7 @@ import Model from '../../../../../components/Model.svelte'
           </div>
       <div class="w-100 bg-white " >
         <!--Table-->
-        <Table {rowRecords} actionSelects={["EDIT", "DELETE"]} {colLabels}>
+        <Table rowRecords ={rowRecordMapper} actionSelects={["EDIT", "DELETE"]} {colLabels}>
           <div slot="editor-action">
             <form action="">
               <div class="modal-body">

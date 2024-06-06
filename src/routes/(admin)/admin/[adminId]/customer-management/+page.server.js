@@ -3,8 +3,25 @@
  * @typedef {Object} CustomerData
  * @property {number} id
  * @property {string} name
- * @property {string} email
+ * @property {string} password
  * @property {string} phone
+ * @property {string} location
+ * @property {string} email
+ * @property {string} imageAvatar
+ * @property {string} product_avatar
+ * @property {string} created_at
+ * @property {string} updated_at
+ * @property {string} role
+ * @property {boolean} status
+ * @property {number} customer_id
+ * 
+ */
+
+
+
+/**
+ * @typedef {Object} Result
+ * @property {CustomerData} customer_data
  */
 
 /**
@@ -15,42 +32,37 @@
  * @property {Result[]} result
  */
 
-/**
- * @typedef {Object} Result
- * @property {CustomerData} customer_data
- */
-
 import { fail } from '@sveltejs/kit';
 
 /**
  * @type {import('@sveltejs/kit').Load}
  */
 
-export async function load({ params }) {
+/** @type {import('./$types').PageServerLoad} */
+export const load = async (event) => {
 	try {
-		const customerId = params.customerId;
+		const customerId = event.params.adminId
 		if (!customerId)
 			throw fail(400, {
 				message: 'Failed to fetch store products'
 			});
 
 		const response = await fetch(
-			`http://127.0.0.1:8080/api/v1/customer/${customerId}`
+			`http://127.0.0.1:8080/api/v1/customer/getallcustomer`
 		);
 
 		/** @type {DtoResponse} */
-		const customer = await response.json();
+		const Customer = await response.json();
 
-		// Return the data to be used in the component
 		return {
-			...customer
+			...Customer 
 		};
 	} catch (error) {
 		throw fail(error.status || 500, {
-			message: error.message || 'Failed to fetch store products'
+			message: error.message || 'Failed to fetch customer'
 		});
 	}
-}
+};
 
 
 

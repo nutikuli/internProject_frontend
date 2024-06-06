@@ -4,9 +4,6 @@ import Icon from '@iconify/svelte';
 import Table from '../../../../../components/Table.svelte'
 
 
-
-
-
 // @ts-ignore
 import Model from '/src/components/Model.svelte'; 
 
@@ -17,48 +14,24 @@ import Model from '/src/components/Model.svelte';
 
   export let data;
   console.log(data.result)
-
+  
   let rowRecordMapper = data.result.map((item) => {
-		if (item.customer_data) {
-			const cus = item.customer_data;
-			return [ 
-				cus.id,
-        cus.email,
-        cus.phone
-        
-			];
-		}
-	});
+  if (item.customer_data) {
+    const cus = item.customer_data;
+    return [
+      "CUS00"+cus.id,
+      cus.name,
+      cus.email,
+      cus.phone,
+      cus.status ? 'ใช้งาน' : 'ปิดการใช้งาน' 
+    ];
+  }
+})
+console.log(rowRecordMapper) 
 
 
 
-
-	// // สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-	// /** @type {string[][]} */
-	// export let rowRecords = [
-	// 	['CUS001', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// 	['CUS002', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// 	['CUS003', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// 	['CUS004', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
-	// 	['CUS005', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// 	['CUS006', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// 	['CUS007', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// 	['CUS008', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// 	['CUS009', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
-	// 	['CUS010', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	// ];
-
-	// const editRow = (index) => {
-	// 	alert(`Edit row ${index + 1}`);
-	// };
-
-	// const deleteRow = (index) => {
-	// 	alert(`Delete row ${index + 1}`);
-	// };
-
-	// function badgeStatus(status) {
-	// 	return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
-  // } 
+	
   
 
 </script>
