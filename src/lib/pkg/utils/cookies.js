@@ -50,7 +50,17 @@
  * @typedef {Object} StoreAccount
  * @property {string} store_name
  * @property {string} store_location
- * @property {Account} Account
+ * @property {number} id
+ * @property {string} name
+ * @property {string} password
+ * @property {string} phone
+ * @property {string} location
+ * @property {string} email
+ * @property {string} image_avatar
+ * @property {Date} created_at
+ * @property {Date} updated_at
+ * @property {string} role
+ * @property {boolean} status
  */
 
 /**
@@ -61,7 +71,17 @@
 
 /**
  * @typedef {Object} Admin
- * @property {Account} admin_data
+ * @property {number} id
+ * @property {string} name
+ * @property {string} password
+ * @property {string} phone
+ * @property {string} location
+ * @property {string} email
+ * @property {string} image_avatar
+ * @property {Date} created_at
+ * @property {Date} updated_at
+ * @property {string} role
+ * @property {boolean} status
  * @property {string[]} adminpermission_data
  * @property {FileData[]} files_data
  */
