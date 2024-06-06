@@ -47,9 +47,9 @@
 		} else if (selectedValue === '2') {
 			products = products.slice().sort((a, b) => a.price - b.price);
 		} else if (selectedValue === '3') {
-			products = products.slice().sort((a, b) => a.id - b.id);
-		} else if (selectedValue === '4') {
 			products = products.slice().sort((a, b) => b.id - a.id);
+		} else if (selectedValue === '4') {
+			products = products.slice().sort((a, b) => a.id - b.id);
 		}
 	}
 </script>

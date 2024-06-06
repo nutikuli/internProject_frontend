@@ -26,8 +26,10 @@ import { fail } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
+
 	signIn: async ({ request, cookies }) => {
 		console.log('signIn method');
+
 		const { email, password } = Object.fromEntries(await request.formData());
 
 		const formData = new FormData();
@@ -50,13 +52,16 @@ export const actions = {
 		/** @type {DtoResponse} */
 		const data = await result.json();
 		console.log(data);
-
+		
 		// @ts-ignore
-		if (data.message == 'EmailNotFound') {
-			return {
-				success: false
-			};
-		}
+		if (data.message!="EmailNotFound") {
+            return {
+				data,
+				role:data.result.user_token.role,// ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+                success: true
+				
+            };
+        }
 
 		switch (data.result.token.role) {
 			case 'CUSTOMER':
@@ -75,25 +80,32 @@ export const actions = {
 		}
 
 		cookies.set('token', JSON.stringify(data.result.token), cookiesConfig);
+
 		return {
 			data
 		};
+        
 	},
 
 	signInWithGoogle: async ({ request }) => {
 		const { email, name } = Object.fromEntries(await request.formData());
 
+
 		const formData = new FormData();
 		console.log('checking register');
 		// Append key-value pairs to the FormData object
-		formData.append('acc_name', name);
-		formData.append('acc_password', '');
-		formData.append('acc_phone', '-');
-		formData.append('acc_location', '');
-		formData.append('acc_email', email);
-		formData.append('acc_role', 'CUSTOMER');
-		formData.append('acc_status', 'true');
-		console.log(formData);
+        formData.append('acc_name', name);
+        formData.append('acc_password', "");
+		formData.append('password', "");
+		formData.append('acc_phone', "");
+		formData.append('acc_location', "");
+        formData.append('acc_email', email);
+		formData.append('email', email);
+        formData.append('acc_role', "CUSTOMER");
+        formData.append('acc_status', "true");
+        console.log(formData)
+		
+
 
 		console.log('email,pass:', email);
 		let config = {
@@ -101,13 +113,37 @@ export const actions = {
 			headers: {},
 			body: formData
 		};
+		var result = await fetch(`http://localhost:8080/api/v1/account/login`, config);
+		const datalogin = await result.json();
+		console.log(datalogin)
 
-		var result = await fetch(`http://localhost:8080/api/v1/account/register`, config);
-		const data = await result.json();
-		console.log(data);
-		return {
-			data,
-			success: true
-		};
+
+		if (datalogin.message=="EmailNotFound") {
+            var resultregister = await fetch(`http://localhost:8080/api/v1/account/register`, config);
+			const dataregister = await resultregister.json();
+			console.log(dataregister)
+			console.log("1")
+			return {
+				dataregister,
+				role:"CUSTOMER",
+				success: true,
+			}
+        }else{
+			console.log("2")
+			return {
+				datalogin,
+				role:datalogin.result.token.role,
+				success:true
+			}
+		}
+
+		
+        
+       
+	},
+
 	}
-};
+
+
+
+

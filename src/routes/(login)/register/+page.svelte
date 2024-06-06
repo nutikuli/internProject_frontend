@@ -44,7 +44,16 @@
 		onMount(() => {
 			if (form.success == true) {
 				// รีไดเรกไปยังหน้าอื่นเมื่อฟอร์มส่งสำเร็จ
-				window.location.href = '/';
+				if(form.role=="ADMIN"){
+					console.log("ADMIN")
+					window.location.assign("/admin/{admin_id}/role-management")
+				}else if(form.role=="CUSTOMER"){
+					console.log("CUSTOMER")
+					window.location.assign("/admin/{admin_id}/role-management")
+				}else{
+					console.log("STORE")
+					window.location.assign("/store/{store_id}/product-management")
+				}
 			}
 		});
 	}

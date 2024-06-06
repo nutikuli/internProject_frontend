@@ -1,3 +1,104 @@
+/**
+ * @typedef {Object} StroeData
+ * @property {number} id
+ * @property {string} store_name
+ * @property {string} store_location
+ * @property {string} name
+ * @property {string} password
+ * @property {string} phone
+ * @property {string} location
+ * @property {string} email
+ * @property {string} role
+ * @property {boolean} status
+ * @property {number} store_id
+ * 
+ */
+
+
+
+/**
+ * @typedef {Object} Result
+ * @property {StroeData} store_data
+ */
+
+/**
+ * @typedef {Object} DtoResponse
+ * @property {string} status - The status of the response
+ * @property {string} status_code - The status code of the response
+ * @property {string} message - The message of the response
+ * @property {Result[]} result
+ */
+
+import { fail } from '@sveltejs/kit';
+
+/**
+ * @type {import('@sveltejs/kit').Load}
+ */
+
+/** @type {import('./$types').PageServerLoad} */
+// export const load = async (event) => {
+// 	try {
+// 		const storeId = event.params.adminId
+// 		if (!storeId)
+// 			throw fail(400, {
+// 				message: 'Failed to fetch store '
+// 			});
+
+// 		const response = await fetch(
+// 			`http://127.0.0.1:8080/api/v1/store//get-stores`
+// 		);
+
+// 		/** @type {DtoResponse} */
+// 		const Store = await response.json();
+
+// 		return {
+// 			...Store 
+// 		};
+// 	} catch (error) {
+// 		throw fail(error.status || 500, {
+// 			message: error.message || 'Failed to fetch store '
+// 		});
+// 	}
+// }; 
+
+export const load = async (event) => {
+	try {
+		const storeId = event.params.adminId;
+		if (!storeId) {
+			throw fail(400, {
+				message: 'ไม่สามารถดึงข้อมูลร้านค้าได้'
+			});
+		}
+
+		const response = await fetch(
+			`http://127.0.0.1:8080/api/v1/store/get-stores`
+		);
+
+		if (!response.ok) {
+			// บันทึกสถานะและข้อความการตอบกลับเพื่อการดีบัก
+			const errorText = await response.text();
+			console.error('การตอบกลับไม่ถูกต้อง:', response.status, errorText);
+			throw new Error('ไม่สามารถดึงข้อมูลร้านค้าได้');
+		}
+
+		/** @type {DtoResponse} */
+		const Store = await response.json();
+
+		return {
+			...Store
+		};
+	} catch (error) {
+		// บันทึกข้อผิดพลาดเพื่อการดีบัก
+		console.error('ข้อผิดพลาดในการดึงข้อมูลร้านค้า:', error);
+		throw fail(error.status || 500, {
+			message: error.message || 'ไม่สามารถดึงข้อมูลร้านค้าได้'
+		});
+	}
+};
+
+
+
+
 export const actions = {
 	registerstore: async ({ request }) => {
 		console.log('createStore');

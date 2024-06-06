@@ -13,7 +13,7 @@
 		onMount(() => {
 			if (form.success == true) {
 				// รีไดเรกไปยังหน้าอื่นเมื่อฟอร์มส่งสำเร็จ
-				window.location.href = '/';
+				
 			}
 		});
 	}
@@ -74,6 +74,7 @@
 			console.error('Error logging in with Facebook: ', error);
 		}
 	};
+
 </script>
 
 <div class="content-center">

@@ -6,33 +6,29 @@ import Model from '/src/components/Model.svelte';
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
 	 let colLabels = ['#', 'รหัสร้านค้า','ชื่อร้าน', 'ชื่อ-นามสกุล ','อีเมล', 'เบอร์โทรศัพท์', 'สถานะ', 'Title'];
+  
+   export let data;
+  console.log(data.result)
 
-	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-	/** @type {string[][]} */
-	 let rowRecords = [
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ปิดใช้งาน'],
-		['STR001','เลียจาน', 'Garrick Moss','Garrick@gmail.com', '098-5419653', 'ใช้งาน'],
-	];
+  let rowRecordMapper = data.result.map((item) => {
+  if (item.store_data) {
+    const sto = item.store_data;
+    return [
+      "STR00"+sto.id,
+      sto.store_name,
+      sto.name,
+      sto.email,
+      sto.phone,
+      sto.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
+   
+    ];
+  }
+})
+console.log(rowRecordMapper)
 
-	const editRow = (index) => {
-		alert(`Edit row ${index + 1}`);
-	};
 
-	const deleteRow = (index) => {
-		alert(`Delete row ${index + 1}`);
-	};
 
-	function badgeStatus(status) {
-		return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
-  }  
+
   </script>
   
   <div class="w-100  min-vh-100 bg-white ">
@@ -134,7 +130,7 @@ import Model from '/src/components/Model.svelte';
     </div>
           </div>
       <div class="w-100 bg-white ">
-        <Table {rowRecords} actionSelects={["EDIT", "DELETE"]} {colLabels}>
+        <Table rowRecords =  {rowRecordMapper} actionSelects={["EDIT", "DELETE"]} {colLabels}>
           <div slot="editor-action">
             <form action="">
               <div class="modal-body">

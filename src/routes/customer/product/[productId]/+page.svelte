@@ -1,17 +1,18 @@
 <script>
 	import Icon from '@iconify/svelte';
 	import NavbarCustomer from '../../../../components/navbarCustomer.svelte';
-	export let data; // Ensure product is defined as a prop
+	import { onMount } from 'svelte';
+	export let data;
 
-	console.log(data.product); // Check if product is defined and contains data
+	console.log(data.product);
 
 	const productName = data.product.result.product_data.name;
 	const productDetail = data.product.result.product_data.detail;
 	const productPrice = data.product.result.product_data.price;
 	const productAvatar = data.product.result.product_data.product_avatar;
 	const productStock = data.product.result.product_data.stock;
-	const productCategoryId = data.product.result.product_data.categoryId;
-	const productStoreId = data.product.result.product_data.storeId;
+	const productCategoryId = data.product.result.product_data.category_id;
+	const productStoreId = data.product.result.product_data.store_id;
 	const filesData = data.product.result.files_data;
 	console.log(filesData);
 
@@ -20,23 +21,24 @@
 	function showThumbnail(index) {
 		activeIndex = index;
 	}
+
 </script>
 
 <div>
 	<NavbarCustomer />
 	<div class="container">
-		<div style="padding-left: 60px; padding-right: 60px; padding-top: 30px;">
+		<div style="padding-top: 30px;">
 			<div class="card">
 				<div class="row">
 					<!-- test image -->
-					<div id="carouselAutoplaying" class="carousel slide">
+					<div id="carouselAutoplaying" class="col-5 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-4 carousel slide">
 						<div class="carousel-inner">
 							{#each filesData as file, index}
 								<div class="carousel-item {index === activeIndex ? 'active' : ''}">
 									<img
-									style="margin: 10px;"
-										src={file.file_data ||
-											'https://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
+										style="margin: 10px; width: 340px"
+										src={`http://${file.file_data}` ||
+											'http://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
 										alt={file.file_name}
 									/>
 								</div>
@@ -54,26 +56,30 @@
 								>
 									<img
 										class="img-thumbnail"
-										src={file.file_data ||
-											'https://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
+										src={`http://${file.file_data}` ||
+											'http://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
 										alt={file.file_name}
 									/>
 								</button>
 							{/each}
 						</div>
 					</div>
-					<!-- test image -->
-					<div class="col-md-8">
+					
+					<div class="detail col-xxl-8">
 						<h3 class="text-left mb-3">{productName}</h3>
 						<div class="d-flex align-items-center justify-content-between">
 							<div>
 								<div class="d-flex">
 									<h5 style="margin-right: 34px;">หมวดหมู่</h5>
-									<div>{productCategoryId}</div>
+									<div>
+										<div>{productCategoryId}</div>
+									</div>
 								</div>
 								<div class="d-flex">
 									<h5 style="margin-right: 50px;">ร้านค้า</h5>
-									<div>{productStoreId}</div>
+									<div>
+										<div>{productStoreId}</div>
+									</div>
 								</div>
 								<div class="d-flex">
 									<div style="margin-right: 60px; margin-top: 10px;">จำนวน</div>
@@ -102,6 +108,9 @@
 </div>
 
 <style>
+	.detail{
+		margin: 10px;
+	}
 	.thumbnail {
 		cursor: pointer;
 		margin-right: 10px;
@@ -117,7 +126,7 @@
 	}
 
 	.carousel-thumbnails {
-		margin-top: 10px;
+		margin-top: 5px;
 	}
 
 	.carousel-item.active {
@@ -128,12 +137,11 @@
 		border: 1px solid #007bff;
 	}
 	.carousel,
-	.carousel-inner,
 	.carousel-item {
 		width: min-content;
 	}
 	img {
-		width: 200px;
+		width: 150px;
 		height: auto;
 	}
 
@@ -145,7 +153,5 @@
 	.img-thumbnail {
 		width: 100px;
 	}
-	.carousel-thumbnails {
-		margin-left: 25px;
-	}
+	
 </style>
