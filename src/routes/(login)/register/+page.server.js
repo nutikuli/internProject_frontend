@@ -89,6 +89,7 @@ export const actions = {
 			console.log("1")
 			return {
 				dataregister,
+				role:"CUSTOMER",
 				success: true,
 			}
         }else{
@@ -111,6 +112,7 @@ export const actions = {
 			}
 			return {
 				datalogin,
+				role:datalogin.result.token.role,
 				success:true
 			}
 		}

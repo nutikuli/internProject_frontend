@@ -29,7 +29,16 @@
 		onMount(() => {
 			if (form.success == true) {
 				// รีไดเรกไปยังหน้าอื่นเมื่อฟอร์มส่งสำเร็จ
-				window.location.href = '/';
+				if(form.role=="ADMIN"){
+					console.log("ADMIN")
+					window.location.assign("/admin/{admin_id}/role-management")
+				}else if(form.role=="CUSTOMER"){
+					console.log("CUSTOMER")
+					window.location.assign("/admin/{admin_id}/role-management")
+				}else{
+					console.log("STORE")
+					window.location.assign("/store/{store_id}/product-management")
+				}
 			}
 		});
 	}
@@ -96,6 +105,44 @@
 			console.error('Error logging in with Facebook: ', error);
 		}
 	};
+	
+	let lineLoginUrl = 'https://access.line.me/oauth2/v2.1/authorize';
+let clientId = '2005541373';
+let redirectUri = 'http://localhost:5173/login';
+let state = 'randomState';
+let scope = 'profile openid oc_email';
+let loginUrl = generateLoginUrl(lineLoginUrl, clientId, redirectUri, state, scope);
+
+	function generateLoginUrl(lineLoginUrl, clientId, redirectUri, state, scope) {
+		console.log(scope)
+    return `${lineLoginUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+}
+
+
+function DataLine(){
+	const userProfile = JSON.parse(sessionStorage.getItem('profile'));
+
+// ตรวจสอบว่ามีข้อมูลผู้ใช้งานหรือไม่
+if (userProfile) {
+    // สามารถเรียกใช้งานข้อมูลผู้ใช้งานได้ตามต้องการ
+    const userId = userProfile.userId;
+    const displayName = userProfile.displayName;
+    const pictureUrl = userProfile.pictureUrl;
+    const email = userProfile.email;
+
+    // ตัวอย่างการใช้งานข้อมูลผู้ใช้งาน
+    console.log('User ID:', userId);
+    console.log('Display Name:', displayName);
+    console.log('Picture URL:', pictureUrl);
+    console.log('email:', email);
+} else {
+    console.log('ไม่พบข้อมูลผู้ใช้งานใน session storage');
+}
+}
+onMount(DataLine)
+
+
+	
 </script>
 
 <div class="content-center">
@@ -205,6 +252,7 @@
 				<input type="text" hidden name="email" id="emailInputfacebook" />
 				<input type="text" hidden name="name" id="nameInputfacebook" />
 			</form>
+			<buuton class="boxlogin"  style="background-color: black;"><a href={loginUrl}> sss</a></buuton>
 		</div>
 	</div>
 </div>

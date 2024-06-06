@@ -52,10 +52,12 @@ export const actions = {
 		/** @type {DtoResponse} */
 		const data = await result.json();
 		console.log(data);
-
+		
 		// @ts-ignore
 		if (data.message!="EmailNotFound") {
             return {
+				data,
+				role:data.result.user_token.role,// ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
                 success: true
 				
             };
@@ -78,6 +80,7 @@ export const actions = {
 		}
 
 		cookies.set('token', JSON.stringify(data.result.token), cookiesConfig);
+
 		return {
 			data
 		};
@@ -122,12 +125,14 @@ export const actions = {
 			console.log("1")
 			return {
 				dataregister,
+				role:"CUSTOMER",
 				success: true,
 			}
         }else{
 			console.log("2")
 			return {
 				datalogin,
+				role:datalogin.result.token.role,
 				success:true
 			}
 		}
