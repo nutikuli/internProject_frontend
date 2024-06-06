@@ -31,9 +31,16 @@
 					on:click={() => gotoDetail(store.store_data.id)}
 					aria-label={`View details of ${store.store_data.store_name}`}
 				>
-					<img src={store.files_data.file_data} alt={store.store_data.store_name} />
+					{#if store.files_data.length > 0}
+						<img
+							src={`http://${store.files_data[0].file_data}`}
+							alt={store.store_data.store_name}
+						/>
+                    {:else}
+                        <img src={store.files_data.file_data} alt={store.store_data.store_name} />
+					{/if}
+					
 				</button>
-
 				<h5 class="card-title">{store.store_data.store_name}</h5>
 				<p class="card-text">{store.store_data.email}</p>
 				<div class="row justify-content-between align-items-end">
@@ -49,7 +56,7 @@
 <style>
 	.showstore {
 		margin: 20px;
-		margin-left: 70px;
+		align-content: center;
 	}
 
 	.store-list {
@@ -64,17 +71,17 @@
 		border: none;
 		background: none;
 		padding: 0;
-		width: 70%;
+		width: 100%;
 	}
 
 	.store-image img {
-		width: 100%;
-		height: auto;
+		width: 200px;
+		height: 200px;
 	}
 
-	.card{
-        max-width: max-content;
-    }
+	.card {
+		max-width: max-content;
+	}
 
 	.card-title,
 	.card-text {
