@@ -1,8 +1,19 @@
 <script>
+	// @ts-nocheck
+
+	/**
+	 * @typedef {Object} FileData
+	 * @property {string} file_name
+	 * @property {string} file_data
+	 * @property {string} file_type
+	 */
+
 	import FileDropzone from './../../../../../components/FileDropzone.svelte';
 	import Model from '../../../../../components/Model.svelte';
-	import Icon from '@iconify/svelte';
 	import TableWithAvatar from '../../../../../components/TableWithAvatar.svelte';
+	import { enhance } from '$app/forms';
+	import Swal from 'sweetalert2';
+	import { writable } from 'svelte/store';
 
 	let colLabels = [
 		'#',
@@ -18,11 +29,14 @@
 
 	/** @type {import('./$types').PageData} */
 	export let data;
-	console.log(data.result);
 
-	let rowRecordMapper = data.result.map((item) => {
+	/** @type {import('./$types').ActionData} */
+	export let form;
+
+	let rowRecordMapper = data.products.map((item) => {
 		if (item.product_data) {
 			const d = item.product_data;
+
 			return [
 				item.files_data.length > 0
 					? `http://${item.files_data[0].file_data}`
@@ -37,22 +51,46 @@
 		}
 	});
 
-	// // สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-	// /** @type {string[][]} */
-	// let rowRecordss = [
-	// 	['ผู้บังคับบัญชา', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-	// 	['เจ้าหน้าที่', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-	// 	['พนักงานบัญชี', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-	// 	['คนขับ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดการใช้งาน'],
-	// 	['ผู้อำนวยการ', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-	// 	['พัฒนาบุคคลากร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-	// 	['โปรแกรมเมอร์', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ใช้งาน'],
-	// 	['ผู้บริหาร', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-	// 	['พนักงานทั่วไป', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-	// 	['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-	// 	['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน'],
-	// 	['พนักงานชั่วคราว', 'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log', 'AS', 'ปิดใช้งาน']
-	// ];
+	$: tableData = null;
+
+	$: {
+		if (form?.result) {
+			const newProd = () => {
+				const obj = form?.result;
+				return {
+					'#': rowRecordMapper.length + 1,
+					รูปภาพ:
+						obj.files_data.length > 0
+							? `http://${obj.files_data[0].file_data}`
+							: 'http://127.0.0.1:8080/public/image/d0ef349790a0216f8fcc6a73bb74c6a1f02b0a52c75d879ca8ae1e231eddb8fc.jpg',
+					ชื่อสินค้า: `PROD000${obj.product_data.id}`,
+					รหัสสินค้า: obj.product_data.name,
+					หมวดหมู่: form?.result.product_category_data.name,
+					ราคา: form?.result.product_data.price,
+					จำนวนในสต๊อก: form?.result.product_data.stock,
+					สถานะ: form?.result.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
+				};
+			};
+
+			tableData.row.add(newProd()).draw();
+
+			console.log('newProd', newProd());
+		}
+	}
+
+	/** @type {FileData[]} */
+	$: imagesPreview = [];
+
+	/**
+	 * @typedef {Object} ProductData
+	 * @property {string} name
+	 * @property {number} price
+	 * @property {number} stock
+	 * @property {string} detail
+	 * @property {boolean} status
+	 * @property {number} category_id
+	 * @property {number} store_id
+	 */
 </script>
 
 <div id="product-managment-container" class="container-fluid mb-4">
@@ -68,36 +106,66 @@
 			เพิ่มสินค้า
 		</button>
 		<Model modalTargetId={`modal-product-target`} modalTitle="เพิ่มสินค้า">
-			<form class="form-floating container my-4 d-flex flex-column gap-4">
-				<div class="row me-2 align-items-center gap-2">
-					<label for="productImage" class="form-label col-2">รูปภาพ </label>
-					<div class="col">
-						<div class="d-flex gap-4 align-items-center">
-							<img
-								sizes="32"
-								src="https://via.placeholder.com/100"
-								class="img-thumbnail"
-								alt="Product Image"
-								id="productImagePreview"
-							/>
-							<FileDropzone />
-						</div>
-					</div>
-				</div>
-				<div class=" row me-2 align-items-center gap-2">
+			<form
+				action="?/createProduct"
+				method="POST"
+				use:enhance={({ formData }) => {
+					let status = formData.get('status');
+					if (status) {
+						formData.set('status', status === 'on' ? '1' : '0');
+					} else {
+						formData.set('status', '0');
+					}
+
+					formData.append('files_data', JSON.stringify(imagesPreview));
+					formData.append('store_id', data.store_account.store_data.id.toString());
+
+					return async ({ result, update }) => {
+						if (result.type === 'success') {
+							Swal.fire({
+								title: 'สำเร็จ',
+								text: 'เพิ่มสินค้าสำเร็จ',
+								icon: 'success'
+							});
+							imagesPreview = [];
+						}
+						update();
+					};
+				}}
+				style="font-size: 0.85rem"
+				class="form-floating container d-flex flex-column gap-4"
+			>
+				<input
+					hidden
+					value={imagesPreview}
+					name="files_data"
+					type="number"
+					class="col form-control"
+					id="storeId"
+				/>
+				<FileDropzone bind:imageFilesData={imagesPreview} />
+				<div class=" input-group input-group-sm row me-2 align-items-center gap-2">
 					<label for="productName" class="col-2 form-label">ชื่อสินค้า</label>
-					<input type="text" class="col form-control" id="productName" placeholder="placeholder" />
+					<input
+						name="name"
+						type="text"
+						class="col form-control"
+						id="productName"
+						placeholder="placeholder"
+					/>
 				</div>
-				<div class=" row me-2 align-items-center gap-2">
+				<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 					<label for="productCategory" class="col-2 form-label">หมวดหมู่</label>
-					<select class="form-select col" id="productCategory">
-						<option selected>-- select --</option>
-						<!-- Add options here -->
+					<select name="category_id" class="form-select col" id="productCategory">
+						{#each data.product_category as item}
+							<option value={item.id}>{item.name}</option>
+						{/each}
 					</select>
 				</div>
-				<div class=" row me-2 align-items-center gap-2">
+				<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 					<label for="productDetails" class="col-2 form-label">รายละเอียด</label>
 					<textarea
+						name="detail"
 						class="form-control col"
 						rows="6"
 						id="productDetails"
@@ -105,31 +173,53 @@
 						placeholder="placeholder"
 					></textarea>
 				</div>
-				<div class=" row me-2 align-items-center gap-2">
+				<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 					<label for="productPrice" class="col-2 form-label">ราคา</label>
-					<input type="text" class="form-control col" id="productPrice" placeholder="placeholder" />
+					<input
+						name="price"
+						type="number"
+						class="form-control col"
+						id="productPrice"
+						placeholder="placeholder"
+					/>
 				</div>
-				<div class=" row me-2 align-items-center gap-2">
+				<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 					<label for="productQuantity" class="col-2 form-label">จำนวนในสต็อก</label>
 					<input
-						type="text"
+						name="stock"
+						type="number"
 						class="form-control col"
 						id="productQuantity"
 						placeholder="placeholder"
 					/>
 				</div>
-				<div class="row me-2 align-items-center">
+				<div class="input-group input-group-sm row me-2 align-items-center">
 					<label class="col-2 form-check-label" for="productActive">ใช้งาน</label>
 
 					<div class="col fs-3 form-check form-switch">
-						<input class=" form-check-input" type="checkbox" id="productActive" />
+						<input name="status" class=" form-check-input" type="checkbox" id="productActive" />
 					</div>
+				</div>
+				<div class="modal-footer">
+					<button data-bs-dismiss="modal" type="submit" class="btn btn-sm py-2 px-4 btn-primary"
+						>บันทึก</button
+					>
+					<button
+						type="button"
+						class="btn btn-sm py-2 px-4 btn-outline-primary"
+						data-bs-dismiss="modal">ยกเลิก</button
+					>
 				</div>
 			</form>
 		</Model>
 	</div>
 	<!-- TODO: ตัวอย่างการนำไปใช้  -->
-	<TableWithAvatar rowRecords={rowRecordMapper} actionSelects={['EDIT', 'DELETE']} {colLabels}>
+	<TableWithAvatar
+		bind:table={tableData}
+		rowRecords={rowRecordMapper}
+		actionSelects={['EDIT', 'DELETE']}
+		{colLabels}
+	>
 		<div slot="editor-action">
 			<form action="">
 				<!-- form elements goes hese -->
