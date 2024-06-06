@@ -2,9 +2,9 @@
 	import Icon from '@iconify/svelte';
 	import NavbarCustomer from '../../../../components/navbarCustomer.svelte';
 	import { onMount } from 'svelte';
-	export let data; // Ensure product is defined as a prop
+	export let data;
 
-	console.log(data.product); // Check if product is defined and contains data
+	console.log(data.product);
 
 	const productName = data.product.result.product_data.name;
 	const productDetail = data.product.result.product_data.detail;
@@ -22,70 +22,23 @@
 		activeIndex = index;
 	}
 
-	
-	// let productCategory = null;
-	// async function getProductCategory() {
-	// 	try {
-	// 		const response = await fetch(
-	// 			`http://127.0.0.1:8080/api/v1/product-category/get-product-category-id/${productCategoryId}`
-	// 		);
-	// 		const responseData = await response.json();
-	// 		console.log(responseData); 
-	// 		if (responseData.status === 'OK') {
-	// 			productCategory = responseData.result;
-	// 		} else {
-	// 			console.error('Error fetching product category:', responseData.message);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error('Error fetching product category:', error);
-	// 	}
-	// }
-	// onMount(async () => {
-	// 	await getProductCategory();
-	// });
-
-
-	// let storeData = null;
-
-
-	// async function getStoreData() {
-	// 	try {
-	// 		const response = await fetch(`http://127.0.0.1:8080/api/v1/store/get-store-by-id/${productStoreId}`);
-	// 		const responseData = await response.json();
-	// 		console.log(responseData); 
-	// 		if (responseData.status === 200) {
-	// 			storeData = responseData.result.store_data; 
-	// 		} else {
-	// 			console.error('Error fetching store data:', responseData.message);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error('Error fetching store data:', error);
-	// 	}
-	// }
-
-
-	// onMount(async () => {
-	// 	await getStoreData();
-	// });
-
-	// console.log(storeData);
 </script>
 
 <div>
 	<NavbarCustomer />
 	<div class="container">
-		<div style="padding-left: 60px; padding-right: 60px; padding-top: 30px;">
+		<div style="padding-top: 30px;">
 			<div class="card">
 				<div class="row">
 					<!-- test image -->
-					<div id="carouselAutoplaying" class="carousel slide">
+					<div id="carouselAutoplaying" class="col-5 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-4 carousel slide">
 						<div class="carousel-inner">
 							{#each filesData as file, index}
 								<div class="carousel-item {index === activeIndex ? 'active' : ''}">
 									<img
-										style="margin: 10px;"
-										src={file.file_data ||
-											'https://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
+										style="margin: 10px; width: 340px"
+										src={`http://${file.file_data}` ||
+											'http://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
 										alt={file.file_name}
 									/>
 								</div>
@@ -103,16 +56,16 @@
 								>
 									<img
 										class="img-thumbnail"
-										src={file.file_data ||
-											'https://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
+										src={`http://${file.file_data}` ||
+											'http://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
 										alt={file.file_name}
 									/>
 								</button>
 							{/each}
 						</div>
 					</div>
-					<!-- test image -->
-					<div class="col-md-8">
+					
+					<div class="detail col-xxl-8">
 						<h3 class="text-left mb-3">{productName}</h3>
 						<div class="d-flex align-items-center justify-content-between">
 							<div>
@@ -155,6 +108,9 @@
 </div>
 
 <style>
+	.detail{
+		margin: 10px;
+	}
 	.thumbnail {
 		cursor: pointer;
 		margin-right: 10px;
@@ -170,7 +126,7 @@
 	}
 
 	.carousel-thumbnails {
-		margin-top: 10px;
+		margin-top: 5px;
 	}
 
 	.carousel-item.active {
@@ -181,12 +137,11 @@
 		border: 1px solid #007bff;
 	}
 	.carousel,
-	.carousel-inner,
 	.carousel-item {
 		width: min-content;
 	}
 	img {
-		width: 200px;
+		width: 150px;
 		height: auto;
 	}
 
@@ -198,7 +153,5 @@
 	.img-thumbnail {
 		width: 100px;
 	}
-	.carousel-thumbnails {
-		margin-left: 25px;
-	}
+	
 </style>
