@@ -1,10 +1,69 @@
-<div class="dropzone">
-	<img src="http://100dayscss.com/codepen/upload.svg" sizes="32" class="upload-icon" />
-	<input type="file" class="upload-input" />
-	<p style="position: relative; top: -20px" class="p-0 m-0">Upload</p>
+<script>
+	/**
+	 * @typedef {Object} FileData
+	 * @property {string} file_name
+	 * @property {string} file_data
+	 * @property {string} file_type
+	 */
+
+	/** @type {FileData[]} */
+	export let imageFilesData = [];
+
+	function handleFileUpload(event) {
+		const file = event.target.files[0];
+		const reader = new FileReader();
+
+		reader.onload = () => {
+			const imageSource = reader.result;
+			if (imageSource) {
+				imageFilesData.push({
+					file_name: file.name,
+					file_data: imageSource.toString().replace(/^data:image\/\w+;base64,/, ''),
+					file_type: file.type === 'image/jpeg' ? 'JPG' : 'PNG'
+				});
+				imageFilesData = imageFilesData;
+			}
+		};
+
+		reader.readAsDataURL(file);
+	}
+</script>
+
+<div class="row me-2 align-items-center gap-2">
+	<label for="productImage" class="form-label col-2">รูปภาพ </label>
+	<div class="col d-flex flex-wrap gap-4 align-items-center">
+		{#each imageFilesData as src, i}
+			<img
+				width="62"
+				height="62"
+				src={`data:image/${src.file_type.toLowerCase};base64,${src.file_data}`}
+				class="img-thumbnail"
+				alt={src.file_name}
+				id={`productImagePreview-${i}`}
+			/>
+		{/each}
+		<div class="dropzone my-2">
+			<img src="http://100dayscss.com/codepen/upload.svg" sizes="32" class="upload-icon" />
+			<input type="file" accept=".jpeg,.png" on:input={handleFileUpload} class="upload-input" />
+			<p style="position: relative; top: -20px" class="p-0 m-0">Upload</p>
+		</div>
+	</div>
 </div>
 
 <style>
+	.dropzone:hover {
+		cursor: pointer;
+		opacity: 0.5;
+		scale: 1.1;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.dropzone:not(:hover) {
+		opacity: 1;
+		scale: 1;
+		transition: all 0.3s ease-out;
+	}
+
 	.frame {
 		position: absolute;
 		top: 50%;
@@ -51,22 +110,24 @@
 	}
 
 	.dropzone {
-		width: 100px;
-		height: 100%;
+		width: 80px;
+		height: 80px;
 		border: 1px dashed #999;
 		border-radius: 3px;
 		text-align: center;
 	}
 
 	.upload-icon {
-		margin: 25px 2px 2px 2px;
+		margin: 15px 2px 2px 2px;
 	}
 
 	.upload-input {
 		position: relative;
 		top: 0%;
+		cursor: pointer;
 		left: 0;
 		width: 100px;
+		scale: 2;
 		height: auto;
 		opacity: 0;
 	}

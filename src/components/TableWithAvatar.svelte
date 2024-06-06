@@ -3,15 +3,25 @@
 <script>
 	import Icon from '@iconify/svelte';
 	import Model from './Model.svelte';
-	import { onMount } from 'svelte';
+	import { onMount, afterUpdate } from 'svelte';
 	import DataTable from 'datatables.net-dt';
+	import { writable } from 'svelte/store';
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
 	export let colLabels = ['#', 'รูปภาพ', 'เมนูที่เข้าถึงได้', 'หมวดหมู่', 'สถานะ', 'Actions'];
 
+	// /**
+	//  * A writable store that contains a string[][].
+	//  * @type {import('svelte/store').Writable<any[][]>}
+	//  */
+	// export const rowRecordsStore = writable();
+
 	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-	/** @type {any[][]} */
+	/**
+	 * A writable store that contains a string[][].
+	 * @type {any[][]}
+	 */
 	export let rowRecords = [
 		[
 			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
@@ -163,8 +173,10 @@
 		});
 	}
 
+	export let table;
+
 	onMount(() => {
-		const table = new DataTable(`#${tableTarget}`, {
+		table = new DataTable(`#${tableTarget}`, {
 			lengthChange: false,
 			searching: true,
 			ordering: true,
@@ -238,7 +250,7 @@
 		<tbody>
 			{#each rowRecords as record, index}
 				<tr>
-					<td>{index}</td>
+					<td>{index + 1}</td>
 					{#each record.slice(0, -1) as cell, cellIndex}
 						{#if cellIndex === 0}
 							<td>
