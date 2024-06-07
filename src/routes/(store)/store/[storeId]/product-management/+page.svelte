@@ -127,6 +127,14 @@
 							});
 							imagesPreview = [];
 						}
+
+						if (result.type === 'failure') {
+							Swal.fire({
+								title: 'ทำรายการไม่สำเร็จ',
+								text: 'เพิ่มสินค้าไม่สำเร็จโปรดลองใหม่อีกครั้ง',
+								icon: 'error'
+							});
+						}
 						await goto(window.location.pathname, { replaceState: true });
 					};
 				}}

@@ -207,8 +207,6 @@ export const actions = {
 			product_data: product_Data
 		};
 
-		console.log(sender);
-
 		const config = configGetter(
 			'PATCH',
 			sender,
@@ -231,6 +229,40 @@ export const actions = {
 			});
 		}
 
+		console.log(data);
+		return {
+			result: data.result,
+			success: true
+		};
+	},
+
+	deleteProduct: async ({ request, cookies }) => {
+		const formData = Object.fromEntries(await request.formData());
+		const { token, store_account } = CookiesJsonParser(cookies, 'token', 'store_account');
+
+		const { product_id } = formData;
+
+		const config = configGetter(
+			'DELETE',
+			null,
+			headerWithToken(token, { username: store_account.store_data.name })
+		);
+
+		const result = await fetch(
+			`${baseDomainEndpoint}/api/v1/product/delete-product-id/${product_id}`,
+			config
+		);
+
+		/** @type {DtoProductResponse} */
+		const data = await result.json();
+		if (data.status_code != 201 && data.status_code != 200) {
+			console.error(data.message);
+			return fail(400, {
+				message: 'Failed to delete product'
+			});
+		}
+
+		console.log(data);
 		return {
 			result: data.result,
 			success: true

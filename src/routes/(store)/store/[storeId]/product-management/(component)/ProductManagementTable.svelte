@@ -1,17 +1,7 @@
 <!-- ก๊อปเอาไปดัดแปลงใช้ได้เลย  -->
 
 <script>
-	/**
-	 * @typedef {Object} ProductCategoryData
-	 * @property {number} id
-	 * @property {string} name
-	 * @property {boolean} status
-	 * @property {string} code
-	 * @property {string} detail
-	 * @property {number} store_id
-	 * @property {string} created_at
-	 * @property {string} updated_at
-	 */
+	import ProductEditor from './ProductEditor.svelte';
 
 	import Icon from '@iconify/svelte';
 	import Model from '../../../../../../components/Model.svelte';
@@ -42,80 +32,7 @@
 	 * A writable store that contains a string[][].
 	 * @type {any[][]}
 	 */
-	export let rowRecords = [
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ปิดการใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ปิดใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ปิดใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ปิดใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ปิดใช้งาน'
-		],
-		[
-			'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-			'แอดมิน, มาตรา, ผู้บังคับบัญชา, สมาชิค, Log',
-			'AS',
-			'ปิดใช้งาน'
-		]
-	];
+	export let rowRecords;
 
 	/** @type {("EDIT" | "DELETE" | "VIEW")[]} */
 	export let actionSelects = ['DELETE', 'EDIT'];
@@ -299,117 +216,16 @@
 										color="#FD7E14"
 									/></button
 								>
-								{@const imagePreview = { src: productImages[index + 1], alt: 'Product Image' }}
-								<Model modalTargetId={`modal-editor-${index}`} modalTitle={'แก้ไขข้อมูล'}>
-									<form
-										action="?/createProduct"
-										method="POST"
-										use:enhance={({ formData }) => {
-											let status = formData.get('status');
-											if (status) {
-												formData.set('status', status === 'on' ? '1' : '0');
-											} else {
-												formData.set('status', '0');
-											}
-
-											formData.append('files_data', JSON.stringify(imagePreview.src));
-											formData.append('store_id', store_id.toString());
-											formData.append('product_id', record[0][1].split('-')[1]);
-
-											return async ({ result }) => {
-												if (result.type === 'success') {
-													Swal.fire({
-														title: 'สำเร็จ',
-														text: 'แก้ไขสินค้าสำเร็จ',
-														icon: 'success'
-													});
-												}
-											};
-										}}
-										style="font-size: 0.85rem"
-										class="form-floating container d-flex flex-column gap-4"
-									>
-										<!-- <FileDropzone bind:imageFilesData={imagePreview.src} /> -->
-										<div class=" input-group input-group-sm row me-2 align-items-center gap-2">
-											<label for="productName" class="col-2 form-label">ชื่อสินค้า</label>
-											<input
-												name="name"
-												value={record[1]}
-												type="text"
-												class="col form-control"
-												id="productName"
-												placeholder="placeholder"
-											/>
-										</div>
-										<div class="input-group input-group-sm row me-2 align-items-center gap-2">
-											<label for="productCategory" class="col-2 form-label">หมวดหมู่</label>
-											<select name="category_id" class="form-select col" id="productCategory">
-												{#each productCate as item}
-													<option value={item.id}>{item.name}</option>
-												{/each}
-											</select>
-										</div>
-										<div class="input-group input-group-sm row me-2 align-items-center gap-2">
-											<label for="productDetails" class="col-2 form-label">รายละเอียด</label>
-											<textarea
-												value={record[3]}
-												name="detail"
-												class="form-control col"
-												rows="6"
-												id="productDetails"
-												cols="30"
-												placeholder="placeholder"
-											></textarea>
-										</div>
-										<div class="input-group input-group-sm row me-2 align-items-center gap-2">
-											<label for="productPrice" class="col-2 form-label">ราคา</label>
-											<input
-												value={record[4]}
-												name="price"
-												type="number"
-												class="form-control col"
-												id="productPrice"
-												placeholder="placeholder"
-											/>
-										</div>
-										<div class="input-group input-group-sm row me-2 align-items-center gap-2">
-											<label for="productQuantity" class="col-2 form-label">จำนวนในสต็อก</label>
-											<input
-												value={record[5]}
-												name="stock"
-												type="number"
-												class="form-control col"
-												id="productQuantity"
-												placeholder="placeholder"
-											/>
-										</div>
-										<div class="input-group input-group-sm row me-2 align-items-center">
-											<label class="col-2 form-check-label" for="productActive">ใช้งาน</label>
-
-											<div class="col fs-3 form-check form-switch">
-												<input
-													checked={record[6] === 'ใช้งาน'}
-													name="status"
-													class=" form-check-input"
-													type="checkbox"
-													id="productActive"
-												/>
-											</div>
-										</div>
-										<div class="modal-footer">
-											<button
-												data-bs-dismiss="modal"
-												type="submit"
-												class="btn btn-sm py-2 px-4 btn-primary">บันทึก</button
-											>
-											<button
-												type="button"
-												class="btn btn-sm py-2 px-4 btn-outline-primary"
-												data-bs-dismiss="modal">ยกเลิก</button
-											>
-										</div>
-									</form>
-								</Model>
+								<ProductEditor
+									props={{
+										index,
+										store_id,
+										product_id: record[1].split('-')[1],
+										productCate,
+										record,
+										imageFilesData: productImages[index + 1]
+									}}
+								/>
 							{/if}
 							{#if actionSelects.includes('DELETE')}
 								<button
@@ -421,7 +237,41 @@
 								</button>
 								<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'}>
 									<slot name="delete-action">
-										<span>Place your form-elements here</span>
+										<div class="modal-body">
+											<p>คุณต้องการลบข้อมูลใช่หรือมั้ย</p>
+										</div>
+										<div class="modal-footer">
+											<form
+												method="POST"
+												action="?/deleteProduct"
+												use:enhance={({ formData }) => {
+													formData.append('product_id', record[1].split('-')[1]);
+
+													return async ({ result }) => {
+														if (result.type === 'success') {
+															Swal.fire({
+																title: 'สำเร็จ',
+																text: 'แก้ไขสินค้าสำเร็จ',
+																icon: 'success'
+															});
+														}
+
+														if (result.type === 'failure') {
+															Swal.fire({
+																title: 'ทำรายการไม่สำเร็จ',
+																text: 'ลบสินค้าไม่สำเร็จโปรดลองใหม่อีกครั้ง',
+																icon: 'error'
+															});
+														}
+													};
+												}}
+											>
+											<button type="submit" class="btn btn-danger">ลบ</button>
+												<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+													>ยกเลิก</button
+												>
+											</form>
+										</div>
 									</slot>
 								</Model>
 							{/if}

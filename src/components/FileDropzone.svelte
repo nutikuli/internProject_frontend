@@ -36,7 +36,9 @@
 			<img
 				width="62"
 				height="62"
-				src={`data:image/${src.file_type.toLowerCase};base64,${src.file_data}`}
+				src={src.file_type.startsWith('data:image/')
+					? `data:image/${src.file_type.toLowerCase};base64,${src.file_data}`
+					: `http://${src.file_data}`}
 				class="img-thumbnail"
 				alt={src.file_name}
 				id={`productImagePreview-${i}`}
