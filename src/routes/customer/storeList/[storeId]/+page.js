@@ -7,14 +7,13 @@ export async function load({ params }) {
             throw new Error(`Failed to fetch product: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Fetched product data:', data); // Log the fetched data
+        console.log('Fetched product data:', data);
 
         // Extract product data based on your API's structure
+        let product = data.result || [];
 
-        let product = data.result;
-
-        if (!product) {
-            throw new Error('Product data is missing');
+        if (!Array.isArray(product)) {
+            throw new Error('Invalid product data format');
         }
 
         return {
@@ -23,8 +22,8 @@ export async function load({ params }) {
     } catch (error) {
         console.error('Error fetching product data:', error);
         return {
+            product: [], // Return an empty array in case of an error
             error: error.message
         };
     }
 }
-

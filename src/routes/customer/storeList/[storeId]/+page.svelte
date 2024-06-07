@@ -13,10 +13,11 @@
 
 	let selectedValue = '1'; // Default sorting option
 
+	// Initial sort on load
+	sortProducts();
+
 	function sortProducts() {
 		switch (selectedValue) {
-			case '1':
-
 			case '2': // Sort by price - high to low
 				products = [...products].sort((a, b) => b.product_data.price - a.product_data.price);
 				break;
@@ -35,8 +36,11 @@
 	}
 
 	function handleSortChange(event) {
-		selectedValue = event.target.value;
-		sortProducts();
+		const newValue = event.target.value;
+		if (newValue !== selectedValue) {
+			selectedValue = newValue;
+			sortProducts();
+		}
 	}
 </script>
 
@@ -53,6 +57,9 @@
 		</select>
 	</div>
 	<div class="row">
+		{#if products.length === 0}
+			<h2 class="no-product d-flex justify-content-center align-items-center">ไม่มีสินค้าในขณะนี้</h2>
+		{/if}
 		{#each products as product}
 			<div class="product-list card col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
 				<button
@@ -87,6 +94,13 @@
 </div>
 
 <style>
+	.no-product{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
 	.sort-container {
 		width: 300px;
 	}
@@ -108,7 +122,6 @@
 		border: none;
 		background: none;
 		padding: 0;
-		width: 100%;
 	}
 
 	.product-image img {
@@ -116,6 +129,9 @@
 		height: auto;
 	}
 
+	.card {
+		height: 500px;
+	}
 	.card-body {
 		display: flex;
 		flex-direction: column;
