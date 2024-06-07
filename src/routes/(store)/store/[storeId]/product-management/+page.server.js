@@ -179,5 +179,61 @@ export const actions = {
 			result: data.result,
 			success: true
 		};
+	},
+
+	updateProduct: async ({ request, cookies }) => {
+		const formData = Object.fromEntries(await request.formData());
+		const { token, store_account } = CookiesJsonParser(cookies, 'token', 'store_account');
+
+		let { files_data, product_id, ...product_Data } = formData;
+
+		for (let key in product_Data) {
+			let value = product_Data[key];
+			let numberValue = Number(value);
+
+			if (!isNaN(numberValue)) {
+				// @ts-ignore
+				product_Data[key] = numberValue;
+			}
+
+			if (key === 'status') {
+				// @ts-ignore
+				product_Data[key] = Boolean(+value);
+			}
+		}
+
+		const sender = {
+			files_data: JSON.parse(files_data.toString()),
+			product_data: product_Data
+		};
+
+		console.log(sender);
+
+		const config = configGetter(
+			'PATCH',
+			sender,
+			headerWithToken(token, {
+				username: store_account.store_data.name
+			})
+		);
+
+		const result = await fetch(
+			`${baseDomainEndpoint}/api/v1/product/update-product-id/${product_id}`,
+			config
+		);
+
+		/** @type {DtoProductResponse} */
+		const data = await result.json();
+		if (data.status_code != 201 && data.status_code != 200) {
+			console.error(data.message);
+			return fail(400, {
+				message: 'Failed to update product'
+			});
+		}
+
+		return {
+			result: data.result,
+			success: true
+		};
 	}
 };

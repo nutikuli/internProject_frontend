@@ -1,6 +1,4 @@
 <script>
-	// @ts-nocheck
-
 	/**
 	 * @typedef {Object} FileData
 	 * @property {string} file_name
@@ -10,10 +8,10 @@
 
 	import FileDropzone from './../../../../../components/FileDropzone.svelte';
 	import Model from '../../../../../components/Model.svelte';
-	import TableWithAvatar from '../../../../../components/TableWithAvatar.svelte';
+	import ProductManagementTable from './(component)/ProductManagementTable.svelte';
 	import { enhance } from '$app/forms';
 	import Swal from 'sweetalert2';
-	import { writable } from 'svelte/store';
+	import { goto } from '$app/navigation';
 
 	let colLabels = [
 		'#',
@@ -41,7 +39,7 @@
 				item.files_data.length > 0
 					? `http://${item.files_data[0].file_data}`
 					: 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-				`PROD000${d.id}`,
+				`PROD000-${d.id}`,
 				d.name,
 				item.product_category_data.name,
 				item.product_data.price,
@@ -53,30 +51,30 @@
 
 	$: tableData = null;
 
-	$: {
-		if (form?.result) {
-			const newProd = () => {
-				const obj = form?.result;
-				return {
-					'#': rowRecordMapper.length + 1,
-					รูปภาพ:
-						obj.files_data.length > 0
-							? `http://${obj.files_data[0].file_data}`
-							: 'http://127.0.0.1:8080/public/image/d0ef349790a0216f8fcc6a73bb74c6a1f02b0a52c75d879ca8ae1e231eddb8fc.jpg',
-					ชื่อสินค้า: `PROD000${obj.product_data.id}`,
-					รหัสสินค้า: obj.product_data.name,
-					หมวดหมู่: form?.result.product_category_data.name,
-					ราคา: form?.result.product_data.price,
-					จำนวนในสต๊อก: form?.result.product_data.stock,
-					สถานะ: form?.result.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
-				};
-			};
+	// $: {
+	// 	if (form?.result) {
+	// 		const newProd = () => {
+	// 			const obj = form?.result;
+	// 			return {
+	// 				'#': rowRecordMapper.length + 1,
+	// 				รูปภาพ:
+	// 					obj.files_data.length > 0
+	// 						? `http://${obj.files_data[0].file_data}`
+	// 						: 'http://127.0.0.1:8080/public/image/d0ef349790a0216f8fcc6a73bb74c6a1f02b0a52c75d879ca8ae1e231eddb8fc.jpg',
+	// 				ชื่อสินค้า: `PROD000${obj.product_data.id}`,
+	// 				รหัสสินค้า: obj.product_data.name,
+	// 				หมวดหมู่: form?.result.product_category_data.name,
+	// 				ราคา: form?.result.product_data.price,
+	// 				จำนวนในสต๊อก: form?.result.product_data.stock,
+	// 				สถานะ: form?.result.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
+	// 			};
+	// 		};
 
-			tableData.row.add(newProd()).draw();
+	// 		tableData.row.add(newProd()).draw();
 
-			console.log('newProd', newProd());
-		}
-	}
+	// 		console.log('newProd', newProd());
+	// 	}
+	// }
 
 	/** @type {FileData[]} */
 	$: imagesPreview = [];
@@ -120,7 +118,7 @@
 					formData.append('files_data', JSON.stringify(imagesPreview));
 					formData.append('store_id', data.store_account.store_data.id.toString());
 
-					return async ({ result, update }) => {
+					return async ({ result }) => {
 						if (result.type === 'success') {
 							Swal.fire({
 								title: 'สำเร็จ',
@@ -129,7 +127,7 @@
 							});
 							imagesPreview = [];
 						}
-						update();
+						await goto(window.location.pathname, { replaceState: true });
 					};
 				}}
 				style="font-size: 0.85rem"
@@ -214,47 +212,15 @@
 		</Model>
 	</div>
 	<!-- TODO: ตัวอย่างการนำไปใช้  -->
-	<TableWithAvatar
+	<ProductManagementTable
+		productImages={data.products.map((item) => {
+			return item.files_data;
+		})}
+		store_id={data.store_account.store_data.id}
 		bind:table={tableData}
+		productCate={data.product_category}
 		rowRecords={rowRecordMapper}
 		actionSelects={['EDIT', 'DELETE']}
 		{colLabels}
-	>
-		<div slot="editor-action">
-			<form action="">
-				<!-- form elements goes hese -->
-				<div class="modal-footer">
-					<!-- ปุ่ม actions -->
-					<button type="button" class="btn btn-primary">บันทึก</button>
-					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
-						>ยกเลิก</button
-					>
-				</div>
-			</form>
-		</div>
-		<div slot="delete-action">
-			<form action="">
-				<!-- form elements goes hese -->
-				<div class="modal-footer">
-					<!-- ปุ่ม actions -->
-					<button type="button" class="btn btn-primary">บันทึก</button>
-					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
-						>ยกเลิก</button
-					>
-				</div>
-			</form>
-		</div>
-		<div slot="view-action">
-			<form action="">
-				<!-- form elements goes hese -->
-				<div class="modal-footer">
-					<!-- ปุ่ม actions -->
-					<button type="button" class="btn btn-primary">บันทึก</button>
-					<button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
-						>ยกเลิก</button
-					>
-				</div>
-			</form>
-		</div>
-	</TableWithAvatar>
+	></ProductManagementTable>
 </div>
