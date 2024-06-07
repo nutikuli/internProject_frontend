@@ -2,10 +2,12 @@
 	import Icon from '@iconify/svelte';
 	import NavbarCustomer from '../../../../components/navbarCustomer.svelte';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 	export let data;
 
 	console.log(data.product);
 
+	const productId = data.product.result.product_data.id;
 	const productName = data.product.result.product_data.name;
 	const productDetail = data.product.result.product_data.detail;
 	const productPrice = data.product.result.product_data.price;
@@ -14,6 +16,20 @@
 	const productCategoryId = data.product.result.product_data.category_id;
 	const productStoreId = data.product.result.product_data.store_id;
 	const filesData = data.product.result.files_data;
+	const categoryName = data.product.result.product_category_data.name; 	
+
+	let quantity = 1;
+	let totalPrice = 0;
+
+	function calculateTotalPrice() {
+		return quantity * productPrice;
+	}
+	$: totalPrice = calculateTotalPrice();
+
+	function refreshTotalPrice() {
+		totalPrice = calculateTotalPrice();
+	}
+
 	console.log(filesData);
 
 	let activeIndex = 0;
@@ -22,6 +38,16 @@
 		activeIndex = index;
 	}
 
+	function addToCart() {
+		// Add product to cookies with quantity
+		const cartItem = {
+			...productId,
+			quantity
+		};
+		document.cookie = `cart=${JSON.stringify(cartItem)}; path=/`;
+		// Redirect to customer-cart page
+		goto('/customer/customer-cart');
+	}
 </script>
 
 <div>
@@ -31,7 +57,10 @@
 			<div class="card">
 				<div class="row">
 					<!-- test image -->
-					<div id="carouselAutoplaying" class="col-5 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-4 carousel slide">
+					<div
+						id="carouselAutoplaying"
+						class="col-5 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl-4 carousel slide"
+					>
 						<div class="carousel-inner">
 							{#each filesData as file, index}
 								<div class="carousel-item {index === activeIndex ? 'active' : ''}">
@@ -64,7 +93,7 @@
 							{/each}
 						</div>
 					</div>
-					
+
 					<div class="detail col-xxl-8">
 						<h3 class="text-left mb-3">{productName}</h3>
 						<div class="d-flex align-items-center justify-content-between">
@@ -72,7 +101,7 @@
 								<div class="d-flex">
 									<h5 style="margin-right: 34px;">หมวดหมู่</h5>
 									<div>
-										<div>{productCategoryId}</div>
+										<div>{categoryName}</div>
 									</div>
 								</div>
 								<div class="d-flex">
@@ -83,18 +112,26 @@
 								</div>
 								<div class="d-flex">
 									<div style="margin-right: 60px; margin-top: 10px;">จำนวน</div>
-									<input type="text" class="form-control w-100 mr-3" placeholder="Input" />
+									<input
+										type="number"
+										class="form-control w-100 mr-3"
+										placeholder="Input"
+										bind:value={quantity}
+										min="1"
+										on:click={refreshTotalPrice}
+									/>
 									<div style="margin-left: 10px; margin-top: 10px;">ชิ้น</div>
 								</div>
 							</div>
-							<div>
+							<div style="margin-right: 20px">
 								<div class="d-flex">
 									<Icon icon="tabler:currency-bath" width="35" height="35" />
-									<h2 style="font-weight: 700;">{productPrice}</h2>
+									<h2 style="font-weight: 700;">{totalPrice}</h2>
 								</div>
-
 								<div class="col-auto">
-									<a href="/customer/customer-cart/id" class="btn btn-primary">ใส่ตะกร้า</a>
+									<a href="/customer/customer-cart/id" class="btn btn-primary" on:click={addToCart}
+										>ใส่ตะกร้า</a
+									>
 								</div>
 							</div>
 						</div>
@@ -108,7 +145,7 @@
 </div>
 
 <style>
-	.detail{
+	.detail {
 		margin: 10px;
 	}
 	.thumbnail {
@@ -153,5 +190,4 @@
 	.img-thumbnail {
 		width: 100px;
 	}
-	
 </style>
