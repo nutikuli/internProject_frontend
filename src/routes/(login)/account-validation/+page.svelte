@@ -10,13 +10,17 @@
     let email = "";
     let password = "";
     let otp ="";
-    let emailvalue="";
+    let emailvalue=[];
     export let form;
     console.log("otp dat : ",form)
     if(form!=null){
-        otp = form.data.result.otp
-        emailvalue= form.data.result.email
-        toggleForm('OTP')
+        if(form.data.result!=null){ // if (form.data && form.data.result && form.data.result.otp) แก้แบบนี้
+            otp=form.data.result.otp
+            emailvalue.push( form.data.result.email)
+            toggleForm('OTP')
+        }
+        
+        
     }
     console.log("otp : ",otp)
     console.log("email : ",emailvalue)

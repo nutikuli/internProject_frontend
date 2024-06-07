@@ -57,8 +57,8 @@ export const actions = {
 		if (data.message!="EmailNotFound") {
             return {
 				data,
-				role:data.result.user_token.role,// ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
-                success: true
+				role:data.result.token.role,// ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+                success: false
 				
             };
         }
@@ -134,6 +134,60 @@ export const actions = {
 				datalogin,
 				role:datalogin.result.token.role,
 				success:true
+			}
+		}
+
+		
+        
+       
+	},
+
+	signInWithLine: async ({ request }) => {
+		
+		const { uid, name } = Object.fromEntries(await request.formData());
+		const formData = new FormData();
+		console.log('checking register');
+		// Append key-value pairs to the FormData object
+        formData.append('acc_name', name);
+        formData.append('acc_password', "");
+		formData.append('password', "");
+		formData.append('acc_phone', "");
+		formData.append('acc_location', "");
+        formData.append('acc_email', uid);
+		formData.append('email', uid);
+        formData.append('acc_role', "CUSTOMER");
+        formData.append('acc_status', "true");
+        console.log(formData)
+		
+
+
+		console.log('uid , pass:', uid);
+		let config = {
+			method: 'POST', //การทำงาน get post update delete
+			headers: {},
+			body: formData
+		};
+		var result = await fetch(`http://localhost:8080/api/v1/account/login`, config);
+		const datalogin = await result.json();
+		console.log(datalogin)
+
+
+		if (datalogin.message=="EmailNotFound") {
+            var resultregister = await fetch(`http://localhost:8080/api/v1/account/register`, config);
+			const dataregister = await resultregister.json();
+			console.log(dataregister)
+			console.log("1")
+			return {
+				dataregister,
+				role:"CUSTOMER",
+				success: false,
+			}
+        }else{
+			console.log("2")
+			return {
+				datalogin,
+				role:datalogin.result.token.role,
+				success:false
 			}
 		}
 

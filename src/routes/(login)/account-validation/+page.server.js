@@ -41,7 +41,7 @@ export const actions = {
         formData.append('email', email);
 
 		console.log('checking reset password');
-		console.log('password:', password);
+		console.log('email : password:', password,":",email);
 		let config = {
 			method: 'POST', //การทำงาน get post update delete
 			headers: {

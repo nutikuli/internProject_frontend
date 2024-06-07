@@ -34,8 +34,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Store user profile data in localStorage (or other storage)
             localStorage.setItem('profile', JSON.stringify(profileData));
             sessionStorage.setItem('profile', JSON.stringify(profileData));
-            // Redirect to another page (e.g., /dashboard)
-            
+
+
+            document.getElementById('emailInputline').value = profileData.userId;
+            document.getElementById('nameInputline').value = profileData.displayName;
+            document.getElementById('mylineForm').submit();
+        
+           
         } catch (error) {
             console.error('Error:', error);
             document.getElementById('result').innerText = 'Error during login process';
