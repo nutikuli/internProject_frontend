@@ -17,6 +17,16 @@
 
 	function gotoDetail(id) {
 		goto(`/customer/storeList/${id}`);
+		console.log('go to product detail.')
+	}
+
+	let showLoading = false;
+	// Function to simulate loading progress
+	
+	function startLoading() {
+		showLoading = true;
+		
+
 	}
 </script>
 
@@ -28,7 +38,10 @@
 				<button
 					type="button"
 					class="store-image"
-					on:click={() => gotoDetail(store.store_data.id)}
+					on:click={() => {
+						startLoading();
+						gotoDetail(store.store_data.id);
+					}}
 					aria-label={`View details of ${store.store_data.store_name}`}
 				>
 					{#if store.files_data.length > 0}
@@ -36,10 +49,9 @@
 							src={`http://${store.files_data[0].file_data}`}
 							alt={store.store_data.store_name}
 						/>
-                    {:else}
-                        <img src={store.files_data.file_data} alt={store.store_data.store_name} />
+					{:else}
+						<img src={store.files_data.file_data} alt={store.store_data.store_name} />
 					{/if}
-					
 				</button>
 				<h5 class="card-title">{store.store_data.store_name}</h5>
 				<p class="card-text">{store.store_data.email}</p>
@@ -53,15 +65,33 @@
 	</div>
 </div>
 
+{#if showLoading}
+	<div class="loading-overlay d-flex justify-content-center align-items-center">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Loading...</span>
+		  </div>
+	</div>
+{/if}
+
 <style>
+	.loading-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(255, 255, 255, 0.65);
+		z-index: 1050;
+	}
 	.showstore {
-		margin: 20px;
+		margin: 10px;
 		align-content: center;
 	}
 
 	.store-list {
 		display: flex;
 		flex-direction: column;
+		padding: 0;
 		margin: 10px;
 		height: 100%;
 	}
@@ -70,7 +100,8 @@
 		cursor: pointer;
 		border: none;
 		background: none;
-		padding: 0;
+		padding: 2px;
+		padding-bottom: 10px;
 		width: 100%;
 	}
 
@@ -81,6 +112,7 @@
 
 	.card {
 		max-width: max-content;
+		padding: 4px;
 	}
 
 	.card-title,
