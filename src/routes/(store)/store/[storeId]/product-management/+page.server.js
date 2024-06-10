@@ -169,7 +169,7 @@ export const actions = {
 		/** @type {DtoProductResponse} */
 		const data = await result.json();
 		if (data.status_code != 201 && data.status_code != 200) {
-			console.error(data.message);
+			console.error(data);
 			return fail(400, {
 				message: 'Failed to create product'
 			});
@@ -223,7 +223,7 @@ export const actions = {
 		/** @type {DtoProductResponse} */
 		const data = await result.json();
 		if (data.status_code != 201 && data.status_code != 200) {
-			console.error(data.message);
+			console.error(data);
 			return fail(400, {
 				message: 'Failed to update product'
 			});
@@ -256,7 +256,7 @@ export const actions = {
 		/** @type {DtoProductResponse} */
 		const data = await result.json();
 		if (data.status_code != 201 && data.status_code != 200) {
-			console.error(data.message);
+			console.error(data);
 			return fail(400, {
 				message: 'Failed to delete product'
 			});

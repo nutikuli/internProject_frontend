@@ -2,14 +2,13 @@
 
 <script>
 	import ProductEditor from './ProductEditor.svelte';
-
+	import axios from 'axios';
 	import Icon from '@iconify/svelte';
 	import Model from '../../../../../../components/Model.svelte';
 	import { onMount, afterUpdate } from 'svelte';
 	import DataTable from 'datatables.net-dt';
 	import Swal from 'sweetalert2';
 	import { enhance } from '$app/forms';
-	import FileDropzone from '../../../../../../components/FileDropzone.svelte';
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
@@ -105,7 +104,6 @@
 			}, 50);
 		});
 	}
-
 	export let table;
 
 	onMount(() => {
@@ -122,6 +120,7 @@
 				infoEmpty: 'ไม่พบข้อมูล',
 				infoFiltered: '(กรองจากทั้งหมด _MAX_ รายการ)'
 			},
+
 			autoWidth: false
 		});
 		tableTriggerEvent(table);
@@ -168,14 +167,6 @@
 		}
 		// modify the pagination
 		onLoadCustomPaginationStyle();
-
-		const unsub = rowStoreRecords.subscribe((value) => {
-			if (value && table) {
-				table.row.add(value[value.length - 1]).draw();
-			}
-		});
-
-		return unsub;
 	});
 </script>
 
@@ -219,16 +210,18 @@
 										color="#FD7E14"
 									/></button
 								>
+
 								<ProductEditor
 									props={{
 										index,
 										store_id,
-										product_id: record[1].split('-')[1],
+										product_id: record[2].split('-')[1],
 										productCate,
 										record,
-										imageFilesData: productImages[index + 1]
+										imageFilesData: productImages[index]
 									}}
 								/>
+								<!-- promise was fulfilled -->
 							{/if}
 							{#if actionSelects.includes('DELETE')}
 								<button
@@ -248,13 +241,13 @@
 												method="POST"
 												action="?/deleteProduct"
 												use:enhance={({ formData }) => {
-													formData.append('product_id', record[1].split('-')[1]);
+													formData.append('product_id', record[2].split('-')[1]);
 
 													return async ({ result }) => {
 														if (result.type === 'success') {
 															Swal.fire({
 																title: 'สำเร็จ',
-																text: 'แก้ไขสินค้าสำเร็จ',
+																text: 'ลบสินค้าสำเร็จ',
 																icon: 'success'
 															});
 														}
@@ -266,6 +259,7 @@
 																icon: 'error'
 															});
 														}
+														location.reload();
 													};
 												}}
 											>

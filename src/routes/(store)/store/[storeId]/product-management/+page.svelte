@@ -37,7 +37,7 @@
 				const d = item.product_data;
 
 				return [
-					index,
+					index + 1,
 					item.files_data.length > 0
 						? `http://${item.files_data[0].file_data}`
 						: 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
@@ -123,12 +123,12 @@
 
 					return async ({ result }) => {
 						if (result.type === 'success') {
+							imagesPreview = [];
 							Swal.fire({
 								title: 'สำเร็จ',
 								text: 'เพิ่มสินค้าสำเร็จ',
 								icon: 'success'
 							});
-							imagesPreview = [];
 						}
 
 						if (result.type === 'failure') {
@@ -138,7 +138,7 @@
 								icon: 'error'
 							});
 						}
-						await goto(window.location.pathname, { replaceState: true });
+						location.reload();
 					};
 				}}
 				style="font-size: 0.85rem"
