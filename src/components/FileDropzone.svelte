@@ -9,6 +9,12 @@
 	/** @type {FileData[]} */
 	export let imageFilesData = [];
 
+	function isBase64(str) {
+		const base64Regex =
+			/^(data:image\/[a-zA-Z+-.]+;base64,)?(?:[A-Za-z0-9+/]{4})*?(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/;
+		return base64Regex.test(str);
+	}
+
 	function handleFileUpload(event) {
 		const file = event.target.files[0];
 		const reader = new FileReader();
@@ -36,7 +42,7 @@
 			<img
 				width="62"
 				height="62"
-				src={src.file_type.startsWith('data:image/')
+				src={isBase64(src.file_data)
 					? `data:image/${src.file_type.toLowerCase};base64,${src.file_data}`
 					: `http://${src.file_data}`}
 				class="img-thumbnail"
@@ -44,8 +50,10 @@
 				id={`productImagePreview-${i}`}
 			/>
 		{/each}
-		<div class="dropzone  my-2">
-			<img src="http://100dayscss.com/codepen/upload.svg" sizes="32" class="upload-icon" />
+		<div class="dropzone my-2">
+			<div class="tw-flex tw-justify-center tw-text-center">
+				<img src="http://100dayscss.com/codepen/upload.svg" sizes="32" class="upload-icon" />
+			</div>
 			<input type="file" accept=".jpeg,.png" on:input={handleFileUpload} class="upload-input" />
 			<p style="position: relative; top: -20px" class="p-0 m-0">Upload</p>
 		</div>

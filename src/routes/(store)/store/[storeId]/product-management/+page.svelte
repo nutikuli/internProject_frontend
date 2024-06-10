@@ -13,7 +13,6 @@
 	import Swal from 'sweetalert2';
 	import { goto } from '$app/navigation';
 	import { writable } from 'svelte/store';
-	import DataTable from './(table)/DataTable.svelte';
 
 	let colLabels = [
 		'#',
