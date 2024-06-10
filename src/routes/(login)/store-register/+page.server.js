@@ -1,12 +1,12 @@
 export const actions = {
 	signUpStore: async ({ request }) => {
 		console.log('createStore');
-		const { name,tel,address,email, password ,storename} = Object.fromEntries(await request.formData());
+		const { name,tel,storelocation,email, password ,storename} = Object.fromEntries(await request.formData());
 		const formData = new FormData();
 
 		formData.append('acc_name',name )
         formData.append('acc_phone',tel)
-        formData.append('store_location',address)
+        formData.append('store_location',storelocation)
 		formData.append('acc_email', email);
 		formData.append('acc_password', password);
 		formData.append('acc_role', "STORE")
@@ -17,7 +17,7 @@ export const actions = {
 		console.log('email,pass:', email, '  ', password);
         console.log('name=====>',name)
         console.log('phone=====>',tel)
-        console.log('storelocation=====>',address)
+        console.log('storelocation=====>',storelocation)
         console.log('email=====>',email)
         console.log('password=====>',password)
         console.log('storename=====>',storename)

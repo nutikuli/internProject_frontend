@@ -114,8 +114,8 @@
 					<h6 style="font-size:16px;">ที่อยู่ :</h6>
 					<input
 						type="text"
-						id="address"
-						name="address"
+						id="storelocation"
+						name="storelocation"
 						placeholder="address"
 						style="border-radius:8px;width:100%;height:120px;padding-left: 10px;"
 					/>

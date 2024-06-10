@@ -48,7 +48,8 @@ export const actions = {
 		cookies.set('token', JSON.stringify(data.result.token), cookiesConfig);
 		return {
 			data,
-			success: true
+			success: true,
+			role:data.result.token.role,
 		};
 	},
 

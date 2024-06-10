@@ -42,6 +42,8 @@
 					console.log("STORE")
 					window.location.assign("/store/{store_id}/product-management")
 				}
+			}else{
+				alert("Email or password ไม่ถูกต้อง")
 			}
 		});
 	}
@@ -126,8 +128,6 @@ let loginUrl = generateLoginUrl(lineLoginUrl, clientId, redirectUri, state, scop
 
 	function generateLoginUrl(lineLoginUrl, clientId, redirectUri, state, scope) {
 		console.log(scope)
-		checkuid.push("true")
-		console.log("checkuid :",checkuid)
     return `${lineLoginUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
 
 	

@@ -53,15 +53,22 @@ export const actions = {
 		const data = await result.json();
 		console.log(data);
 		
+		
 		// @ts-ignore
 		if (data.message!="EmailNotFound") {
             return {
 				data,
 				role:data.result.token.role,// ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
-                success: false
-				
+                success: true
             };
         }
+		if(data.message=="EmailNotFound"){
+			return{
+				success: false,
+				
+			}
+		}
+	
 
 		switch (data.result.token.role) {
 			case 'CUSTOMER':
@@ -180,14 +187,14 @@ export const actions = {
 			return {
 				dataregister,
 				role:"CUSTOMER",
-				success: false,
+				success: true,
 			}
         }else{
 			console.log("2")
 			return {
 				datalogin,
 				role:datalogin.result.token.role,
-				success:false
+				success:true
 			}
 		}
 
