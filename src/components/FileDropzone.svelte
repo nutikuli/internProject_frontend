@@ -44,7 +44,7 @@
 				id={`productImagePreview-${i}`}
 			/>
 		{/each}
-		<div class="dropzone my-2">
+		<div class="dropzone  my-2">
 			<img src="http://100dayscss.com/codepen/upload.svg" sizes="32" class="upload-icon" />
 			<input type="file" accept=".jpeg,.png" on:input={handleFileUpload} class="upload-input" />
 			<p style="position: relative; top: -20px" class="p-0 m-0">Upload</p>
@@ -129,7 +129,6 @@
 		cursor: pointer;
 		left: 0;
 		width: 100px;
-		scale: 2;
 		height: auto;
 		opacity: 0;
 	}
