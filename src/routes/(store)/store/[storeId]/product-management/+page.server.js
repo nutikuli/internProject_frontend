@@ -117,7 +117,7 @@ export const load = async (event) => {
 		return {
 			store_account,
 			product_category: storeProductCates.result,
-			products: [...storeProducts.result]
+			products: storeProducts.result ? [...storeProducts.result] : []
 		};
 	} catch (error) {
 		throw fail(error.status || 500, {

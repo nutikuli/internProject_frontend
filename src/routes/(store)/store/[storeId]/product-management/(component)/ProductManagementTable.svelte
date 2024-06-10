@@ -15,24 +15,18 @@
 	/** @type {string[]} */
 	export let colLabels = ['#', 'รูปภาพ', 'เมนูที่เข้าถึงได้', 'หมวดหมู่', 'สถานะ', 'Actions'];
 
-	// /**
-	//  * A writable store that contains a string[][].
-	//  * @type {import('svelte/store').Writable<any[][]>}
-	//  */
-	// export const rowRecordsStore = writable();
-
 	/** @type {ProductCategoryData[]} data */
 	export let productCate;
 
 	/** @type {FileData[][]} */
 	export let productImages;
 
-	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
+	// สร้างตัวแปร rowStoreRecords และกำหนดค่าเริ่มต้น
 	/**
 	 * A writable store that contains a string[][].
-	 * @type {any[][]}
+	 * @type {import('svelte/store').Writable<any[][]>}
 	 */
-	export let rowRecords;
+	export let rowStoreRecords;
 
 	/** @type {("EDIT" | "DELETE" | "VIEW")[]} */
 	export let actionSelects = ['DELETE', 'EDIT'];
@@ -174,6 +168,14 @@
 		}
 		// modify the pagination
 		onLoadCustomPaginationStyle();
+
+		const unsub = rowStoreRecords.subscribe((value) => {
+			if (value && table) {
+				table.row.add(value[value.length - 1]).draw();
+			}
+		});
+
+		return unsub;
 	});
 </script>
 
@@ -187,22 +189,23 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each rowRecords as record, index}
+			{#each $rowStoreRecords as record, index}
 				<tr>
-					<td>{index + 1}</td>
 					{#each record.slice(0, -1) as cell, cellIndex}
-						{#if cellIndex === 0}
+						{#if cellIndex === 1}
 							<td>
 								<img width="68" src={cell} alt="" />
+							</td>
+						{:else if cellIndex === record.length - 2}
+							<td>
+								<span class={badgeStatus(record.slice(-1))}>{record.slice(-1)}</span>
 							</td>
 						{:else}
 							<td style="font-size: 0.90rem;">{cell}</td>
 						{/if}
 					{/each}
 					<!--- สำหรับใช้กับ "สถานะ" ไม่ใช้ส่วนนี้ลบทึ้ง -->
-					<td>
-						<span class={badgeStatus(record.slice(-1))}>{record.slice(-1)}</span>
-					</td>
+
 					{#if actionSelects.length > 0}
 						<td class="table-actions">
 							{#if actionSelects.includes('EDIT')}
@@ -266,7 +269,7 @@
 													};
 												}}
 											>
-											<button type="submit" class="btn btn-danger">ลบ</button>
+												<button type="submit" class="btn btn-danger">ลบ</button>
 												<button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
 													>ยกเลิก</button
 												>

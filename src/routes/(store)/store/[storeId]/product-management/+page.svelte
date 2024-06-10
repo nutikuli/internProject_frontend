@@ -12,6 +12,8 @@
 	import { enhance } from '$app/forms';
 	import Swal from 'sweetalert2';
 	import { goto } from '$app/navigation';
+	import { writable } from 'svelte/store';
+	import DataTable from './(table)/DataTable.svelte';
 
 	let colLabels = [
 		'#',
@@ -21,8 +23,7 @@
 		'หมวดหมู่',
 		'ราคา',
 		'จำนวนในสต๊อก',
-		'สถานะ',
-		'Title'
+		'สถานะ'
 	];
 
 	/** @type {import('./$types').PageData} */
@@ -31,23 +32,26 @@
 	/** @type {import('./$types').ActionData} */
 	export let form;
 
-	let rowRecordMapper = data.products.map((item) => {
-		if (item.product_data) {
-			const d = item.product_data;
+	let rowRecordMapper = writable(
+		data.products.map((item, index) => {
+			if (item.product_data) {
+				const d = item.product_data;
 
-			return [
-				item.files_data.length > 0
-					? `http://${item.files_data[0].file_data}`
-					: 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
-				`PROD000-${d.id}`,
-				d.name,
-				item.product_category_data.name,
-				item.product_data.price,
-				item.product_data.stock,
-				item.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
-			];
-		}
-	});
+				return [
+					index,
+					item.files_data.length > 0
+						? `http://${item.files_data[0].file_data}`
+						: 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
+					`PROD000-${d.id}`,
+					d.name,
+					item.product_category_data.name,
+					item.product_data.price,
+					item.product_data.stock,
+					item.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
+				];
+			}
+		})
+	);
 
 	$: tableData = null;
 
@@ -227,8 +231,9 @@
 		store_id={data.store_account.store_data.id}
 		bind:table={tableData}
 		productCate={data.product_category}
-		rowRecords={rowRecordMapper}
+		rowStoreRecords={rowRecordMapper}
 		actionSelects={['EDIT', 'DELETE']}
 		{colLabels}
 	></ProductManagementTable>
+	<!-- <DataTable /> -->
 </div>
