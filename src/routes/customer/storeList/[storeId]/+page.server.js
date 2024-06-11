@@ -1,5 +1,8 @@
-export async function load({ params }) {
-    const { storeId } = params;
+import { CookiesJsonParser } from "$lib/pkg/utils/cookies";
+
+/** @type {import('./$types').PageServerLoad} */
+export async function load(event) {
+    const { storeId } = event.params;
 
     try {
         const response = await fetch(`http://127.0.0.1:8080/api/v1/product/get-products-by-store-id/${storeId}`);
@@ -11,13 +14,16 @@ export async function load({ params }) {
 
         // Extract product data based on your API's structure
         let product = data.result || [];
+        
+        const { customer_account } = CookiesJsonParser(event.cookies, 'customer_account');
 
         if (!Array.isArray(product)) {
             throw new Error('Invalid product data format');
         }
 
         return {
-            product
+            product,
+            customer_account
         };
     } catch (error) {
         console.error('Error fetching product data:', error);

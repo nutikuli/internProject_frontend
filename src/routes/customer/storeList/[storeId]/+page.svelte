@@ -44,7 +44,7 @@
 	}
 </script>
 
-<NavbarCustomer />
+<NavbarCustomer id={data.customer_account.id} />
 <div class="showProduct">
 	<div class="sort-container">
 		<span class="sort-label">จัดเรียงตาม</span>
@@ -58,7 +58,9 @@
 	</div>
 	<div class="row">
 		{#if products.length === 0}
-			<h2 class="no-product d-flex justify-content-center align-items-center">ไม่มีสินค้าในขณะนี้</h2>
+			<h2 class="no-product d-flex justify-content-center align-items-center">
+				ไม่มีสินค้าในขณะนี้
+			</h2>
 		{/if}
 		{#each products as product}
 			<div class="product-list card col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
@@ -81,11 +83,11 @@
 					<div class="row justify-content-between align-items-end">
 						<div class="col-auto d-flex align-items-center">
 							<Icon icon="tabler:currency-bath" width="25" height="25" />
-							<h2 class="product-price">{product.product_data.price}</h2>
+							<p class="product-price">{product.product_data.price}</p>
 						</div>
-					</div>
-					<div class="col-auto buy-button">
-						<a href="customer-cart/id" class="btn btn-primary">ซื้อเลย</a>
+						<div class="col-auto buy-button">
+							<a href="customer-cart/id" class="btn btn-primary">ซื้อเลย</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -94,7 +96,7 @@
 </div>
 
 <style>
-	.no-product{
+	.no-product {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -106,8 +108,9 @@
 	}
 
 	.showProduct {
-		margin: 20px;
-		margin-left: 70px;
+		padding-top: 24px;
+		padding-left: 96px;
+		padding-right: 96px;
 	}
 
 	.product-list {
@@ -125,11 +128,12 @@
 	}
 
 	.product-image img {
-		width: 100%;
-		height: auto;
+		width: 320px;
+		height: 300px;
 	}
 
 	.card {
+		width: 340px;
 		height: 500px;
 	}
 	.card-body {
@@ -146,6 +150,8 @@
 
 	.product-price {
 		margin: 0;
+		font-weight: 700;
+		font-size: large;
 	}
 
 	.buy-button {

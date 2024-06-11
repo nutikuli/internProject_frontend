@@ -1,4 +1,8 @@
-export async function load() {
+import { CookiesJsonParser } from "$lib/pkg/utils/cookies";
+
+
+/** @type {import('./$types').PageServerLoad} */
+export const load = async (event) => {
     try {
         const response = await fetch(`http://127.0.0.1:8080/api/v1/store/get-stores`);
 
@@ -11,6 +15,9 @@ export async function load() {
         let storeData = data.result;
 
         const defaultImageData = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP2znm2BD8Q-Urpfkbvf-kYE7CKWHS3e545g&s";
+
+		const { customer_account } = CookiesJsonParser(event.cookies, 'customer_account');
+
 
         const processedStoreData = storeData.map(store => {
             store.files_data = store.files_data.length < 1 ? {
@@ -32,7 +39,8 @@ export async function load() {
         console.log('Fetched store data:', processedStoreData);
 
         return {
-            store: processedStoreData
+            store: processedStoreData,
+            customer_account
         };
     } catch (error) {
         console.error('Error fetching store data:', error);

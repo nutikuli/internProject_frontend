@@ -1,8 +1,10 @@
 <script>
     import Icon from '@iconify/svelte';
 	function gotoCart() {
-		window.location.href = '/customer/customer-cart/id';
+		window.location.href = `/customer/customer-cart/${id}`;
 	}
+
+	export let id
 </script>
 
 <div class="header-container">
