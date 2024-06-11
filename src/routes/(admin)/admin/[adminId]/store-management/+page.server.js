@@ -203,20 +203,16 @@ export const actions = {
 	
 		for (let key in updatedata) {
 			let value = updatedata[key];
-			let numberValue = Number(value);
 	
-			if (!isNaN(numberValue)) {
-				updatedata[key] = numberValue;
-			}
-	
-			if (key === 'status') {
+			if (key === 'acc_status') {
 				updatedata[key] = Boolean(+value);
 			}
 		}
 	
 		const sender = {
-			...updatedata
+			store_data : updatedata
 		};
+		console.log("updatedata",updatedata)
 	
 		const config = {
 			method: 'PATCH',
@@ -224,7 +220,9 @@ export const actions = {
 				'Content-Type': 'application/json' // Assuming JSON data
 			},
 			body: JSON.stringify(sender)
-		};
+		}; 
+
+		console.log("sender",sender)
 	
 		try {
 			const result = await fetch(`http://127.0.0.1:8080/api/v1/store/update-store-by-id/${store_id}`, config);

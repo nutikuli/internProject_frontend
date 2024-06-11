@@ -24,11 +24,11 @@
         action="?/updateStore"
 		method="POST"
 		use:enhance={async ({ formData }) => {
-			let status = formData.get('status');
-			if (status) {
-				formData.set('status', status === 'on' ? '1' : '0');
+			let acc_status = formData.get('acc_status');
+			if (acc_status) {
+				formData.set('acc_status', acc_status === 'on' ? '1' : '0');
 			} else {
-				formData.set('status', '0');
+				formData.set('acc_status', '0');
 			}
 
 			formData.append('store_id', props.store_id);
@@ -61,46 +61,50 @@
             <div class=" input-group input-group-sm row me-2 align-items-center gap-2">
                 <label for="customerName" class="col-2 form-label">ชื่อ</label>
                 <input
-                    name="name"
+                    name="acc_name"
                     value={props.record[2]}
                     type="text"
                     class="col form-control"
                     id="customerName"
                     placeholder="placeholder"
+                    maxlength="100"
                 />
             </div>
             <div class=" input-group input-group-sm row me-2 align-items-center gap-2">
                 <label for="customerName" class="col-2 form-label">ชื่อร้านค้า</label>
                 <input
-                    name="name"
+                    name="store_name"
                     value={props.record[3]}
                     type="text"
                     class="col form-control"
                     id="customerName"
                     placeholder="placeholder"
+                    maxlength="100"
                 />
             </div>
             <div class="input-group input-group-sm row me-2 align-items-center gap-2">
                 <label for="customerLocation" class="col-2 form-label">ที่อยู่</label>
                 <textarea
                     value={props.record[4]}
-                    name="location"
+                    name="store_location"
                     class="form-control col"
                     rows="6"
                     id="customerLocation"
                     cols="30"
                     placeholder="placeholder"
+                    maxlength="191"
                 ></textarea>
             </div>
             <div class=" input-group input-group-sm row me-2 align-items-center gap-2">
                 <label for="customerPhone" class="col-2 form-label">เบอร์โทรศัพท์</label>
                 <input
-                    name="phone"
+                    name="acc_phone"
                     value={props.record[5]}
                     type="text"
                     class="col form-control"
                     id="customerPhone"
                     placeholder="placeholder"
+                    maxlength="10"
                 />
             </div>
     
@@ -108,12 +112,13 @@
             <div class=" input-group input-group-sm row me-2 align-items-center gap-2">
                 <label for="customerEmail" class="col-2 form-label">email</label>
                 <input
-                    name="email"
+                    name="acc_email"
                     value={props.record[6]}
                     type="text"
                     class="col form-control"
                     id="customerPhone"
                     placeholder="placeholder"
+                    maxlength="100"
                 />
             </div>
             
@@ -123,7 +128,7 @@
                 <div class="col fs-3 form-check form-switch">
                     <input
                         checked={props.record[7] === 'ใช้งาน'}
-                        name="status"
+                        name="acc_status"
                         class=" form-check-input"
                         type="checkbox"
                         id="CustomerActive"
