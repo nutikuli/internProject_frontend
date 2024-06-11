@@ -19,16 +19,6 @@
 	let categoryName = data.product.result.product_category_data.name;
 
 	let quantity = 1;
-	let totalPrice = 0;
-
-	function calculateTotalPrice() {
-		return quantity * productPrice;
-	}
-	$: totalPrice = calculateTotalPrice();
-
-	function refreshTotalPrice() {
-		totalPrice = calculateTotalPrice();
-	}
 
 	console.log(filesData);
 
@@ -108,7 +98,6 @@
 										placeholder="Input"
 										bind:value={quantity}
 										min="1"
-										on:click={refreshTotalPrice}
 									/>
 									<div style="margin-left: 10px; margin-top: 10px;">ชิ้น</div>
 								</div>
@@ -116,7 +105,7 @@
 							<div style="margin-right: 20px">
 								<div class="d-flex">
 									<Icon icon="tabler:currency-bath" color="#0D6EFD" width="35" height="35" />
-									<h2 style="font-weight: 700; font-size: 30px; color:#0D6EFD;">{totalPrice}</h2>
+									<h2 style="font-weight: 700; font-size: 30px; color:#0D6EFD;">{productPrice}</h2>
 								</div>
 								<div class="col-auto">
 									<button class="btn btn-primary">ใส่ตะกร้า</button>
