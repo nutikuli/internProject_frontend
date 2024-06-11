@@ -23,7 +23,7 @@ import Model from '/src/components/Model.svelte';
   if (item.customer_data) {
     const cus = item.customer_data;
     return [
-      "CUS00"+cus.id,
+      cus.id,
       cus.name,
       cus.email,
       cus.phone,
@@ -134,7 +134,7 @@ console.log(rowRecordMapper)
 	 ></CustomerManageTable>
     </div>
 
-  
+
   </div>
   
     <div>

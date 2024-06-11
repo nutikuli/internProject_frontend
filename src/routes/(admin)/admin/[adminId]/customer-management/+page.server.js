@@ -32,6 +32,7 @@
  * @property {Result[]} result
  */
 
+// import { baseDomainEndpoint , configGetter } from '$lib/internal/adapters/handler';
 import { fail } from '@sveltejs/kit';
 
 /**
@@ -102,43 +103,66 @@ export const actions = {
         
 	} ,
 	deleteCustomer: async ({ request }) => {
-		try {
-			console.log('deleteUser');
-			const {customer_id} = Object.fromEntries(await request.formData());
-			const formData = new FormData();
-			formData.append('id',customer_id)	
-			console.log('cus===>',customer_id)
-			console.log('xxxxxxxxxxxxxxxxxxxxxxxxxx')
+		const formData = Object.fromEntries(await request.formData());
 	
-			if (!customer_id) {
-				throw new Error('User ID is missing');
-			}
+		// แสดงค่า formData ทั้งหมด
+		console.log('Form Data:', formData);
 	
-			console.log('Deleting user with ID:', customer_id);
+		const { customer_id } = formData;
 	
-			let config = {
-				method: 'DELETE', // เปลี่ยนเป็น DELETE
-				headers: {
-					'Content-Type': 'application/json' // สมมติว่า API ของคุณต้องการ header นี้
-				}
-			};
+		// แสดงค่า customer_id เพื่อการตรวจสอบ
+		console.log('รหัสลูกค้า:', customer_id);
 	
-			const result = await fetch(`http://localhost:8080/api/v1/customer/account-delete/${formData}`, config); // เพิ่ม ID ใน URL
-			if (!result.ok) {
-				throw new Error('Failed to delete user');
-			}
+		// ตรวจสอบว่ารหัสลูกค้ามีค่า
+		if (!customer_id) {
+			return fail(400, {
+				message: 'รหัสลูกค้าไม่ถูกต้อง'
+			});
+		}
 	
-			const data = await result.json();
+		const configGetter = ( headers = {}, body = null) => {
 			return {
-				data
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					...headers
+				},
+				body: body ? JSON.stringify(body) : null
+			};
+		};
+	
+		const config = configGetter('DELETE');
+	
+		try {
+			const result = await fetch(`http://127.0.0.1:8080/api/v1/customer/${customer_id}`, config);
+			const data = await result.json();
+	
+			// แสดงผลการตอบกลับจาก API เพื่อการตรวจสอบ
+			console.log('การตอบกลับจาก API:', data);
+	
+			if (data.status_code != 201 && data.status_code != 200) {
+				console.error('ลบลูกค้าไม่สำเร็จ:', data);
+				return fail(400, {
+					message: 'ลบลูกค้าไม่สำเร็จ'
+				});
+			}
+	
+			console.log('ลบลูกค้าสำเร็จ:', data);
+			return {
+				result: data.result,
+				success: true
 			};
 		} catch (error) {
-			console.error('Error:', error.message);
-			return {
-				error: error.message
-			};
+			console.error('เกิดข้อผิดพลาดในการลบลูกค้า:', error);
+			return fail(500, {
+				message: 'เกิดข้อผิดพลาดที่ไม่คาดคิด'
+			});
 		}
 	}
+	
+	
+	
+	
 	
 } ;
 

@@ -5,6 +5,8 @@
 	import Model from '../../../../../../components/Model.svelte';
 	import { onMount } from 'svelte';
 	import DataTable from 'datatables.net-dt';
+	import { enhance } from '$app/forms';
+	import Swal from 'sweetalert2';
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
@@ -156,7 +158,9 @@
 		}
 		// modify the pagination
 		onLoadCustomPaginationStyle();
-	});
+	}); 
+
+	
 </script>
 
 <div class="table-responsive">
@@ -268,7 +272,36 @@
 								</button>
 								<Model modalTargetId={`modal-delete-${index}`} modalTitle={'ลบข้อมูล'}>
 									<slot name="delete-action">
-										<span><form method="POST" action="?/deleteCustomer">
+										<span><form 
+											method="POST"
+												action="?/deleteCustomer"
+												use:enhance={({ formData }) => {
+													formData.append('customer_id', record[0]);
+													return async ({ result }) => {
+														if (result.type === 'success') {
+															Swal.fire({
+																title: 'สำเร็จ',
+																text: 'ลบสำเร็จ',
+																icon: 'success'
+															}).then(() => {
+																location.reload();
+															});
+														}
+
+														if (result.type === 'failure') {
+															Swal.fire({
+																title: 'ทำรายการไม่สำเร็จ',
+																text: 'ลบไม่สำเร็จโปรดลองใหม่อีกครั้ง',
+																icon: 'error'
+															}).then(() => {
+																location.reload();
+															});
+														}
+													};
+												}}
+
+											
+											>
                       <div class="mb-3 row">
                         <p>คุณต้องการลบใช่หรือไม่</p>
                       </div>
