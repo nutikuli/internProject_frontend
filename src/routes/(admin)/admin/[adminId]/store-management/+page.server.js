@@ -31,6 +31,7 @@
 
 import { fail } from '@sveltejs/kit';
 
+
 /**
  * @type {import('@sveltejs/kit').Load}
  */
@@ -138,5 +139,118 @@ export const actions = {
             data
         }
         
-	} 
+	} ,
+	deleteStore: async ({ request }) => {
+		const formData = Object.fromEntries(await request.formData());
+	
+		// แสดงค่า formData ทั้งหมด
+		console.log('Form Data:', formData);
+	
+		const { store_id } = formData;
+	
+		// แสดงค่า customer_id เพื่อการตรวจสอบ
+		console.log('รหัสลูกค้า:', store_id);
+	
+		// ตรวจสอบว่ารหัสลูกค้ามีค่า
+		if (!store_id) {
+			return fail(400, {
+				message: 'รหัสลูกค้าไม่ถูกต้อง'
+			});
+		}
+	
+		const configGetter = ( headers = {}, body = null) => {
+			return {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					...headers
+				},
+				body: body ? JSON.stringify(body) : null
+			};
+		};
+	
+		const config = configGetter('DELETE');
+	
+		try {
+			const result = await fetch(`http://127.0.0.1:8080/api/v1/store/delete-store-by-id/${store_id}`, config);
+			const data = await result.json();
+	
+			// แสดงผลการตอบกลับจาก API เพื่อการตรวจสอบ
+			console.log('การตอบกลับจาก API:', data);
+	
+			if (data.status_code != 201 && data.status_code != 200) {
+				console.error('ลบลูกค้าไม่สำเร็จ:', data);
+				return fail(400, {
+					message: 'ลบลูกค้าไม่สำเร็จ'
+				});
+			}
+	
+			console.log('ลบลูกค้าสำเร็จ:', data);
+			return {
+				result: data.result,
+				success: true
+			};
+		} catch (error) {
+			console.error('เกิดข้อผิดพลาดในการลบลูกค้า:', error);
+			return fail(500, {
+				message: 'เกิดข้อผิดพลาดที่ไม่คาดคิด'
+			});
+		}
+	},
+	updateStore: async ({ request }) => {
+		const formData = Object.fromEntries(await request.formData());
+		const { store_id, ...updatedata } = formData;
+	
+		for (let key in updatedata) {
+			let value = updatedata[key];
+			let numberValue = Number(value);
+	
+			if (!isNaN(numberValue)) {
+				updatedata[key] = numberValue;
+			}
+	
+			if (key === 'status') {
+				updatedata[key] = Boolean(+value);
+			}
+		}
+	
+		const sender = {
+			...updatedata
+		};
+	
+		const config = {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json' // Assuming JSON data
+			},
+			body: JSON.stringify(sender)
+		};
+	
+		try {
+			const result = await fetch(`http://127.0.0.1:8080/api/v1/store/update-store-by-id/${store_id}`, config);
+			const data = await result.json();
+	
+			if (data.status_code !== 201 && data.status_code !== 200) {
+				console.error(data);
+				return fail(400, {
+					message: 'Failed to update product'
+				});
+			}
+	
+			console.log(data);
+			return {
+				result: data.result,
+				success: true
+			};
+		} catch (error) {
+			console.error('Error:', error);
+			return fail(500, {
+				message: 'Internal Server Error'
+			});
+		}
+	}
+	
+
+
+
 }
