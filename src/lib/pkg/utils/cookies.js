@@ -32,6 +32,19 @@
  */
 
 /**
+ * @typedef {Object} OrderProducts
+ * @property {number} product_id
+ * @property {number} quantity
+ */
+
+/**
+ * @typedef {Object} CustomerCart
+ * @property {number} store_id
+ * @property {number} customer_id
+ * @property {OrderProducts[]} order_products
+ */
+
+/**
  * @typedef {Object} Account
  * @property {number} id
  * @property {string} name
@@ -92,6 +105,7 @@
  * @property {Account} customer_account
  * @property {Store} store_account
  * @property {Admin} admin_account
+ * @property {CustomerCart} customer_cart
  * // Add more keys and types as needed
  */
 
