@@ -30,6 +30,8 @@
 	/** @type {import('./$types').ActionData} */
 	export let form;
 
+	console.log(data.bankResult);
+
 	let rowRecordMapper = writable(
 		data.bankResult.map((item, index) => {
 			if (item.bank_data) {
@@ -47,6 +49,8 @@
 			}
 		})
 	);
+
+	console.log(rowRecordMapper);
 
 	/** @type {FileData[]} */
 	$: imagesPreview = [];
