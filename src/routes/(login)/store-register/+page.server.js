@@ -42,21 +42,6 @@ export const actions = {
 		var result = await fetch("http://127.0.0.1:8080/api/v1/store/account-register", config);
 		const data = await result.json();
 
-		switch (data.result.token.role) {
-			case 'CUSTOMER':
-				cookies.set('customer_account', JSON.stringify(data.result.token), cookiesConfig);
-				break;
-			case 'STORE':
-				cookies.set('store_account', JSON.stringify(data.result.token), cookiesConfig);
-				break;
-			case 'ADMIN':
-				cookies.set('admin_account', JSON.stringify(data.result.token), cookiesConfig);
-				break;
-			default:
-				throw fail(400, {
-					message: "role doesn't match any known roles, the set cookie is prevent"
-				});
-		}
 
 		cookies.set('token', JSON.stringify(data.result.token), cookiesConfig);
 
@@ -99,21 +84,7 @@ export const actions = {
 			console.log(dataregister);
 			console.log('1');
 
-			switch (dataregister.result.token.role) {
-				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(dataregister.result.token), cookiesConfig);
-					break;
-				case 'STORE':
-					cookies.set('store_account', JSON.stringify(dataregister.result.token), cookiesConfig);
-					break;
-				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(dataregister.result.token), cookiesConfig);
-					break;
-				default:
-					throw fail(400, {
-						message: "role doesn't match any known roles, the set cookie is prevent"
-					});
-			}
+
 	
 			cookies.set('token', JSON.stringify(dataregister.result.token), cookiesConfig);
 			return {
@@ -123,21 +94,6 @@ export const actions = {
 			};
 		} else {
 
-			switch (datalogin.result.token.role) {
-				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(datalogin.result.token), cookiesConfig);
-					break;
-				case 'STORE':
-					cookies.set('store_account', JSON.stringify(datalogin.result.token), cookiesConfig);
-					break;
-				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(datalogin.result.token), cookiesConfig);
-					break;
-				default:
-					throw fail(400, {
-						message: "role doesn't match any known roles, the set cookie is prevent"
-					});
-			}
 	
 			cookies.set('token', JSON.stringify(datalogin.result.token), cookiesConfig);
 			console.log('2');
@@ -200,21 +156,7 @@ export const actions = {
 			console.log(dataregister);
 			console.log('1');
 
-			switch (dataregister.result.token.role) {
-				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(dataregister.result.token), cookiesConfig);
-					break;
-				case 'STORE':
-					cookies.set('store_account', JSON.stringify(dataregister.result.token), cookiesConfig);
-					break;
-				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(dataregister.result.token), cookiesConfig);
-					break;
-				default:
-					throw fail(400, {
-						message: "role doesn't match any known roles, the set cookie is prevent"
-					});
-			}
+	
 	
 			cookies.set('token', JSON.stringify(dataregister.result.token), cookiesConfig);
 			
@@ -225,21 +167,7 @@ export const actions = {
 			};
 		} else {
 			console.log('2');
-			switch (datalogin.result.token.role) {
-				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(datalogin.result.token), cookiesConfig);
-					break;
-				case 'STORE':
-					cookies.set('store_account', JSON.stringify(datalogin.result.token), cookiesConfig);
-					break;
-				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(datalogin.result.token), cookiesConfig);
-					break;
-				default:
-					throw fail(400, {
-						message: "role doesn't match any known roles, the set cookie is prevent"
-					});
-			}
+			
 	
 			cookies.set('token', JSON.stringify(datalogin.result.token), cookiesConfig);
 

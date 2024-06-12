@@ -146,15 +146,17 @@ export const actions = {
 			console.log(dataregister);
 			console.log('1');
 
+
 			switch (dataregister.result.token.role) {
 				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					cookies.set('customer_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				case 'STORE':
-					cookies.set('store_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					console.log('set account', dataregister.result.account_data);
+					cookies.set('store_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					cookies.set('admin_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				default:
 					throw fail(400, {
@@ -172,13 +174,14 @@ export const actions = {
 
 			switch (datalogin.result.token.role) {
 				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					cookies.set('customer_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				case 'STORE':
-					cookies.set('store_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					console.log('set account', datalogin.result.account_data);
+					cookies.set('store_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					cookies.set('admin_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				default:
 					throw fail(400, {
@@ -245,48 +248,52 @@ export const actions = {
 			const dataregister = await resultregister.json();
 			console.log(dataregister);
 			console.log('1');
+
 			
 			switch (dataregister.result.token.role) {
 				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					cookies.set('customer_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				case 'STORE':
-					cookies.set('store_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					console.log('set account', dataregister.result.account_data);
+					cookies.set('store_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					cookies.set('admin_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				default:
 					throw fail(400, {
 						message: "role doesn't match any known roles, the set cookie is prevent"
 					});
 			}
+			
 	
 			cookies.set('token', JSON.stringify(dataregister.result.token), cookiesConfig);
 			
 			return {
 				dataregister,
 				role: 'CUSTOMER',
-				success: true
+				success: false
 			};
 		} else {
 
+			
 			switch (datalogin.result.token.role) {
 				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					cookies.set('customer_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				case 'STORE':
-					cookies.set('store_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					console.log('set account', datalogin.result.account_data);
+					cookies.set('store_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					cookies.set('admin_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				default:
 					throw fail(400, {
 						message: "role doesn't match any known roles, the set cookie is prevent"
 					});
 			}
-	
 			cookies.set('token', JSON.stringify(datalogin.result.token), cookiesConfig);
 
 			if(datalogin.result.token.role =="STORE"){

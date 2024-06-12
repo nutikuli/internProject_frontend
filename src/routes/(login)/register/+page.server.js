@@ -27,35 +27,23 @@ export const actions = {
 
 		var result = await fetch(`http://localhost:8080/api/v1/account/register`, config);
 		const data = await result.json();
-		console.log("data : ",data.message);
+		console.log("data : ",data);
 		if(data.message == "Error 1062 (23000): Duplicate entry 'timespawn14@gmail.com' for key 'Account_email_key'"){
-			return {
-				success: false
+			return{
+				success:false
 			}
 		}
 
-		switch (data.result.token.role) {
-			case 'CUSTOMER':
-				cookies.set('customer_account', JSON.stringify(data.result.token), cookiesConfig);
-				break;
-			case 'STORE':
-				cookies.set('store_account', JSON.stringify(data.result.token), cookiesConfig);
-				break;
-			case 'ADMIN':
-				cookies.set('admin_account', JSON.stringify(data.result.token), cookiesConfig);
-				break;
-			default:
-				throw fail(400, {
-					message: "role doesn't match any known roles, the set cookie is prevent"
-				});
-		}
+	
+		
+		
+		console.log(data)
 
-
-		cookies.set('token', JSON.stringify(data.result.token), cookiesConfig);
+		// cookies.set('token', JSON.stringify(data.result.token), cookiesConfig);
 		return {
 			data,
-			success: true,
-			role:data.result.token.role,
+			success: false,
+			// role:data.result.token.role,
 		};
 	},
 
@@ -94,15 +82,17 @@ export const actions = {
 			const dataregister = await resultregister.json();
 			console.log(dataregister)
 			console.log("1")
+			
 			switch (dataregister.result.token.role) {
 				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					cookies.set('customer_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				case 'STORE':
-					cookies.set('store_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					console.log('set account', dataregister.result.account_data);
+					cookies.set('store_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(dataregister.result.token), cookiesConfig);
+					cookies.set('admin_account', JSON.stringify(dataregister.result.account_data), cookiesConfig);
 					break;
 				default:
 					throw fail(400, {
@@ -119,15 +109,16 @@ export const actions = {
         }else{
 			console.log("2")
 			console.log(datalogin.result.account_data.customer_data.role)
+			
 			switch (datalogin.result.token.role) {
 				case 'CUSTOMER':
-					cookies.set('customer_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					cookies.set('customer_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				case 'STORE':
-					cookies.set('store_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					cookies.set('store_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				case 'ADMIN':
-					cookies.set('admin_account', JSON.stringify(datalogin.result.token), cookiesConfig);
+					cookies.set('admin_account', JSON.stringify(datalogin.result.account_data), cookiesConfig);
 					break;
 				default:
 					throw fail(400, {

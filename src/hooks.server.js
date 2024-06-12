@@ -16,7 +16,7 @@ export const handle = async ({ resolve, event }) => {
 			case 'STORE':
 				if (store_account) {
 					store_account = JSON.parse(store_account);
-				}
+				
 				event.locals.account_token = {
 					token,
 					account: {
@@ -24,6 +24,7 @@ export const handle = async ({ resolve, event }) => {
 						id: store_account.store_data.id,
 						role: token.role
 					}
+				}
 				};
 				break;
 			case 'ADMIN':
