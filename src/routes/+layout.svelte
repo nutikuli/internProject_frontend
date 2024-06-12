@@ -4,7 +4,10 @@
 	import Navbar from './../components/Navbar.svelte';
 	import { page } from '$app/stores';
 
-	let storeId = 0;
+	/** @type {import('./$types').LayoutData} */
+	export let data;
+
+	let storeId = data.account_token ? data.account_token.account.id : 0;
 	let adminId = 0;
 
 	/**
@@ -47,10 +50,7 @@
 </script>
 
 {#if currentPath.split('/').length > 2}
-	<div
-		style="background-color: #F8F9FA !important;"
-		class="h ibm-plex-sans-thai-light text-foreground"
-	>
+	<div style="background-color: #F8F9FA !important;" class="h  ibm-plex-sans-thai-light">
 		<slot name="navbar">
 			<Navbar />
 		</slot>
@@ -64,7 +64,7 @@
 			{/if}
 
 			<div class:col-xl-10={!currentPath.startsWith('/customer')}>
-				<div class=" pt-4 bg-background">
+				<div class="tw-min-h-screen pt-4 bg-background">
 					<slot></slot>
 				</div>
 			</div>
@@ -72,10 +72,7 @@
 		<slot name="footer"></slot>
 	</div>
 {:else}
-	<div
-		style="background-color: #F8F9FA !important;"
-		class="h ibm-plex-sans-thai-light text-foreground"
-	>
+	<div style="background-color: #F8F9FA !important;" class="h ibm-plex-sans-thai-light">
 		<div class=" pt-4 bg-background">
 			<slot></slot>
 		</div>
