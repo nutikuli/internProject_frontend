@@ -63,7 +63,7 @@
 			<label for="customerName" class="col-2 form-label">ชื่อ</label>
 			<input
 				name="acc_name"
-				value={props.record[2]}
+				value={props.record[1]}
 				type="text"
 				class="col form-control"
 				id="customerName"
@@ -87,7 +87,7 @@
 		<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 			<label for="customerLocation" class="col-2 form-label">ที่อยู่</label>
 			<textarea
-				value={props.record[4]}
+			
 				name="acc_location"
 				class="form-control col"
 				rows="6"
@@ -101,7 +101,7 @@
 			<label for="customerEmail" class="col-2 form-label">email</label>
 			<input
 				name="acc_email"
-				value={props.record[5]}
+				value={props.record[2]}
 				type="text"
 				class="col form-control"
 				id="customerPhone"

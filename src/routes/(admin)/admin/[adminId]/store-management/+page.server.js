@@ -200,6 +200,7 @@ export const actions = {
 			let value = updatedata[key];
 	
 			if (key === 'acc_status') {
+				// @ts-ignore
 				updatedata[key] = Boolean(+value);
 			}
 		}

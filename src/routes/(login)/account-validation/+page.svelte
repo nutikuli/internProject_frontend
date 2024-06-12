@@ -26,6 +26,7 @@
     let showAlert = false;
     let showconfirmAlert=false;
 	let checkuid=["false"];
+    let currentPath = '';
     export let form;
     console.log("otp dat : ",form)
     // if(form!=null){
@@ -56,9 +57,14 @@
                         if(form.data.result){ // if (form.data && form.data.result && form.data.result.otp) แก้แบบนี้
                             otp.push(form.data.result.otp)
                             emailvalue.push( form.data.result.email)
+                            if(form.success==false){
+                                window.location.assign("/login")
 
-                            toggleForm('OTP')
-                            console.log("otp : ",otp)
+                            }else{
+                                toggleForm('OTP')
+                                console.log("otp : ",otp)
+                            }
+                            
         }
                 }
 			}
@@ -180,9 +186,9 @@ const line = async () => {
 		// @ts-ignore
 		var confirmPassword = document.getElementById('confirm-password').value;
 
-		if (password !== confirmPassword && password.length < 8) {
+		if (password !== confirmPassword || password.length <= 8 ) {
             event.preventDefault();
-            alert("รหัสไม่ตรงกัน หรือ รหัสน้อยกว่า 8 ตัว")
+            alert("รหัสไม่ตรงกัน หรือ น้อยกว่า 8 ตัว")
 		} else {
             alert("รหัสตรงกัน")
 		}
