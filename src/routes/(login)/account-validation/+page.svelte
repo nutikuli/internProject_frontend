@@ -174,16 +174,17 @@ const line = async () => {
 	
 	};
     
-    function validatePasswords() {
+    function validatePasswords(event) {
 		// @ts-ignore
 		var password = document.getElementById('password').value;
 		// @ts-ignore
 		var confirmPassword = document.getElementById('confirm-password').value;
 
-		if (password !== confirmPassword) {
-			showconfirmAlert = true;
+		if (password !== confirmPassword && password.length < 8) {
+            event.preventDefault();
+            alert("รหัสไม่ตรงกัน หรือ รหัสน้อยกว่า 8 ตัว")
 		} else {
-            showconfirmAlert = false;
+            alert("รหัสตรงกัน")
 		}
 	}
 
@@ -191,7 +192,7 @@ const line = async () => {
         let hasUpperCase = /[A-Z]/.test(password); // เช็คว่ามีตัวใหญ่หรือไม่
         let hasLowerCase = /[a-z]/.test(password); // เช็คว่ามีตัวเล็กหรือไม่
         let hasSpecialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(password); // เช็คว่ามีอักขระพิเศษหรือไม่
-		if (password.length > 8 && hasUpperCase && hasLowerCase && hasSpecialCharacters) {
+		if (password.length > 8 && hasUpperCase && hasLowerCase) {
 			showAlert = false; // ตั้งค่าตัวแปร showAlert เป็น true เพื่อแสดงข้อความเตือน
 		}else {
 			showAlert = true; // ถ้ารหัสผ่านมีความยาวมากกว่าหรือเท่ากับ 8 ตัวอักษร ก็ปิดการแสดงข้อความเตือน
@@ -337,16 +338,13 @@ const line = async () => {
                 
                 <div>
                     <h6 style="font-size:16px;" class="mt-2">ยืนยันรหัสผ่าน :</h6>
-                    <input  type="password" class="my-2" id="confirm-password" maxlength="100" name="confirm-password" placeholder="password"  style="border-radius:8px;width:100%;height:40px;padding-left: 10px;" on:input={(event) => {
-                        password = event.target.value;
-                        validatePasswords();
-                    }} required>
+                    <input  type="password" class="my-2" id="confirm-password" maxlength="100" name="confirm-password" placeholder="password"  style="border-radius:8px;width:100%;height:40px;padding-left: 10px;" required>
                      {#if showconfirmAlert}
                      <h6 style="color: red;">รหัสผ่านไม่ตรงกัน</h6>
                      {/if}
                     </div>
                
-                <button type="submit" class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue" ><a style="color: aliceblue;">ยืนยัน</a></button>
+                <button type="submit" class="bg-primary" style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue" on:click={validatePasswords} ><a style="color: aliceblue;">ยืนยัน</a></button>
             </form>
             </div>
         </div>
@@ -379,7 +377,7 @@ const line = async () => {
         background-color: #fff;
         width: 90%;
         max-width: 600px;
-        min-height: 800px;
+        min-height: 850px;
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
