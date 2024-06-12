@@ -62,7 +62,6 @@
                 <label for="customerName" class="col-2 form-label">ชื่อ</label>
                 <input
                     name="acc_name"
-                    value={props.record[2]}
                     type="text"
                     class="col form-control"
                     id="customerName"
@@ -74,7 +73,7 @@
                 <label for="customerName" class="col-2 form-label">ชื่อร้านค้า</label>
                 <input
                     name="store_name"
-                    value={props.record[3]}
+                    value={props.record[2]}
                     type="text"
                     class="col form-control"
                     id="customerName"
@@ -85,7 +84,7 @@
             <div class="input-group input-group-sm row me-2 align-items-center gap-2">
                 <label for="customerLocation" class="col-2 form-label">ที่อยู่</label>
                 <textarea
-                    value={props.record[4]}
+                    
                     name="store_location"
                     class="form-control col"
                     rows="6"
@@ -99,7 +98,7 @@
                 <label for="customerPhone" class="col-2 form-label">เบอร์โทรศัพท์</label>
                 <input
                     name="acc_phone"
-                    value={props.record[5]}
+                    value={props.record[4]}
                     type="text"
                     class="col form-control"
                     id="customerPhone"
@@ -113,7 +112,6 @@
                 <label for="customerEmail" class="col-2 form-label">email</label>
                 <input
                     name="acc_email"
-                    value={props.record[6]}
                     type="text"
                     class="col form-control"
                     id="customerPhone"
