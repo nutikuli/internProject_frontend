@@ -148,6 +148,11 @@
 			</select>
 		</div>
 		<div class="row">
+			{#if products.length === 0}
+				<h2 class="no-product d-flex justify-content-center align-products-center">
+					ไม่มีสินค้าในขณะนี้
+				</h2>
+			{/if}
 			{#each products as product}
 				<div class="product-list card col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2">
 					<button
