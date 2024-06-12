@@ -33,10 +33,12 @@
 		{ hrefTarget: `/store/${storeId}/bank-management`, routeName: 'บัญชีธนาคาร' }
 	];
 
-	if (data.account_token.account.role === 'ADMIN') {
-		sidebarRoutes = sidebarRoutes.slice(0, 5);
-	} else {
-		sidebarRoutes = sidebarRoutes.slice(5);
+	if (data.account_token) {
+		if (data.account_token.account.role === 'ADMIN') {
+			sidebarRoutes = sidebarRoutes.slice(0, 5);
+		} else {
+			sidebarRoutes = sidebarRoutes.slice(5);
+		}
 	}
 
 	/** @returns {boolean}    */

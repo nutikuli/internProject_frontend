@@ -476,18 +476,12 @@
 										}
 									};
 									await update();
+									location.reload();
 								};
 							}}
 							method="POST"
 						>
-							<button
-								on:click={() => {
-									location.reload();
-								}}
-								data-bs-dismiss="modal"
-								type="submit"
-								class="btn btn-sm py-2 px-4 btn-danger">ยกเลิก</button
-							>
+							<button type="submit" class="btn btn-sm py-2 px-4 btn-danger">ยกเลิก</button>
 						</form>
 					</div>
 				{/if}
