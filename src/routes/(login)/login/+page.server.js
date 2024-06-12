@@ -58,6 +58,13 @@ export const actions = {
 				success: false
 			};
 		}
+		
+		if(data.message === 'crypto/bcrypt: hashedPassword is not the hash of the given password'){
+			return {
+				success:false
+			}
+		}
+		
 
 		console.log('before set account', data.result.account_data);
 		switch (data.result.token.role) {
@@ -79,11 +86,31 @@ export const actions = {
 
 		cookies.set('token', JSON.stringify(data.result.token), cookiesConfig);
 
-		return {
-			data,
-			role: data.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
-			success: true
-		};
+		if(data.result.token.role =="STORE"){
+			return {
+				data,
+				role: data.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+				id:data.result.account_data.store_data.id,
+				success: true
+			};
+		}
+		if(data.result.token.role =="CUSTOMER"){
+			return {
+				data,
+				role: data.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+				id:data.result.account_data.customer_data.id,
+				success: true
+			};
+		}
+		if(data.result.token.role =="ADMIN"){
+			return {
+				data,
+				role: data.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+				id:data.result.account_data.admin_data.id,
+				success: true
+			};
+		}
+		
 	},
 
 	signInWithGoogle: async ({ request }) => {
@@ -124,12 +151,30 @@ export const actions = {
 				success: true
 			};
 		} else {
-			console.log('2');
-			return {
-				datalogin,
-				role: datalogin.result.token.role,
-				success: true
-			};
+			if(datalogin.result.token.role =="STORE"){
+				return {
+					datalogin,
+					role: datalogin.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+					id:datalogin.result.account_data.store_data.id,
+					success: true
+				};
+			}
+			if(datalogin.result.token.role =="CUSTOMER"){
+				return {
+					datalogin,
+					role: datalogin.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+					id:datalogin.result.account_data.customer_data.id,
+					success: true
+				};
+			}
+			if(datalogin.result.token.role =="ADMIN"){
+				return {
+					datalogin,
+					role: datalogin.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+					id:datalogin.result.account_data.admin_data.id,
+					success: true
+				};
+			}
 		}
 	},
 
@@ -170,12 +215,30 @@ export const actions = {
 				success: true
 			};
 		} else {
-			console.log('2');
-			return {
-				datalogin,
-				role: datalogin.result.token.role,
-				success: true
-			};
+			if(datalogin.result.token.role =="STORE"){
+				return {
+					datalogin,
+					role: datalogin.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+					id:datalogin.result.account_data.store_data.id,
+					success: true
+				};
+			}
+			if(datalogin.result.token.role =="CUSTOMER"){
+				return {
+					datalogin,
+					role: datalogin.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+					id:datalogin.result.account_data.customer_data.id,
+					success: true
+				};
+			}
+			if(datalogin.result.token.role =="ADMIN"){
+				return {
+					datalogin,
+					role: datalogin.result.token.role, // ไม่สามารถเพิ่มข้อมูล admin กับ store ไกด้
+					id:datalogin.result.account_data.admin_data.id,
+					success: true
+				};
+			}
 		}
 	}
 };
