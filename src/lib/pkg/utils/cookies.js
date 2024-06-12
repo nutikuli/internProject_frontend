@@ -32,7 +32,7 @@
  */
 
 /**
- * @typedef {Object} OrderProducts
+ * @typedef {Object} OrderProduct
  * @property {number} product_id
  * @property {number} quantity
  */
@@ -41,7 +41,7 @@
  * @typedef {Object} CustomerCart
  * @property {number} store_id
  * @property {number} customer_id
- * @property {OrderProducts[]} order_products
+ * @property {OrderProduct[]} order_products
  */
 
 /**
