@@ -7,26 +7,19 @@
 	import DataTable from 'datatables.net-dt';
 	import { enhance } from '$app/forms';
 	import Swal from 'sweetalert2';
-	import CustomerManageEditor from './CustomerManageEditor.svelte';
+    import StoreManageEditor from './StoreManageEditor.svelte';
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
-	export let colLabels = ['#', 'รหัสสมาชิก','ชื่อ-นามสกุล', 'อีเมล', 'เบอร์โทรศัพท์', 'สถานะ', 'Title'];
+	export let colLabels = ['#', 'รหัสร้านค้า','ชื่อร้าน', 'ชื่อ-นามสกุล ','อีเมล', 'เบอร์โทรศัพท์', 'สถานะ', 'Title'];
 
-	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
+    export let rowRecordMapper 
 
-
-
-  
-
- export let rowRecordMapper 
-
-  
-
-	/** @type {("EDIT" | "DELETE" | "VIEW")[]} */
+    	/** @type {("EDIT" | "DELETE" | "VIEW")[]} */
 	 let actionSelects = ['DELETE', 'EDIT'];
 
-	export let tableTarget = 'table-data';
+export let tableTarget = 'table-data';
+	
 
 	const editRow = (index) => {
 		alert(`Edit row ${index + 1}`);
@@ -159,9 +152,7 @@
 		}
 		// modify the pagination
 		onLoadCustomPaginationStyle();
-	}); 
-
-	
+	});
 </script>
 
 <div class="table-responsive">
@@ -193,14 +184,14 @@
 									class="btn editBtn btn-sm"
 									><Icon width="16" icon="material-symbols:edit-square-outline" color="#FD7E14"/></button
 								>
-							<CustomerManageEditor
-							props={{
-								index, 
-								customer_id : record[0], 
-								Customerdata : record[0], 
-								record
-							}}
-							></CustomerManageEditor>
+								<StoreManageEditor
+                                    props={{
+                                      index, 
+                                      store_id : record[0],
+                                       StoreData : record[0], 
+                                       record
+                                    }}
+                                ></StoreManageEditor>
 							{/if}
 							{#if actionSelects.includes('DELETE')}
 								<button
@@ -214,9 +205,9 @@
 									<slot name="delete-action">
 										<span><form 
 											method="POST"
-												action="?/deleteCustomer"
+												action="?/deleteStore"
 												use:enhance={({ formData }) => {
-													formData.append('customer_id', record[0]);
+													formData.append('store_id', record[0]);
 													return async ({ result }) => {
 														if (result.type === 'success') {
 															Swal.fire({
@@ -256,7 +247,6 @@
 									</slot>
 								</Model>
 							{/if}
-				
 						</td>
 					{/if}
 				</tr>

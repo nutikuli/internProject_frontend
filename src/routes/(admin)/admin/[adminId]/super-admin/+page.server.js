@@ -75,19 +75,6 @@ export const load = async (event) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const actions = {
 	registeradmin: async ({ request }) => {
 		console.log('createAdmin');

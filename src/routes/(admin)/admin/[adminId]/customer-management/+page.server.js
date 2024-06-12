@@ -2,17 +2,17 @@
 /**
  * @typedef {Object} CustomerData
  * @property {number} id
- * @property {string} name
- * @property {string} password
- * @property {string} phone
- * @property {string} location
- * @property {string} email
+ * @property {string} acc_name
+ * @property {string} acc_password
+ * @property {string} acc_phone
+ * @property {string} acc_location
+ * @property {string} acc_email
  * @property {string} imageAvatar
  * @property {string} product_avatar
  * @property {string} created_at
  * @property {string} updated_at
  * @property {string} role
- * @property {boolean} status
+ * @property {boolean} acc_status
  * @property {number} customer_id
  * 
  */
@@ -158,7 +158,85 @@ export const actions = {
 				message: 'เกิดข้อผิดพลาดที่ไม่คาดคิด'
 			});
 		}
-	}
+	},
+	updateCustomer: async ({ request }) => {
+		const formData = Object.fromEntries(await request.formData());
+	
+		// แสดงค่า formData ทั้งหมด
+		console.log('ข้อมูลจากฟอร์ม:', formData);
+	
+		const { customer_id, ...updateData } = formData;
+		for (let key in updateData) {
+			let value = updateData[key];
+			// let numberValue = Number(value);
+
+			// if (!isNaN(numberValue)) {
+			// 	// @ts-ignore
+			// 	updateData[key] = numberValue;
+			// }
+
+			if (key === 'acc_status') {
+				// @ts-ignore
+				updateData[key] = Boolean(+value);
+			}
+		}
+	
+		// แสดงค่า customer_id เพื่อการตรวจสอบ
+		console.log('รหัสลูกค้า:', customer_id);
+	
+		// ตรวจสอบว่ารหัสลูกค้ามีค่า
+		if (!customer_id) {
+			return fail(400, {
+				message: 'รหัสลูกค้าไม่ถูกต้อง'
+			});
+		}
+		console.log("updatedata=====>",updateData)
+		
+	
+		const configGetter = (headers = {},updateData = {}) => {
+			return {
+				method: 'PATCH',  // หรือ 'PATCH' ถ้าคุณต้องการการอัปเดตบางส่วน
+				headers: {
+					'Content-Type': 'application/json',
+					...headers
+				},
+				body: JSON.stringify(updateData)
+			};
+		};
+	
+		const config = configGetter({}, updateData);
+		
+		
+
+	
+		try {
+			const result = await fetch(`http://127.0.0.1:8080/api/v1/customer/${customer_id}`, config);
+			const data = await result.json();
+	
+			// แสดงผลการตอบกลับจาก API เพื่อการตรวจสอบ
+			console.log('การตอบกลับจาก API:', data);
+	
+			if (data.status_code != 201 && data.status_code != 200) {
+				console.error('อัปเดตลูกค้าไม่สำเร็จ:', data);
+				return fail(400, {
+					message: 'อัปเดตลูกค้าไม่สำเร็จ'
+				});
+			}
+	
+			console.log('อัปเดตลูกค้าสำเร็จ:', data);
+			return {
+				result: data.result,
+				success: true
+			};
+		} catch (error) {
+			console.error('เกิดข้อผิดพลาดในการอัปเดตลูกค้า:', error);
+			return fail(500, {
+				message: 'เกิดข้อผิดพลาดที่ไม่คาดคิด'
+			});
+		}
+	},
+	
+	
 	
 	
 	

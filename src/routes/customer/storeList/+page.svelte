@@ -1,9 +1,3 @@
-<script context="module">
-	import { load } from './+page';
-
-	export { load };
-</script>
-
 <script>
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte';
@@ -30,7 +24,7 @@
 	}
 </script>
 
-<NavbarCustomer />
+<NavbarCustomer id={data.customer_account.id}/>
 <div class="showstore">
 	<div class="row">
 		{#each stores as store}
@@ -85,7 +79,8 @@
 	}
 	.showstore {
 		margin: 10px;
-		align-content: center;
+		margin-left: 80px;
+
 	}
 
 	.store-list {

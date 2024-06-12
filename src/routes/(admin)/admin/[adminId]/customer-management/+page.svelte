@@ -24,9 +24,14 @@ import Model from '/src/components/Model.svelte';
     const cus = item.customer_data;
     return [
       cus.id,
+      // @ts-ignore
       cus.name,
+      // @ts-ignore
+      // @ts-ignore
       cus.email,
+      // @ts-ignore
       cus.phone,
+      // @ts-ignore
       cus.status ? 'ใช้งาน' : 'ปิดการใช้งาน' 
     ];
   }
@@ -64,45 +69,45 @@ console.log(rowRecordMapper)
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" >ชื่อ: </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="name" name="name" >
+                  <input type="text" placeholder="placeholder" class="form-control" id="name" name="name" maxlength="100">
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">นามสกุล : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="surname">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="surname" maxlength="100">
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">เบอร์โทรศัพท์ : </label>
                 <div class="col-sm-10">
-                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel" name="phone">
+                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel" name="phone" maxlength="10">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">ที่อยู่ : </label>
                 <div class="col-sm-10">
-                  <textarea class="form-control" id="inputaddress" rows="3" name="location"></textarea>
+                  <textarea class="form-control" id="inputaddress" rows="3" name="location" maxlength="191"></textarea>
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" >อีเมล : </label>
                 <div class="col-sm-10">
-                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword" name="email">
+                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword" name="email" maxlength="100">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" id="inputPassword" name="password">
+                  <input type="password"  class="form-control" id="inputPassword" name="password" maxlength="100">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">ยืนยันรหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" id="inputPassword">
+                  <input type="password"  class="form-control" id="inputPassword" maxlength="100">
                 </div>
               </div>
               <div class="mb-3 row">

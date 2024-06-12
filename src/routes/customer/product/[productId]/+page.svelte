@@ -7,28 +7,18 @@
 
 	console.log(data.product);
 
-	const productId = data.product.result.product_data.id;
-	const productName = data.product.result.product_data.name;
-	const productDetail = data.product.result.product_data.detail;
-	const productPrice = data.product.result.product_data.price;
-	const productAvatar = data.product.result.product_data.product_avatar;
-	const productStock = data.product.result.product_data.stock;
-	const productCategoryId = data.product.result.product_data.category_id;
-	const productStoreId = data.product.result.product_data.store_id;
-	const filesData = data.product.result.files_data;
-	const categoryName = data.product.result.product_category_data.name; 	
+	let productId = data.product.result.product_data.id;
+	let productName = data.product.result.product_data.name;
+	let productDetail = data.product.result.product_data.detail;
+	let productPrice = data.product.result.product_data.price;
+	let productAvatar = data.product.result.product_data.product_avatar;
+	let productStock = data.product.result.product_data.stock;
+	let productCategoryId = data.product.result.product_data.category_id;
+	let productStoreId = data.product.result.product_data.store_id;
+	let filesData = data.product.result.files_data;
+	let categoryName = data.product.result.product_category_data.name;
 
 	let quantity = 1;
-	let totalPrice = 0;
-
-	function calculateTotalPrice() {
-		return quantity * productPrice;
-	}
-	$: totalPrice = calculateTotalPrice();
-
-	function refreshTotalPrice() {
-		totalPrice = calculateTotalPrice();
-	}
 
 	console.log(filesData);
 
@@ -38,20 +28,10 @@
 		activeIndex = index;
 	}
 
-	function addToCart() {
-		// Add product to cookies with quantity
-		const cartItem = {
-			...productId,
-			quantity
-		};
-		document.cookie = `cart=${JSON.stringify(cartItem)}; path=/`;
-		// Redirect to customer-cart page
-		goto('/customer/customer-cart');
-	}
 </script>
 
 <div>
-	<NavbarCustomer />
+	<NavbarCustomer id={data.customer_account.id}/>
 	<div class="container">
 		<div style="padding-top: 30px;">
 			<div class="card">
@@ -111,27 +91,24 @@
 									</div>
 								</div>
 								<div class="d-flex">
-									<div style="margin-right: 60px; margin-top: 10px;">จำนวน</div>
+									<div style="margin-right: 46px; margin-top: 10px;">จำนวน</div>
 									<input
 										type="number"
 										class="form-control w-100 mr-3"
 										placeholder="Input"
 										bind:value={quantity}
 										min="1"
-										on:click={refreshTotalPrice}
 									/>
 									<div style="margin-left: 10px; margin-top: 10px;">ชิ้น</div>
 								</div>
 							</div>
 							<div style="margin-right: 20px">
 								<div class="d-flex">
-									<Icon icon="tabler:currency-bath" width="35" height="35" />
-									<h2 style="font-weight: 700;">{totalPrice}</h2>
+									<Icon icon="tabler:currency-bath" color="#0D6EFD" width="35" height="35" />
+									<h2 style="font-weight: 700; font-size: 30px; color:#0D6EFD;">{productPrice}</h2>
 								</div>
 								<div class="col-auto">
-									<a href="/customer/customer-cart/id" class="btn btn-primary" on:click={addToCart}
-										>ใส่ตะกร้า</a
-									>
+									<button class="btn btn-primary">ใส่ตะกร้า</button>
 								</div>
 							</div>
 						</div>
@@ -168,6 +145,7 @@
 
 	.carousel-item.active {
 		display: block;
+		width: 320px;
 	}
 
 	.thumbnail.active img {
