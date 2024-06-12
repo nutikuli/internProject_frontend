@@ -3,8 +3,10 @@
 	// @ts-ignore
 	import { auth, provider, signInWithPopup, signOut, providerface } from '$lib/firebase.client.js';
 	import { onMount } from 'svelte';
+	let password='';
 	let username = [];
 	let emailgoogle = [];
+	let showAlert = false;
 	// @ts-ignore
 	export let form;
 
@@ -13,7 +15,16 @@
 		onMount(() => {
 			if (form.success == true) {
 				// รีไดเรกไปยังหน้าอื่นเมื่อฟอร์มส่งสำเร็จ
-				
+				if(form.role=="ADMIN"){
+					console.log("ADMIN")
+					window.location.assign("/admin/{admin_id}/role-management")
+				}else if(form.role=="CUSTOMER"){
+					console.log("CUSTOMER")
+					window.location.assign("/customer/storeList")
+				}else{
+					console.log("STORE")
+					window.location.assign("/store/{store_id}/product-management")
+				}
 			}
 		});
 	}
@@ -75,6 +86,70 @@
 		}
 	};
 
+	let lineLoginUrl = 'https://access.line.me/oauth2/v2.1/authorize';
+let clientId = '2005541373';
+let redirectUri = 'http://localhost:5173/login';
+let state = 'randomState';
+let scope = 'profile%20openid%20email';
+
+let loginUrl = generateLoginUrl(lineLoginUrl, clientId, redirectUri, state, scope);
+
+	function generateLoginUrl(lineLoginUrl, clientId, redirectUri, state, scope) {
+		console.log(scope)
+    return `${lineLoginUrl}?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&state=${state}&scope=${scope}`;
+
+	
+}
+
+
+const line = async () => {
+			window.location.replace(loginUrl);
+			console.log("1")
+	
+	};
+
+
+
+	function validatePasswords() {
+		// @ts-ignore
+		var name = document.getElementById("name").value;
+		// @ts-ignore
+		var storename = document.getElementById("store-name").value;
+		// @ts-ignore
+		var storelocation = document.getElementById("storelocation").value;
+		
+		// @ts-ignore
+		var tel = document.getElementById("tel").value;
+		// @ts-ignore
+		var email = document.getElementById("email").value;
+		
+		// @ts-ignore
+		var password = document.getElementById('password').value;
+		// @ts-ignore
+		var confirmPassword = document.getElementById('confirm-password').value;
+
+		if(name === "" || email === "" || password === "" || storename === "" || storelocation === "" || tel === ""){
+			alert("กรอกข้อมูลทั้งหมด")
+		}else{
+			
+			if (password !== confirmPassword) {
+			alert('รหัสผ่านไม่ตรงกัน');
+			return false;
+		} else {
+			window.location.assign('/login');
+			return true;
+		}
+		}
+		
+	}
+
+	function checkPassword() {
+		if (password.length < 8 ) {
+			showAlert = true; // ตั้งค่าตัวแปร showAlert เป็น true เพื่อแสดงข้อความเตือน
+		}else {
+			showAlert = false; // ถ้ารหัสผ่านมีความยาวมากกว่าหรือเท่ากับ 8 ตัวอักษร ก็ปิดการแสดงข้อความเตือน
+		}
+	}
 </script>
 
 <div class="content-center">
@@ -83,7 +158,7 @@
 			<img src={logo} style="width:140px;height:140px;border-radius:75%" />
 		</div>
 		<div style="text-align:center;margin-top:10px">
-			<h5 class="fw-bold">สร้างบัญชีผู้ใช้</h5>
+			<h5 class="fw-bold;">สร้างบัญชีผู้ใช้</h5>
 			<h6 style="font-size:10px;margin-top:12px" class="text-black-50">
 				สร้างบัญชีผู้ใช้กับเว็บไซต์ของเรา
 			</h6>
@@ -96,8 +171,11 @@
 						type="text"
 						id="name"
 						name="name"
+						class=" my-2"
+						maxlength="100"
 						placeholder="ชื่อ -  นามสกุล"
 						style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;"
+						required
 					/>
 				</div>
 				<div>
@@ -106,8 +184,11 @@
 						type="text"
 						id="store-name"
 						name="storename"
+						maxlength="100"
+						class=" my-2"
 						placeholder="ชื่อร้านค้า"
 						style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;"
+						required
 					/>
 				</div>
 				<div>
@@ -115,9 +196,12 @@
 					<input
 						type="text"
 						id="storelocation"
+						maxlength="100"
+						class=" my-2"
 						name="storelocation"
 						placeholder="address"
 						style="border-radius:8px;width:100%;height:120px;padding-left: 10px;"
+						required
 					/>
 				</div>
 				<div>
@@ -126,8 +210,11 @@
 						type="email"
 						id="email"
 						name="email"
+						class=" my-2"
+						maxlength="100"
 						placeholder="example@email.com"
 						style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;"
+						required
 					/>
 				</div>
 				<div>
@@ -135,42 +222,59 @@
 					<input
 						type="text"
 						id="tel"
+						class=" my-2"
+						maxlength="100"
 						name="tel"
 						placeholder="tel"
 						style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;"
+						required
 					/>
 				</div>
 				<div>
 					<h6 style="font-size:16px;">รหัสผ่าน :</h6>
 					<input
-						type="password"
-						id="password"
-						name="password"
-						placeholder="password"
-						style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;"
-					/>
+					type="password"
+					id="password"
+					name="password"
+					maxlength="100"
+					class="w-100 my-2"
+					style="height: 45px;padding-left: 10px;"
+					required
+					on:input={(event) => {
+						password = event.target.value;
+						checkPassword();
+					}}
+					placeholder="password"
+				/>
+				{#if showAlert}
+					<h6 style="color: red;">รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร</h6>
+				{/if}
 				</div>
 				<div>
 					<h6 style="font-size:16px;">ยืนยันรหัสผ่าน :</h6>
 					<input
 						type="password"
 						id="confirm-password"
+						maxlength="100"
+						class=" my-2"
 						name="confirm-password"
 						placeholder="password"
 						style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;"
+						required
 					/>
 				</div>
 
 				<button
 					class="bg-primary"
 					style="width:100%;margin-top:10px;border-radius:10px;height:40px;border:none;color:aliceblue"
+					on:click={validatePasswords}
 					>สมัครสมาชิก</button
 				>
 			</div>
 		</form>
 		<div class="d-flex justify-content-center">
 			<h6 style="font-size:13px;margin-top:35px">
-				มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px" href="/login">เข้าสู่ระบบ</a>
+				มีบัญชีแล้วใช่หรือไม่ ?<a style="margin-left:10px;color:blue" href="/login">เข้าสู่ระบบ</a>
 			</h6>
 		</div>
 		<div class="d-flex justify-content-center mt-3">
@@ -226,9 +330,19 @@
 				<input type="text" hidden name="email" id="emailInputfacebook" />
 				<input type="text" hidden name="name" id="nameInputfacebook" />
 			</form>
+			<buuton class="boxlogin" on:click={line} ><a ><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 48 48">
+				<path fill="#00c300" d="M12.5,42h23c3.59,0,6.5-2.91,6.5-6.5v-23C42,8.91,39.09,6,35.5,6h-23C8.91,6,6,8.91,6,12.5v23C6,39.09,8.91,42,12.5,42z"></path><path fill="#fff" d="M37.113,22.417c0-5.865-5.88-10.637-13.107-10.637s-13.108,4.772-13.108,10.637c0,5.258,4.663,9.662,10.962,10.495c0.427,0.092,1.008,0.282,1.155,0.646c0.132,0.331,0.086,0.85,0.042,1.185c0,0-0.153,0.925-0.187,1.122c-0.057,0.331-0.263,1.296,1.135,0.707c1.399-0.589,7.548-4.445,10.298-7.611h-0.001C36.203,26.879,37.113,24.764,37.113,22.417z M18.875,25.907h-2.604c-0.379,0-0.687-0.308-0.687-0.688V20.01c0-0.379,0.308-0.687,0.687-0.687c0.379,0,0.687,0.308,0.687,0.687v4.521h1.917c0.379,0,0.687,0.308,0.687,0.687C19.562,25.598,19.254,25.907,18.875,25.907z M21.568,25.219c0,0.379-0.308,0.688-0.687,0.688s-0.687-0.308-0.687-0.688V20.01c0-0.379,0.308-0.687,0.687-0.687s0.687,0.308,0.687,0.687V25.219z M27.838,25.219c0,0.297-0.188,0.559-0.47,0.652c-0.071,0.024-0.145,0.036-0.218,0.036c-0.215,0-0.42-0.103-0.549-0.275l-2.669-3.635v3.222c0,0.379-0.308,0.688-0.688,0.688c-0.379,0-0.688-0.308-0.688-0.688V20.01c0-0.296,0.189-0.558,0.47-0.652c0.071-0.024,0.144-0.035,0.218-0.035c0.214,0,0.42,0.103,0.549,0.275l2.67,3.635V20.01c0-0.379,0.309-0.687,0.688-0.687c0.379,0,0.687,0.308,0.687,0.687V25.219z M32.052,21.927c0.379,0,0.688,0.308,0.688,0.688c0,0.379-0.308,0.687-0.688,0.687h-1.917v1.23h1.917c0.379,0,0.688,0.308,0.688,0.687c0,0.379-0.309,0.688-0.688,0.688h-2.604c-0.378,0-0.687-0.308-0.687-0.688v-2.603c0-0.001,0-0.001,0-0.001c0,0,0-0.001,0-0.001v-2.601c0-0.001,0-0.001,0-0.002c0-0.379,0.308-0.687,0.687-0.687h2.604c0.379,0,0.688,0.308,0.688,0.687s-0.308,0.687-0.688,0.687h-1.917v1.23H32.052z"></path>
+				</svg> </a></buuton>
+
+				<form id="mylineForm" method="post" action="?/signInWithLine">
+					<input type="text" hidden name="uid" id="emailInputline" />
+					<input type="text" hidden name="name" id="nameInputline" />
+				</form>
 		</div>
 	</div>
 </div>
+
+
 
 <style scoped>
 	.content-center {
@@ -244,7 +358,7 @@
 	.form-container {
 		background-color: #fff;
 		width: 90%;
-		max-width: 400px;
+		max-width: 600px;
 		padding: 20px;
 		border-radius: 10px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -259,5 +373,14 @@
 		justify-content: center;
 		align-items: center;
 		margin-left: 15px;
+		border: 3px solid #ccc;
+	}
+	.form-container input {
+		width: 100%;
+		height: 40px;
+		padding-left: 10px;
+		border-radius: 8px;
+		border: 1px solid #000000;
+		
 	}
 </style>

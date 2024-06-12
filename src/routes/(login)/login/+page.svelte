@@ -34,13 +34,14 @@
 				// รีไดเรกไปยังหน้าอื่นเมื่อฟอร์มส่งสำเร็จ
 				if(form.role=="ADMIN"){
 					console.log("ADMIN")
-					window.location.assign("/admin/{admin_id}/role-management")
+					window.location.assign("/admin/"+form.id+"/role-management")
 				}else if(form.role=="CUSTOMER"){
 					console.log("CUSTOMER")
-					window.location.assign("/admin/{admin_id}/role-management")
+					window.location.assign("/customer/storeList")
 				}else{
+					 
 					console.log("STORE")
-					window.location.assign("/store/{store_id}/product-management")
+					window.location.assign("/store/"+form.id+"/product-management")
 				}
 			}else{
 				alert("Email or password ไม่ถูกต้อง")
@@ -140,10 +141,6 @@ const line = async () => {
 	
 	};
 
-
-
-
-
 	
 </script>
 
@@ -168,7 +165,9 @@ const line = async () => {
 						id="email"
 						name="email"
 						placeholder="example@email.com"
+						maxlength="100"
 						style="margin: 0px 0px 10px 0px;border-radius:8px;width:100%;height:40px;padding-left: 10px;"
+						class="border border-dark mt-2"
 					/>
 				</div>
 				<div>
@@ -178,14 +177,16 @@ const line = async () => {
 						bind:value={password}
 						id="password"
 						name="password"
+						maxlength="100"
 						placeholder="password"
 						style="border-radius:8px;width:100%;height:40px;padding-left: 10px;"
+						class="border border-dark mt-2"
 					/>
 				</div>
 				<div style="margin-top:10px" class="d-flex w-100">
 					<input type="checkbox" />
 					<h6 style="font-size:12px;margin-top:6px">จดจำฉันไว้ในระบบ</h6>
-					<a style="font-size:12px;margin-left:45%" class="mt-1" href="/account-validation"
+					<a style="font-size:12px;margin-left:65%;color:blue" class="mt-1" href="/account-validation"
 						>ลืมรหัสผ่าน ?</a
 					>
 				</div>
@@ -198,7 +199,7 @@ const line = async () => {
 				<div class="d-flex justify-content-center"></div>
 			</form>
 			<h6 style="font-size:13px;margin-top:35px">
-				ยังไม่มีบัญชีใช่หรือไม่ ?<a style="margin-left:10px" href="/register">สมัครบัญชี</a>
+				ยังไม่มีบัญชีใช่หรือไม่ ?<a style="margin-left:10px;color:blue" href="/register">สมัครบัญชี</a>
 			</h6>
 		</div>
 		<div class="d-flex justify-content-center mt-3">
@@ -282,8 +283,8 @@ const line = async () => {
 	.form-container {
 		background-color: #fff;
 		width: 90%;
-		max-width: 600px;
-		min-height: 800px;
+		max-width: 700px;
+		min-height: 850px;
 		padding: 20px;
 		border-radius: 10px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

@@ -1,17 +1,24 @@
 <script>
-    import Icon from '@iconify/svelte';
+	import Icon from '@iconify/svelte';
 	function gotoCart() {
 		window.location.href = `/customer/customer-cart/${id}`;
 	}
+	export let id;
 
-	export let id
+	import { createEventDispatcher } from 'svelte';
+	let searchQuery = '';
+	const dispatch = createEventDispatcher();
+
+	function handleSearch() {
+		dispatch('search', { query: searchQuery });
+	}
 </script>
 
 <div class="header-container">
 	<form class="d-flex" role="search">
 		<div>Payso Shop</div>
-		<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-		<button class="btn btn-light me-2" type="submit">ค้นหา</button>
+		<input class="form-control me-2" type="text" bind:value={searchQuery} placeholder="Search" aria-label="Search" />
+		<button class="btn btn-light me-2" type="submit" on:click={handleSearch}>ค้นหา</button>
 		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<svg
 			on:click={gotoCart}
@@ -22,7 +29,7 @@
 			fill="currentColor"
 			class="bi bi-pencil-square mx-1"
 			viewBox="0 0 576 512"
-            style="margin-top: 5px;"
+			style="margin-top: 5px;"
 			{...$$props}
 		>
 			<path
@@ -34,7 +41,7 @@
 </div>
 
 <style>
-    .header-container {
+	.header-container {
 		align-items: center;
 		background-color: #0d6efd;
 		padding: 30px;

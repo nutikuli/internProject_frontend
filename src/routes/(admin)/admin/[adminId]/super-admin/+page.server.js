@@ -84,21 +84,19 @@ export const actions = {
 		
 		formData.append('name',name +" "+surname)
         formData.append('phone',phone)
-        // formData.append('location',storelocation)
 		formData.append('email', email);
 		formData.append('password', password);
 		formData.append('role', "ADMIN")
 		formData.append('status', "true")
-        // formData.append('store_name' , storename)
+      
 
 		console.log('checking login');
 		console.log('email,pass:', email, '  ', password);
         console.log('name=====>',name)
         console.log('phone=====>',phone)
-        // console.log('storelocation=====>',storelocation)
         console.log('email=====>',email)
         console.log('password=====>',password)
-        // console.log('storename=====>',storename)
+        
    
 
 		let config = {
@@ -114,5 +112,65 @@ export const actions = {
             data
         }
         
-	} 
+	} ,
+	deleteAdmin: async ({ request }) => {
+		const formData = Object.fromEntries(await request.formData());
+	
+		// แสดงค่า formData ทั้งหมด
+		console.log('Form Data:', formData);
+	
+		const { admin_id } = formData;
+	
+		// แสดงค่า customer_id เพื่อการตรวจสอบ
+		console.log('รหัสผู้แล:', admin_id);
+	
+		// ตรวจสอบว่ารหัสลูกค้ามีค่า
+		if (!admin_id) {
+			return fail(400, {
+				message: 'รหัสลูกค้าไม่ถูกต้อง'
+			});
+		}
+	
+		const configGetter = ( headers = {}, body = null) => {
+			return {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					...headers
+				},
+				body: body ? JSON.stringify(body) : null
+			};
+		};
+	
+		const config = configGetter('DELETE');
+	
+		try {
+			const result = await fetch(`http://127.0.0.1:8080/api/v1/admin/${admin_id}`, config);
+			const data = await result.json();
+	
+			// แสดงผลการตอบกลับจาก API เพื่อการตรวจสอบ
+			console.log('การตอบกลับจาก API:', data);
+	
+			if (data.status_code != 201 && data.status_code != 200) {
+				console.error('ลบลูกค้าไม่สำเร็จ:', data);
+				return fail(400, {
+					message: 'ลบลูกค้าไม่สำเร็จ'
+				});
+			}
+	
+			console.log('ลบลูกค้าสำเร็จ:', data);
+			return {
+				result: data.result,
+				success: true
+			};
+		} catch (error) {
+			console.error('เกิดข้อผิดพลาดในการลบลูกค้า:', error);
+			return fail(500, {
+				message: 'เกิดข้อผิดพลาดที่ไม่คาดคิด'
+			});
+		}
+	},
+
+
+
 }

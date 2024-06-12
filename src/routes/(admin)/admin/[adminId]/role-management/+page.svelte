@@ -8,39 +8,54 @@
     /** @type {string[]} */
      let colLabels = ['#', 'ชื่อบทบาท' ,'','เมนูที่เข้าถึงได้','','','','title'];
   
-    // สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
-    /** @type {string[][]} */
-     let rowRecords = [
-      ['ผู้ดูแลระบบ','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['ผ่ายบุคคล','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['พนักงานบัญชี','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['คนงาน','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['ผู้จัดการ','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['ผู้ดูแลระบบ','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['ผ่ายบุคคล','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['พนักงานบัญชี','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['คนงาน','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-      ['ผู้จัดการ','','แดชบอร์ด,บทบาท,ผู้ดูแลระบบ,สมาชิก,Log','','',''],
-    ];
+     export let data;
+     console.log("data",data)
+     
+ 
+
   
-    const editRow = (index) => {
-      alert(`Edit row ${index + 1}`);
-    };
-  
-    const deleteRow = (index) => {
-      alert(`Delete row ${index + 1}`);
-    };
-  
-    function badgeStatus(status) {
-      return status[0] === 'ใช้งาน' ? 'badge bg-success' : 'badge bg-danger';
+     if (!data || !Array.isArray(data.result)) {
+  console.log("data หรือ data.result ไม่มีหรือไม่ใช่อาเรย์");
+
+}
+
+console.log("ข้อมูลทั้งหมดใน data.result:", JSON.stringify(data.result, null, 2));
+
+let rowRecordMapper = data.result
+  .filter((item) => {
+    console.log("ตรวจสอบ item:", JSON.stringify(item, null, 2));
+    if (!item.adminpermission_data) {
+      console.log("ไม่มี adminpermission_data ใน item:", JSON.stringify(item, null, 2));
+      return false;
     }
+    return true;
+  })
+  .map((item) => {
+    let adp = item.adminpermission_data;
+    console.log("adminperdata", JSON.stringify(adp, null, 2));
+    // @ts-ignore
+    if (adp && adp.Rolename && adp.MenuPermission) {
+      // @ts-ignore
+      return [
+        // @ts-ignore
+        adp.Rolename,  
+        '',
+        JSON.parse(adp.MenuPermission)  ,'','',''
+      ];
+    } else {
+      console.log("adminpermission_data มีค่าที่ไม่สมบูรณ์:", JSON.stringify(adp, null, 2));
+      return [undefined, undefined, undefined];
+    }
+  });
+
+console.log("ผลลัพธ์สุดท้าย:", JSON.stringify(rowRecordMapper, null, 2));
    </script>
   
   <div class="w-100  min-vh-100 bg-white ">
       <div class="d-flex">
       <div class="w-100 bg-white ">
           <div class="w-100 bg-white  d-flex justify-content-between align-items-center px-3 py-2">
-              <span style="font-size: 30px;">สิทธิ์ผู้ใช้งาน</span>
+              <span style="font-size: 30px; font-weight: bold;">สิทธิ์ผู้ใช้งาน</span>
               <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       เพิ่มสิทธิ์ผู้ใช้งาน
@@ -156,7 +171,7 @@
     </div>
           </div>
       <div class="w-100 bg-white ">
-        <Table {rowRecords} actionSelects={["EDIT", "DELETE"]} {colLabels}>
+        <Table rowRecords = {rowRecordMapper} actionSelects={["EDIT", "DELETE"]} {colLabels}>
           <div slot="editor-action">
             <form action="">
               <div class="modal-body">
