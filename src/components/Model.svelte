@@ -5,10 +5,11 @@
 	//- ตัวแปรไว้กำหนดตัวเปิด modal
 	/** @type {string} */
 	export let modalTargetId;
+	export let classes = '';
 </script>
 
 <div
-	class="modal fade"
+	class="modal fade {classes}"
 	id={modalTargetId}
 	data-bs-backdrop="static"
 	data-bs-keyboard="false"
