@@ -81,17 +81,6 @@
 
 	/** @type {FileData[]} */
 	$: imagesPreview = [];
-
-	/**
-	 * @typedef {Object} ProductData
-	 * @property {string} name
-	 * @property {number} price
-	 * @property {number} stock
-	 * @property {string} detail
-	 * @property {boolean} status
-	 * @property {number} category_id
-	 * @property {number} store_id
-	 */
 </script>
 
 <div id="product-managment-container" class="container-fluid mb-4">
