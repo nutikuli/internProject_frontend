@@ -3,6 +3,7 @@ import Icon from '@iconify/svelte';
 import Table from '../../../../../components/Table.svelte'
 import FileDropzone from '../../../../../components/FileDropzone.svelte';
 import Model from '../../../../../components/Model.svelte'
+import SuperAdminMAnageTable from './(component)/SuperAdminMAnageTable.svelte';
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */
@@ -16,7 +17,7 @@ import Model from '../../../../../components/Model.svelte'
   if (item.admin_data) {
     const ad = item.admin_data;
     return [
-      "AD00"+ad.id,
+      ad.id,
       ad.name,
       ad.email,
       ad.phone,
@@ -36,7 +37,7 @@ console.log(rowRecordMapper)
       <div class="d-flex">
       <div class="w-100 bg-white ">
           <div class="w-100 bg-white shadow d-flex justify-content-between align-items-center px-3 py-2">
-              <span style="font-size: 30px;">ผู้ดูแลระบบ</span>
+              <span style="font-size: 30px; font-weight: bold;">ผู้ดูแลระบบ</span>
               <!-- Button trigger modal -->
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       เพิ่มผู้ดูแลระบบ
@@ -70,21 +71,21 @@ console.log(rowRecordMapper)
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" >ชื่อ: </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="name">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" name="name" maxlength="100">
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">นามสกุล : </label>
                 <div class="col-sm-10">
-                  <input type="text" placeholder="placeholder" class="form-control" id="inputname">
+                  <input type="text" placeholder="placeholder" class="form-control" id="inputname" maxlength="100">
                 </div>
                 
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">เบอร์โทรศัพท์ : </label>
                 <div class="col-sm-10">
-                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel" name="phone">
+                  <input type="int" placeholder="placeholder" class="form-control" id="inputtel" name="phone" maxlength="10">
                 </div>
               </div>
               <div class="mb-3 row">
@@ -92,9 +93,16 @@ console.log(rowRecordMapper)
                 <div class="col-sm-10">
                   <select class="form-select" aria-label="Default select example">
                     <option selected>--select--</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    <option value="ผู้ดูแลระบบ">ผู้ดูแลระบบ</option>
+                    <option value="ฝ่ายบุคคล">ฝ่ายบุคคล</option>
+                    <option value="พนักงานบัญชี">พนักงานบัญชี</option>
+                    <option value="คนงาน">คนงาน</option>
+                    <option value="ผู้จัดการ">ผู้จัดการ</option>
+                    <option value="พัฒนาบุคคลากร">พัฒนาบุคคลากร</option>
+                    <option value="โปรแกรมเมอร์">โปรแกรมเมอร์</option>
+                    <option value="ผู้บริหาร">ผู้บริหาร</option>
+                    <option value="พนักงานหน้าโกดัง">พนักงานหน้าโกดัง</option>
+                    <option value="พนักงานจัดของ">พนักงานจัดของ</option>
                   </select>
                 </div>
               </div>
@@ -103,19 +111,19 @@ console.log(rowRecordMapper)
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล : </label>
                 <div class="col-sm-10">
-                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword" name="email">
+                  <input type="email" placeholder="placeholder" class="form-control" id="inputPassword" name="email" maxlength="100">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" id="inputPassword" name="password">
+                  <input type="password"  class="form-control" id="inputPassword" name="password" maxlength="100">
                 </div>
               </div>
               <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">ยืนยันรหัสผ่าน : </label>
                 <div class="col-sm-10">
-                  <input type="password"  class="form-control" id="inputPassword">
+                  <input type="password"  class="form-control" id="inputPassword" maxlength="100">
                 </div>
               </div>
               <div class="mb-3 row">
@@ -142,115 +150,11 @@ console.log(rowRecordMapper)
     </div>
           </div>
       <div class="w-100 bg-white " >
-        <!--Table-->
-        <Table rowRecords ={rowRecordMapper} actionSelects={["EDIT", "DELETE"]} {colLabels}>
-          <div slot="editor-action">
-            <form action="">
-              <div class="modal-body">
-                <div class="mb-3 ">
-                  <label for="AdminImage" class="col-sm-2 col-form-label" style="justify-content:first baseline; display:flex">รูปภาพ</label>
-                  <div class="col">
-                    <div class="d-flex gap-4 align-items-center">
-                      <img
-                        sizes="32"
-                        src="https://via.placeholder.com/100"
-                        class="img-thumbnail"
-                        alt="Product Image"
-                        id="productImagePreview"
-                      />
-                      <FileDropzone />
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label" >ชื่อ:</label>
-                    <div class="col-sm-10">
-                      <input type="text" placeholder="placeholder" class="form-control" id="inputname">
-                    </div>
-                    
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">นามสกุล:</label>
-                    <div class="col-sm-10">
-                      <input type="text" placeholder="placeholder" class="form-control" id="inputname">
-                    </div>
-                    
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">เบอร์โทรศัพท์:</label>
-                    <div class="col-sm-10">
-                      <input type="int" placeholder="placeholder" class="form-control" id="inputtel">
-                    </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">สิทธิผู้ใช้งาน:</label>
-                    <div class="col-sm-10">
-                      <select class="form-select" aria-label="Default select example">
-                        <option selected>--select</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                    </div>
-                  </div>
-                 
-    
-                  <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">อีเมล:</label>
-                    <div class="col-sm-10">
-                      <input type="email" placeholder="placeholder" class="form-control" id="inputPassword">
-                    </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">รหัสผ่าน:</label>
-                    <div class="col-sm-10">
-                      <input type="password"  class="form-control" id="inputPassword">
-                    </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label" style="font-size: 14px;">ยืนยันรหัสผ่าน:</label>
-                    <div class="col-sm-10">
-                      <input type="password"  class="form-control" id="inputPassword">
-                    </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label">ใช้งาน:</label>
-                    <div class="col-sm-10">
-                      <div class="form-check form-switch">
-                        <input class="form-check-input"  type="checkbox" id="flexSwitchCheckChecked" checked>
-                      </div>            
-                      </div>
-                  </div>
-                 
-    
-    
-    
-            </div>
-              <div class="modal-footer">
-                <!-- ปุ่ม actions -->
-                <button type="button" class="btn btn-primary">บันทึก</button>
-                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
-                  >ยกเลิก</button
-                >
-              </div>
-            </form>
-          </div>
-          <div slot="delete-action">
-            <form action="">
-              <div class="mb-3 row">
-                <p>คุณต้องการลบใช่หรือไม่</p>
-              </div>
-              <div class="modal-footer">
-                <!-- ปุ่ม actions -->
-                <button type="button" class="btn btn-primary">บันทึก</button>
-                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal"
-                  >ยกเลิก</button
-                >
-              </div>
-            </form>
-          </div>
-          
-        </Table>
+        <SuperAdminMAnageTable
+        {colLabels}
+        {rowRecordMapper}
+        ></SuperAdminMAnageTable>
+       
       </div>
     </div>
     
