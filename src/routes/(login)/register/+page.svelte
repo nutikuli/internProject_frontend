@@ -26,7 +26,7 @@
 	}
 
 	export let form;
-	console.log(form);
+	console.log("form : ",form);
 	if (form) {
 		onMount(() => {
 			if (form.success == true) {
@@ -41,6 +41,8 @@
 					console.log("STORE")
 					window.location.assign("/store/{store_id}/product-management")
 				}
+			}else{
+				alert(" Email มีอยู่แล้ว ")
 			}
 		});
 	}
