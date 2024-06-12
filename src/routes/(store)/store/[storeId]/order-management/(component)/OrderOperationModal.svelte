@@ -61,6 +61,7 @@
 	export let index;
 	export let order_id;
 	export let store_id;
+	export let viewOnly = false;
 
 	const state = {
 		PENDING: 0,
@@ -253,6 +254,7 @@
 									type="text"
 									required
 									class="form-control"
+									disabled={viewOnly}
 									placeholder="placeholder"
 									aria-label="placeholder"
 									aria-describedby="basic-addon1"
@@ -268,6 +270,7 @@
 									required
 									bind:value={transportDataForm.parcel_number}
 									type="text"
+									disabled={viewOnly}
 									class="form-control"
 									placeholder="placeholder"
 									aria-label="placeholder"
@@ -281,6 +284,7 @@
 							</div>
 							<div class="col-8">
 								<input
+									disabled={viewOnly}
 									required
 									bind:value={transportDataForm.sent_date}
 									type="date"
@@ -372,6 +376,7 @@
 											onSlipChecked = true;
 										}
 									})}
+								disabled={viewOnly}
 								class="btn tw-w-full py-2 btn-sm btn-primary"
 							>
 								ตรวจสอบสลิป
@@ -411,83 +416,16 @@
 			</div>
 		</div>
 	</div>
-	<div style="display:block;" class="modal-footer">
-		<div class="">
-			{#if state[props.order_data.state] === 0}
-				<div class="tw-float-left">
-					<form
-						action="?/updateOrderState"
-						use:enhance={async ({ formData }) => {
-							formData.append('order_id', order_id);
-							formData.append('state', 'REJECTED');
-							formData.append('transport_data', JSON.stringify(transportDataForm));
-
-							return async ({ result, update }) => {
-								if (result.type === 'success') {
-									Swal.mixin({
-										toast: true,
-										position: 'top-end',
-										showConfirmButton: false,
-										timer: 3000,
-										timerProgressBar: true,
-										didOpen: (toast) => {
-											toast.onmouseenter = Swal.stopTimer;
-											toast.onmouseleave = Swal.resumeTimer;
-										}
-									}).fire({
-										title: 'สำเร็จ',
-										text: 'อัปเดตรายการสั่งซื้อสำเร็จ',
-										icon: 'success'
-									});
-								}
-
-								if (result.type === 'failure') {
-									Swal.mixin({
-										toast: true,
-										position: 'top-end',
-										showConfirmButton: false,
-										timer: 3000,
-										timerProgressBar: true,
-										didOpen: (toast) => {
-											toast.onmouseenter = Swal.stopTimer;
-											toast.onmouseleave = Swal.resumeTimer;
-										}
-									}).fire({
-										title: 'ทำรายการไม่สำเร็จ',
-										text: 'อัปเดตรายการสั่งซื้อสำเร็จไม่สำเร็จ โปรดลองใหม่อีกครั้ง',
-										icon: 'error'
-									});
-								}
-
-								props = {
-									...props,
-									order_data: {
-										...props.order_data,
-										sent_date: transportDataForm.sent_date,
-										delivery_type: transportDataForm.delivery_type,
-										parcel_number: transportDataForm.parcel_number,
-										state: 'REJECTED'
-									}
-								};
-								await update();
-							};
-						}}
-						method="POST"
-					>
-						<button data-bs-dismiss="modal" type="submit" class="btn btn-sm py-2 px-4 btn-danger"
-							>ยกเลิก</button
-						>
-					</form>
-				</div>
-			{/if}
-			<div class=" tw-float-right">
-				<div class="tw-flex gap-2">
-					<div class="">
+	{#if !viewOnly}
+		<div style="display:block;" class="modal-footer">
+			<div class="">
+				{#if state[props.order_data.state] === 0}
+					<div class="tw-float-left">
 						<form
 							action="?/updateOrderState"
 							use:enhance={async ({ formData }) => {
 								formData.append('order_id', order_id);
-								formData.append('state', stateReverse[state[props.order_data.state] + 1]);
+								formData.append('state', 'REJECTED');
 								formData.append('transport_data', JSON.stringify(transportDataForm));
 
 								return async ({ result, update }) => {
@@ -534,7 +472,7 @@
 											sent_date: transportDataForm.sent_date,
 											delivery_type: transportDataForm.delivery_type,
 											parcel_number: transportDataForm.parcel_number,
-											state: stateReverse[state[props.order_data.state] + 1]
+											state: 'REJECTED'
 										}
 									};
 									await update();
@@ -542,27 +480,97 @@
 							}}
 							method="POST"
 						>
-							{#if state[props.order_data.state] < 3 && props.order_data.state !== 'REJECTED'}
-								<button
-									type="submit"
-									disabled={!onSlipChecked && props.order_data.state === 'PENDING'}
-									class="btn btn-sm py-2 px-4 {onSlipChecked || props.order_data.state !== 'PENDING'
-										? 'btn-primary'
-										: 'btn-secondary'}">{btnState[props.order_data.state]}</button
-								>
-							{/if}
+							<button data-bs-dismiss="modal" type="submit" class="btn btn-sm py-2 px-4 btn-danger"
+								>ยกเลิก</button
+							>
 						</form>
 					</div>
-					<button
-						type="button"
-						class="btn btn-sm py-2 px-4 btn-outline-primary"
-						data-bs-dismiss="modal"
-						on:click={() => {
-							location.reload();
-						}}>ปิดหน้าต่าง</button
-					>
+				{/if}
+				<div class=" tw-float-right">
+					<div class="tw-flex gap-2">
+						<div class="">
+							<form
+								action="?/updateOrderState"
+								use:enhance={async ({ formData }) => {
+									formData.append('order_id', order_id);
+									formData.append('state', stateReverse[state[props.order_data.state] + 1]);
+									formData.append('transport_data', JSON.stringify(transportDataForm));
+
+									return async ({ result, update }) => {
+										if (result.type === 'success') {
+											Swal.mixin({
+												toast: true,
+												position: 'top-end',
+												showConfirmButton: false,
+												timer: 3000,
+												timerProgressBar: true,
+												didOpen: (toast) => {
+													toast.onmouseenter = Swal.stopTimer;
+													toast.onmouseleave = Swal.resumeTimer;
+												}
+											}).fire({
+												title: 'สำเร็จ',
+												text: 'อัปเดตรายการสั่งซื้อสำเร็จ',
+												icon: 'success'
+											});
+										}
+
+										if (result.type === 'failure') {
+											Swal.mixin({
+												toast: true,
+												position: 'top-end',
+												showConfirmButton: false,
+												timer: 3000,
+												timerProgressBar: true,
+												didOpen: (toast) => {
+													toast.onmouseenter = Swal.stopTimer;
+													toast.onmouseleave = Swal.resumeTimer;
+												}
+											}).fire({
+												title: 'ทำรายการไม่สำเร็จ',
+												text: 'อัปเดตรายการสั่งซื้อสำเร็จไม่สำเร็จ โปรดลองใหม่อีกครั้ง',
+												icon: 'error'
+											});
+										}
+
+										props = {
+											...props,
+											order_data: {
+												...props.order_data,
+												sent_date: transportDataForm.sent_date,
+												delivery_type: transportDataForm.delivery_type,
+												parcel_number: transportDataForm.parcel_number,
+												state: stateReverse[state[props.order_data.state] + 1]
+											}
+										};
+										await update();
+									};
+								}}
+								method="POST"
+							>
+								{#if state[props.order_data.state] < 3 && props.order_data.state !== 'REJECTED'}
+									<button
+										type="submit"
+										disabled={!onSlipChecked && props.order_data.state === 'PENDING'}
+										class="btn btn-sm py-2 px-4 {onSlipChecked ||
+										props.order_data.state !== 'PENDING'
+											? 'btn-primary'
+											: 'btn-secondary'}">{btnState[props.order_data.state]}</button
+									>
+								{/if}
+							</form>
+						</div>
+						<button
+							type="button"
+							class="btn btn-sm py-2 px-4 btn-outline-primary"
+							data-bs-dismiss="modal"
+							on:click={() => {
+								location.reload();
+							}}>ปิดหน้าต่าง</button
+						>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	{/if}
 {/if}

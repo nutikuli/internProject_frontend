@@ -190,7 +190,7 @@
 									data-bs-target={`#modal-editor-${index}`}
 									class="btn editBtn btn-sm"
 									on:click={() => {
-										handleClick(index);
+										handleClick(`modal-editor-${index}`);
 									}}
 								>
 									<Icon width="16" icon="material-symbols:edit-square-outline" color="#FD7E14" />
@@ -201,7 +201,7 @@
 									classes="modal-lg"
 									modalTitle={'แก้ไขข้อมูล'}
 								>
-									{#if shownModalIndex == index}
+									{#if shownModalIndex == `modal-editor-${index}`}
 										<OrderOperationModal {index} order_id={record[1].split('-')[1]} {store_id}
 										></OrderOperationModal>
 									{/if}
@@ -263,14 +263,27 @@
 								<button
 									data-bs-toggle="modal"
 									data-bs-target={`#modal-view-${index}`}
-									class="btn viewBtn btn-sm"
+									class="btn btn-sm"
+									on:click={() => {
+										handleClick(`modal-view-${index}`);
+									}}
 								>
 									<Icon width="16" icon="fa6-solid:eye" color="#0D6EFD" />
 								</button>
-								<Model modalTargetId={`modal-view-${index}`} modalTitle={'ดูข้อมูล'}>
-									<slot name="view-action">
-										<span>Place your form-elements here</span>
-									</slot>
+
+								<Model
+									modalTargetId={`modal-view-${index}`}
+									classes="modal-lg"
+									modalTitle={'ดูข้อมูล'}
+								>
+									{#if shownModalIndex == `modal-view-${index}`}
+										<OrderOperationModal
+											viewOnly={true}
+											{index}
+											order_id={record[1].split('-')[1]}
+											{store_id}
+										></OrderOperationModal>
+									{/if}
 								</Model>
 							{/if}
 						</td>
