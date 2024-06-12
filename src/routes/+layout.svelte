@@ -8,7 +8,7 @@
 	export let data;
 
 	let storeId = data.account_token ? data.account_token.account.id : 0;
-	let adminId = 0;
+	let adminId = data.account_token ? data.account_token.account.id : 0;
 
 	/**
 	 * Represents a route injection object.
@@ -18,7 +18,7 @@
 	 */
 
 	/** @type {RouteInjection[]} */
-	const sidebarRoutes = [
+	let sidebarRoutes = [
 		// admin routes
 		{ hrefTarget: `/admin/${adminId}/role-management`, routeName: 'สิทธ์ใช้งาน' },
 		{ hrefTarget: `/admin/${adminId}/super-admin`, routeName: 'ผู้ดูแลระบบ' },
@@ -32,6 +32,12 @@
 		{ hrefTarget: `/store/${storeId}/order-management`, routeName: 'รายการธุรกรรม' },
 		{ hrefTarget: `/store/${storeId}/bank-management`, routeName: 'บัญชีธนาคาร' }
 	];
+
+	if (data.account_token.account.role === 'ADMIN') {
+		sidebarRoutes = sidebarRoutes.slice(0, 5);
+	} else {
+		sidebarRoutes = sidebarRoutes.slice(5);
+	}
 
 	/** @returns {boolean}    */
 	/** @param {string} route   */

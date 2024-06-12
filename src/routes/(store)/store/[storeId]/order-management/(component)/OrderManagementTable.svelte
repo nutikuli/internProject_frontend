@@ -179,33 +179,35 @@
 					<!--- สำหรับใช้กับ "สถานะ" ไม่ใช้ส่วนนี้ลบทึ้ง -->
 
 					<td>
-						<span class={badgeStatus(record.slice(-1))}>{record.slice(-1)}</span>
+						<span class={`px-3 badge-sm py-1 ${badgeStatus(record.slice(-1))}`}>{record.slice(-1)}</span>
 					</td>
 
 					{#if actionSelects.length > 0}
 						<td class="table-actions">
 							{#if actionSelects.includes('EDIT')}
-								<button
-									data-bs-toggle="modal"
-									data-bs-target={`#modal-editor-${index}`}
-									class="btn editBtn btn-sm"
-									on:click={() => {
-										handleClick(`modal-editor-${index}`);
-									}}
-								>
-									<Icon width="16" icon="material-symbols:edit-square-outline" color="#FD7E14" />
-								</button>
+								{#if record[record.length - 1] !== 'ยกเลิกออร์เดอร์' && record[record.length - 1] !== 'รับสินค้าแล้ว'}
+									<button
+										data-bs-toggle="modal"
+										data-bs-target={`#modal-editor-${index}`}
+										class="btn editBtn btn-sm"
+										on:click={() => {
+											handleClick(`modal-editor-${index}`);
+										}}
+									>
+										<Icon width="16" icon="material-symbols:edit-square-outline" color="#FD7E14" />
+									</button>
 
-								<Model
-									modalTargetId={`modal-editor-${index}`}
-									classes="modal-lg"
-									modalTitle={'แก้ไขข้อมูล'}
-								>
-									{#if shownModalIndex == `modal-editor-${index}`}
-										<OrderOperationModal {index} order_id={record[1].split('-')[1]} {store_id}
-										></OrderOperationModal>
-									{/if}
-								</Model>
+									<Model
+										modalTargetId={`modal-editor-${index}`}
+										classes="modal-lg"
+										modalTitle={'แก้ไขข้อมูล'}
+									>
+										{#if shownModalIndex == `modal-editor-${index}`}
+											<OrderOperationModal {index} order_id={record[1].split('-')[1]} {store_id}
+											></OrderOperationModal>
+										{/if}
+									</Model>
+								{/if}
 							{/if}
 							{#if actionSelects.includes('DELETE')}
 								<button
@@ -263,7 +265,7 @@
 								<button
 									data-bs-toggle="modal"
 									data-bs-target={`#modal-view-${index}`}
-									class="btn btn-sm"
+									class="btn viewBtn btn-sm"
 									on:click={() => {
 										handleClick(`modal-view-${index}`);
 									}}

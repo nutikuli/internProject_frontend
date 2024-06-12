@@ -58,12 +58,6 @@ export const actions = {
 
 		for (let key in product_cate_Data) {
 			let value = product_cate_Data[key];
-			let numberValue = Number(value);
-
-			if (!isNaN(numberValue)) {
-				// @ts-ignore
-				product_cate_Data[key] = numberValue;
-			}
 
 			if (key === 'status') {
 				// @ts-ignore

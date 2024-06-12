@@ -308,9 +308,9 @@
 					class="tw-grid tw-grid-cols-5 tw-items-center tw-border tw-border-gray-200 tw-rounded-lg tw-shadow hover:tw-bg-gray-100"
 				>
 					<img
-						class="tw-col-span-1 tw-object-cover tw-rounded-t-lg tw-w-full tw-h-auto"
+						class="tw-col-span-1 p-4 tw-object-cover tw-rounded-t-lg tw-w-full tw-h-auto"
 						src={item.files_data.length > 0
-							? item.files_data[0].file_data
+							? `http://${item.files_data[0].file_data}`
 							: 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg'}
 						alt=""
 					/>
@@ -480,8 +480,13 @@
 							}}
 							method="POST"
 						>
-							<button data-bs-dismiss="modal" type="submit" class="btn btn-sm py-2 px-4 btn-danger"
-								>ยกเลิก</button
+							<button
+								on:click={() => {
+									location.reload();
+								}}
+								data-bs-dismiss="modal"
+								type="submit"
+								class="btn btn-sm py-2 px-4 btn-danger">ยกเลิก</button
 							>
 						</form>
 					</div>
