@@ -184,8 +184,10 @@
 				<tr>
 					{#each record.slice(0, -1) as cell, cellIndex}
 						{#if cellIndex === 1}
-							<td>
-								<img width="68" src={cell} alt="" />
+							<td class="">
+								<div class="tw-grid tw-justify-center">
+									<img width="68" class=" tw-rounded-md" src={cell} alt="" />
+								</div>
 							</td>
 						{:else if cellIndex === record.length - 2}
 							<td>

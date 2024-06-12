@@ -69,6 +69,8 @@
 								title: 'สำเร็จ',
 								text: 'เพิ่มสินค้าสำเร็จ',
 								icon: 'success'
+							}).then(() => {
+								location.reload();
 							});
 						}
 
@@ -77,9 +79,10 @@
 								title: 'ทำรายการไม่สำเร็จ',
 								text: 'เพิ่มสินค้าไม่สำเร็จโปรดลองใหม่อีกครั้ง',
 								icon: 'error'
+							}).then(() => {
+								location.reload();
 							});
 						}
-						location.reload();
 					};
 				}}
 				style="font-size: 0.85rem"

@@ -20,6 +20,7 @@
 		'รหัสสินค้า',
 		'ชื่อสินค้า',
 		'หมวดหมู่',
+		'รายละเอียด',
 		'ราคา',
 		'จำนวนในสต๊อก',
 		'สถานะ'
@@ -44,6 +45,7 @@
 					`PROD000-${d.id}`,
 					d.name,
 					item.product_category_data.name,
+					item.product_data.detail,
 					item.product_data.price,
 					item.product_data.stock,
 					item.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
@@ -53,31 +55,6 @@
 	);
 
 	$: tableData = null;
-
-	// $: {
-	// 	if (form?.result) {
-	// 		const newProd = () => {
-	// 			const obj = form?.result;
-	// 			return {
-	// 				'#': rowRecordMapper.length + 1,
-	// 				รูปภาพ:
-	// 					obj.files_data.length > 0
-	// 						? `http://${obj.files_data[0].file_data}`
-	// 						: 'http://127.0.0.1:8080/public/image/d0ef349790a0216f8fcc6a73bb74c6a1f02b0a52c75d879ca8ae1e231eddb8fc.jpg',
-	// 				ชื่อสินค้า: `PROD000${obj.product_data.id}`,
-	// 				รหัสสินค้า: obj.product_data.name,
-	// 				หมวดหมู่: form?.result.product_category_data.name,
-	// 				ราคา: form?.result.product_data.price,
-	// 				จำนวนในสต๊อก: form?.result.product_data.stock,
-	// 				สถานะ: form?.result.product_data.status ? 'ใช้งาน' : 'ปิดการใช้งาน'
-	// 			};
-	// 		};
-
-	// 		tableData.row.add(newProd()).draw();
-
-	// 		console.log('newProd', newProd());
-	// 	}
-	// }
 
 	/** @type {FileData[]} */
 	$: imagesPreview = [];
@@ -223,5 +200,6 @@
 		actionSelects={['EDIT', 'DELETE']}
 		{colLabels}
 	></ProductManagementTable>
+
 	<!-- <DataTable /> -->
 </div>

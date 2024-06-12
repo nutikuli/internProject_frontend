@@ -112,14 +112,14 @@
 			<label for="productCategory" class="col-2 form-label">หมวดหมู่</label>
 			<select name="category_id" class="form-select col" id="productCategory">
 				{#each props.productCate as item}
-					<option value={item.id}>{item.name}</option>
+					<option selected={item.name == props.record[4]} value={item.id}>{item.name}</option>
 				{/each}
 			</select>
 		</div>
 		<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 			<label for="productDetails" class="col-2 form-label">รายละเอียด</label>
 			<textarea
-				value={props.record[4]}
+				value={props.record[5]}
 				name="detail"
 				class="form-control col"
 				rows="6"
@@ -131,7 +131,7 @@
 		<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 			<label for="productPrice" class="col-2 form-label">ราคา</label>
 			<input
-				value={props.record[5]}
+				value={props.record[6]}
 				name="price"
 				type="number"
 				class="form-control col"
@@ -142,7 +142,7 @@
 		<div class="input-group input-group-sm row me-2 align-items-center gap-2">
 			<label for="productQuantity" class="col-2 form-label">จำนวนในสต็อก</label>
 			<input
-				value={props.record[6]}
+				value={props.record[7]}
 				name="stock"
 				type="number"
 				class="form-control col"
@@ -155,7 +155,7 @@
 
 			<div class="col fs-3 form-check form-switch">
 				<input
-					checked={props.record[7] === 'ใช้งาน'}
+					checked={props.record[8] === 'ใช้งาน'}
 					name="status"
 					class=" form-check-input"
 					type="checkbox"
