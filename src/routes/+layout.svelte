@@ -47,10 +47,21 @@
 	};
 
 	$: currentPath = $page.url.pathname;
+
+	import { beforeNavigate, afterNavigate } from '$app/navigation';
+
+	let loading = false;
+
+	beforeNavigate((nav) => {
+		loading = true;
+	});
+	afterNavigate(() => {
+		loading = false;
+	});
 </script>
 
 {#if currentPath.split('/').length > 2}
-	<div style="background-color: #F8F9FA !important;" class="h  ibm-plex-sans-thai-light">
+	<div style="background-color: #F8F9FA !important;" class="h ibm-plex-sans-thai-light">
 		<slot name="navbar">
 			<Navbar />
 		</slot>
@@ -65,7 +76,21 @@
 
 			<div class:col-xl-10={!currentPath.startsWith('/customer')}>
 				<div class="tw-min-h-screen pt-4 bg-background">
-					<slot></slot>
+					{#if !loading}
+						<slot></slot>
+					{:else}
+						<div
+							class="tw-flex tw-justify-center tw-text-black tw-items-center tw-h-screen tw-w-full"
+						>
+							<div
+								style="width: 5rem; height: 5rem;"
+								class="spinner-border text-primary"
+								role="status"
+							>
+								<span class="visually-hidden">Loading...</span>
+							</div>
+						</div>
+					{/if}
 				</div>
 			</div>
 		</div>
