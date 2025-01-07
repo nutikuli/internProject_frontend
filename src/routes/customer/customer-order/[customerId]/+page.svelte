@@ -1,7 +1,7 @@
 <script>
 	import Icon from '@iconify/svelte';
-	import Model from '../../../../../components/Model.svelte';
-	import Table from '../../../../../components/Table.svelte';
+	import Model from '../../../../components/Model.svelte';
+	import Table from '../../../../components/Table.svelte';
 
 	// สร้างตัวแปร colLabels และกำหนดค่าเริ่มต้น
 	/** @type {string[]} */

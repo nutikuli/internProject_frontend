@@ -47,7 +47,7 @@
 									<img
 										style="margin: 10px; width: 340px"
 										src={`http://${file.file_data}` ||
-											'http://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
+											'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081'}
 										alt={file.file_name}
 									/>
 								</div>
@@ -66,7 +66,7 @@
 									<img
 										class="img-thumbnail"
 										src={`http://${file.file_data}` ||
-											'http://resource.logitech.com/w_692,c_lpad,ar_4:3,q_auto,f_auto,dpr_1.0/d_transparent.gif/content/dam/logitech/en/products/mice/m240/product-gallery/m240-mouse-top-view-graphite.png?v=1'}
+											'https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081'}
 										alt={file.file_name}
 									/>
 								</button>
@@ -75,7 +75,7 @@
 					</div>
 
 					<div class="detail col-xxl-8">
-						<h3 class="text-left mb-3">{productName}</h3>
+						<h1 class="text-left mb-3">{productName}</h1>
 						<div class="d-flex align-items-center justify-content-between">
 							<div>
 								<div class="d-flex">
@@ -107,8 +107,8 @@
 									<Icon icon="tabler:currency-bath" color="#0D6EFD" width="35" height="35" />
 									<h2 style="font-weight: 700; font-size: 30px; color:#0D6EFD;">{productPrice}</h2>
 								</div>
-								<div class="col-auto">
-									<button class="btn btn-primary">ใส่ตะกร้า</button>
+								<div class="col-auto buy-button">
+									<a href="customer-cart/id" class="btn btn-primary">ใส่ตะกร้า</a>
 								</div>
 							</div>
 						</div>
@@ -122,6 +122,11 @@
 </div>
 
 <style>
+	.text-left{
+		text-align: left;
+		font-weight: 700;
+		font-size: 30px;
+	}
 	.detail {
 		margin: 10px;
 	}

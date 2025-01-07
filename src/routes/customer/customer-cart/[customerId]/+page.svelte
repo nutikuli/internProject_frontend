@@ -1,7 +1,8 @@
 <script>
 	import Icon from '@iconify/svelte';
-	import Model from '../../../../components/Model.svelte';
+	import { writable } from 'svelte/store';
 
+	// customer Detail
 	let name = 'ตัวอย่าง ชื่อนามสกุล';
 	let phonenumber = '099-99999999';
 	let address =
@@ -49,18 +50,42 @@
 	// สร้างตัวแปร rowRecords และกำหนดค่าเริ่มต้น
 	/** @type {string[][]} */
 	export let rowRecords = [
-		['Image', 'BILL0001', 'ที่นอนยางพาราแท้100%', 'ที่นอน', '100.00', '1', '100.00'],
-		['Image', 'BILL0002', 'Hollyland LARK M2 ไมโครโฟนไร้สาย', 'มือถือและอุปกรณ์เสริม', '150.00', '1', '150.00'],
-		['Image', 'BILL0003', 'Home Best ชุดผ้าปูที่นอน ครบชุด ผ้าปู', 'ที่นอน', '1000.00', '1', '1000.00'],
-		['Image', 'BILL0004', 'ลำโพงบลูทูธ TG-532', 'มือถือและอุปกรณ์เสริม', '200.00', '1', '200.00'],
-		['Image', 'BILL0005', '[ยกลัง 30 ชิ้น] ทิชชู่แบบเหนียวนุ่ม', 'จิปาถะ', '29,000.00', '1', '29,000.00'],
-		['Image', 'BILL0006', 'Luckyfriend เก้าอี้ปิคนิคพับได้', 'อุปกรณ์สำนักงาน', '400.00', '1', '400.00'],
-		['Image', 'BILL0007', 'Gerry Gang รองเท้า รองเท้านักเรียนผู้หญิง', 'เสื้อผ้าแฟชั่น', '899.00', '1', '899.00'],
-		['Image', 'BILL0008', 'ชั้นวางรองเท้า XM1 ชั้นวางรองเท้าอเนกประสงค์', 'อุปกรณ์สำนักงาน', '550.00', '1', '550.00'],
-		['Image', 'BILL0009', 'แฟลชไดรฟ์ 2TB', 'คอมพิวเตอร์และแล็ปท็อป', '50.00', '1', '50.00'],
-		['Image', 'BILL0010', '[ลูกค้าใหม่ 1 บาท] หูฟังบลูทูธ หูฟังสเตอริโอ', 'มือถือและอุปกรณ์เสริม', '10.00', '1', '10.00']
+		['Image', 'BILL0001', 'ที่นอนยางพาราแท้100%', 'ที่นอน', '100.00', '1', '100.00']
 	];
+	// ----------------------------------------------------------
+	// /** @type {import('./$types').PageData} */
+	// export let data;
+
+	// /** @type {import('./$types').ActionData} */
+	// export let form;
+
+	// let rowRecordMapper = writable(
+	// 	data.products.map((item, index) => {
+	// 		if (item.product_data) {
+	// 			const d = item.product_data;
+
+	// 			return [
+	// 				index + 1,
+	// 				item.files_data.length > 0
+	// 					? `http://${item.files_data[0].file_data}`
+	// 					: 'https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg',
+	// 				`BILL000-${d.id}`,
+	// 				item.product_data.name,
+	// 				item.product_category_data.name,
+	// 				item.product_data.price,
+	// 				item.order_product_data.quantity
+					
+	// 			];
+	// 		}
+	// 	})
+	// );
+
+	// $: tableData = null;
 </script>
+
+
+
+
 
 <div class="w-100 overflow-scroll">
 	<div class="w-100 min-vh-100 d-flex align-items-top justify-content-center">
@@ -134,46 +159,18 @@
 						<!-- right -->
 						<div class="font-weigh font-size col-6" style="padding-left: 30px;">
 							<div class="d-flex justify-content-between">
-								<div>
+								<div class="col-3">
 									<div>ค่าสินค้า :</div>
 									<div>ค่าจัดส่ง :</div>
 									<div>ยอดรวม :</div>
 								</div>
 								<div class="text-right">
-									<div>
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="15"
-											height="15"
-											viewBox="0 0 24 24"
-										>
-											<path
-												fill="none"
-												stroke="currentColor"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="3"
-												d="M8 6h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 12H8m0 0h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 18H8M8 6v12m3-14v2m0 12v2"
-											/>
-										</svg>
+									<div class="d-flex">
+										<Icon icon="tabler:currency-bath" width="20" height="20" />
 										{productPrice}
 									</div>
-									<div class="text-right">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="15"
-											height="15"
-											viewBox="0 0 24 24"
-										>
-											<path
-												fill="none"
-												stroke="currentColor"
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="3"
-												d="M8 6h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 12H8m0 0h5a3 3 0 0 1 3 3v.143A2.857 2.857 0 0 1 13.143 18H8M8 6v12m3-14v2m0 12v2"
-											/>
-										</svg>
+									<div class="d-flex">
+										<Icon icon="tabler:currency-bath" width="20" height="20" />
 										{shippingCost}
 									</div>
 									<div class="text-right">

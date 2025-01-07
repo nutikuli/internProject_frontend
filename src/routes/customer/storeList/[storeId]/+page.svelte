@@ -161,17 +161,19 @@
 								src={`http://${product.files_data[0].file_data}`}
 								alt={product.product_data.name}
 							/>
+						{:else}
+							<img src="https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?v=1530129081" alt={product.product_data.name}>
 						{/if}
 					</button>
 					<div class="card-body">
 						<h5 class="card-title">{product.product_data.name}</h5>
 						<p class="card-text">{product.product_data.detail}</p>
-						<div class="row justify-content-between align-products-end">
-							<div class="col-auto d-flex align-products-center">
+						<div class="row justify-content-between align-products-end PriceAndButton">
+							<div class="col d-flex align-products-center">
 								<Icon icon="tabler:currency-bath" width="25" height="25" />
 								<p class="product-price">{product.product_data.price}</p>
 							</div>
-							<div class="col-auto buy-button">
+							<div class="col buy-button">
 								<a href="customer-cart/id" class="btn btn-primary">ซื้อเลย</a>
 							</div>
 						</div>
@@ -233,6 +235,9 @@
 </div> -->
 
 <style>
+	.PriceAndButton{
+		align-items: center;
+	}
 	.sort-container {
 		width: 300px;
 	}
@@ -258,7 +263,7 @@
 	}
 
 	.product-image img {
-		width: 100%;
+		width: 230px;
 		height: 230px;
 	}
 

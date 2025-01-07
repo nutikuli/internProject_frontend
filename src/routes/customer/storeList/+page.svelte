@@ -30,6 +30,7 @@
 		searchResults = stores.filter((stores) =>
 			stores.store_data.store_name.toLowerCase().includes(searchQuery)
 		);
+		console.log("searchResult",searchResults)
 	}
 </script>
 
@@ -150,6 +151,7 @@
 	.card {
 		max-width: max-content;
 		padding: 4px;
+		height: 340px;
 	}
 
 	.card-title,
